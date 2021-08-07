@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%- title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><% meta.map(({name, content}) => echo(`\n    <meta name="${escapeXML(name)}" content="${escapeXML(content)}">`)) _%>
+<%- resources.length ? ("\n\n" + indent(resources.join("\n"), "    ")) : "" %>
+  </head>
+  <body>
+<%- indent(body, "    ") %>
+  </body>
+</html>
