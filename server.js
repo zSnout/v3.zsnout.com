@@ -19,7 +19,7 @@ const indent = (text, indent) => {
 };
 
 app.register(require("fastify-static"), {
-  root: "/public"
+  root: __dirname + "/public"
 });
 
 app.register(require("point-of-view"), {
