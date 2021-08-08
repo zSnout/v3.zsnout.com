@@ -72,8 +72,8 @@ app.decorateReply("sendView", async function (view, data = {}) {
 
   let resources = [];
   for (let href of styles) resources.push(`<link rel="stylesheet" href="${escapeXML(href)}">`);
-  for (let src of preload) resources.push(`<script src="${escapeXML(src)}">`);
-  for (let src of postload) resources.push(`<script src="${escapeXML(src)}" type="module">`);
+  for (let src of preload) resources.push(`<script src="${escapeXML(src)}"></script>`);
+  for (let src of postload) resources.push(`<script src="${escapeXML(src)}" type="module"></script>`);
 
   await this.view(`layout.ejs`, { body, title, resources, meta, escapeXML, indent });
 });
