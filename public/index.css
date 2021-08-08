@@ -51,8 +51,7 @@ nav-icon {
   left: 8px;
   cursor: pointer;
   user-select: none;
-
-  transition: 0.3s;
+  transition: background 0.3s, color 0.3s, border 0.3s;
 }
 
 nav-text {
