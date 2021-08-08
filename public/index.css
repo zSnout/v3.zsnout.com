@@ -75,10 +75,19 @@ nav-icon:hover {
 nav {
   z-index: 2;
 
+  display: block;
+  width: 300px;
+  height: 100vh;
   background: purple;
 }
 
 nav-h1 {
+  display: block;
+  width: calc(100% - 16px);
+  padding: 8px;
+  font-weight: bold;
+  font-size: 24px;
+
   background: aqua;
 }
 
