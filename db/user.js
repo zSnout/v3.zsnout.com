@@ -1,6 +1,7 @@
 let db = require(".");
 let mail = require("../mail");
 let uuid = require("uuid");
+const bcrypt = require("../bcrypt");
 
 class User {
   static async isNameAvailable(username) {
@@ -47,11 +48,22 @@ class User {
         id: uuid.v4(),
         creation: Date.now(),
         username,
-        password,
+        password: await bcrypt.hash(password),
         session: uuid.v4(),
         email: data.rows[0].email,
       });
     } else return false;
+  }
+
+  static async login(username, password) {
+    let data = await db.select("users", "session password", { username });
+
+    if (data.rows.length == 0)
+      return false;
+    else if (await bcrypt.check(password, data.rows[0].password))
+      return data.rows[0].session;
+    else
+      return false;
   }
 }
 
