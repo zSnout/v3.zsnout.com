@@ -77,4 +77,4 @@ function remove(table, conditions) {
   return query(text);
 }
 
-module.exports = { escape, query, insert, select, update, delete: remove };
+module.exports = { escape, query, insert, select, update, remove, delete: remove };

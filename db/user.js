@@ -32,6 +32,27 @@ class User {
 
     return true;
   }
+
+  static async verifyPendingUser(username, password, emailCode) {
+    let data = await db.select("pending_users", "email email_code", { username });
+
+    if (data.rows.length == 0) {
+      return false;
+    } else if (data.rows[0].email_code == emailCode) {
+      let id = data.rows[0].id;
+
+      await db.delete("pending_users", { username });
+      
+      await db.insert("users", {
+        id: uuid.v4(),
+        creation: Date.now(),
+        username,
+        password,
+        session: uuid.v4(),
+        email: data.rows[0].email,
+      });
+    } else return false;
+  }
 }
 
 module.exports = User;
