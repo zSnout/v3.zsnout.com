@@ -1,2 +1,3 @@
-- global theme settings
+- global theme options
 - account signup page
+- account login page
