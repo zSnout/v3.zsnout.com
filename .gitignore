@@ -4,6 +4,7 @@
 /.cache
 /.config
 /.env
+/.gitconfig
 /.gnupg
 /.local
 /.node_repl_history
