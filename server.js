@@ -32,11 +32,11 @@ app.register(require("point-of-view"), {
   }
 });
 
-app.decorate("load", (path) => {
+app.decorate("load", async function (path) {
   require(__dirname + `/routes/${path}`)(app);
 });
 
-app.decorateReply("use", async (view, data) => {
+app.decorateReply("sendView", async function (view, data = {}) {
   let layout = null;
   let title = "";
   let styles = ["/index.css"];
@@ -82,3 +82,5 @@ app.load("index");
 app.load("404");
 
 app.listen(3000, "127.0.0.1");
+
+module.exports = app;
