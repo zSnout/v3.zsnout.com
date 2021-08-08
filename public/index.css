@@ -37,48 +37,14 @@ main {
   z-index: 1;
 }
 
-nav-icon {
-  z-index: 3;
-
-  background: var(--input);
-  border: 2px solid var(--border);
-  border-radius: 50%;
-  display: block;
-  width: 28px;
-  height: 28px;
-  position: fixed;
-  top: 8px;
-  left: 8px;
-  cursor: pointer;
-  user-select: none;
-  transition: background 0.3s, color 0.3s, border 0.3s;
-}
-
-nav-text {
-  display: block;
-  font-family: var(--serif);
-  font-weight: bold;
-  font-size: 24px;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-nav-icon:hover {
-  border-color: var(--border-selected);
-  background: var(--input-selected);
-  color: var(--color-selected);
-}
-
 nav {
   z-index: 2;
 
   display: block;
-  width: 300px;
+  width: 299px;
   height: 100vh;
-  background: purple;
+  background: var(--bg);
+  border-right: 1px solid var(--border);
 }
 
 nav-h1 {
@@ -88,7 +54,7 @@ nav-h1 {
   font-weight: bold;
   font-size: 24px;
 
-  background: aqua;
+  background: var(--input);
 }
 
 nav-name {
@@ -101,13 +67,4 @@ nav-div {
 
 nav-item {
   background: olivedrab;
-}
-
-@media only screen and (min-width: 1000px) {
-  nav-icon { display: none }
-
-  nav {
-    width: 299px;
-    border-right: 1px solid var(--border);
-  }
 }
