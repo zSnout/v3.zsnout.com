@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const bcrypt = require("bcryptjs");
 const app = require("fastify").fastify();
 
 const escapeXML = (text) => {
@@ -32,11 +33,11 @@ app.register(require("point-of-view"), {
   }
 });
 
-app.decorate("load", function(path) {
+app.decorate("load", (path) => {
   require(__dirname + `/routes/${path}`)(app);
 });
 
-app.decorateReply("use", async function(view, data) {
+app.decorateReply("use", async (view, data) => {
   let layout = null;
   let title = "";
   let styles = ["/index.css"];

@@ -1,0 +1,2 @@
+- global theme settings
+- account signup page
