@@ -1,6 +1,5 @@
 require("dotenv").config();
 
-const bcrypt = require("bcryptjs");
 const app = require("fastify").fastify();
 
 const escapeXML = (text) => {
