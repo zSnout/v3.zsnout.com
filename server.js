@@ -36,7 +36,7 @@ app.decorate("load", async function (path) {
   require(__dirname + `/routes/${path}`)(app);
 });
 
-app.decorateReply("sendView", async function (view, data = {}, navicon = true) {
+app.decorateReply("sendView", async function (view, data = {}, {frame = false}) {
   let layout = null;
   let title = "";
   let styles = ["/index.css"];
@@ -75,7 +75,7 @@ app.decorateReply("sendView", async function (view, data = {}, navicon = true) {
   for (let src of preload) resources.push(`<script src="${escapeXML(src)}"></script>`);
   for (let src of postload) resources.push(`<script src="${escapeXML(src)}" type="module"></script>`);
   
-  await this.view(`layout.ejs`, { body, title, resources, meta, navicon, escapeXML, indent });
+  await this.view(`layout.ejs`, { body, title, resources, meta, frame, escapeXML, indent });
 });
 
 app.load("index");
