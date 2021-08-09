@@ -24,7 +24,6 @@ html {
   height: 100vh;
   background: var(--bg);
   color: var(--color);
-
   font-family: var(--sans-serif);
 }
 
@@ -36,81 +35,24 @@ body {
 
 main {
   z-index: 1;
-  width: calc(100vw - 316px);
+  width: calc(100vw - 16px);
   height: calc(100vh - 16px);
   position: fixed;
   top: 8px;
-  left: 308px;
+  left: 8px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
-nav {
-  z-index: 2;
+nav-icon {
+  z-index: 3;
   display: block;
-  width: 299px;
-  height: 100vh;
-  background: var(--bg);
-  border-right: 1px solid var(--border);
+  width: 64px;
+  height: 64px;
   position: fixed;
-  top: 0;
-  left: 0;
-}
-
-#nav-input {
-  display: block;
-  background: var(--input);
-  border: none;
-  border-bottom: 1px solid var(--border);
-  color: var(--color);
-  font-family: var(--sans-serif);
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  width: 283px;
-  padding: 8px;
-  margin: 0;
-  outline: none;
-  transition: var(--transitions);
-}
-
-#nav-input::placeholder {
-  color: var(--color);
-}
-
-#nav-input:hover, #nav-input:focus {
+  bottom: -32px;
+  left: -32px;
   background: var(--input-selected);
-  color: var(--color-selected);
-  border-color: var(--border-selected);
-}
-
-#nav-input:focus::placeholder {
-  color: transparent;
-}
-
-nav-name {
-  display: block;
-  width: calc(100% - 16px);
-  padding: 8px;
-  font-size: 20px;
-  text-align: center;
-  background: var(--input);
-  border-bottom: 1px solid var(--border);
-  border-top: 3px solid var(--border);
-  color: var(--color);
-}
-
-nav-div:last-child :last-child { border-bottom-width: 4px }
-
-nav-div {
-  display: block;
-}
-
-nav a {
-  display: block;
-  width: calc(100% - 16px);
-  padding: 8px;
-  font-size: 16px;
-  text-align: center;
-  border-bottom: 1px solid var(--border);
+  transform: rotate(45deg);
+  cursor: pointer;
 }
