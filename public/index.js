@@ -2,7 +2,7 @@ $.local = async function(key, value = undefined) {
   if (value !== undefined) {
     localStorage.setItem(key, JSON.stringify(value));
     
-    window.dispatchEvent(new Event("storage", {key, value: newValue}));
+    window.dispatchEvent(new Event("storage", {key, newValue: value}));
   } else {
     let item = localStorage.getItem(key);
     
