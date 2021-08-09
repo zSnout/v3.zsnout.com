@@ -79,8 +79,8 @@ app.decorateReply("sendView", async function (view, data = {}, navicon = true) {
 });
 
 app.load("index");
+app.load("nav");
 app.load("404");
 
 app.listen(3000, "127.0.0.1");
-
-module.exports = app;
+console.log("app has started on port 3000");
