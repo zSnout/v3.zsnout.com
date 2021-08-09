@@ -7,8 +7,10 @@
 <%- resources.length ? ("\n\n" + indent(resources.join("\n"), "    ")) : "" %>
   </head>
   <body>
-    <nav-icon></nav-icon>
+    <% if (navicon) { %><nav-icon></nav-icon>
     
+    <iframe id="nav" src="/nav/"></iframe><% } %>
+
     <main>
 <%- indent(body, "      ") %>
     </main>
