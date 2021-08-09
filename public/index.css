@@ -56,3 +56,33 @@ nav-icon {
   transform: rotate(45deg);
   cursor: pointer;
 }
+
+#nav {
+  background: var(--bg);
+  z-index: 2;
+  margin: 0;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  box-shadow: var(--border) 0 0 6px 1px;
+  padding: 0;
+  width: 400px;
+  height: 200px;
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  display: none;
+}
+
+.nav #nav { display: block }
+
+@media only screen and (max-width: 417px) {
+  #nav {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+}
