@@ -1,3 +1,14 @@
+Promise.wait = function(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+};
+
+$.later = function(cb = null) {
+  if (typeof cb == "function") return setTimeout(cb, 0);
+  else return Promise.resolve();
+};
+
 $.local = async function(key, value = undefined) {
   if (value !== undefined) {
     localStorage.setItem(key, JSON.stringify(value));
