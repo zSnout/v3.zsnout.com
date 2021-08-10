@@ -5,19 +5,19 @@ Promise.wait = function(ms) {
 };
 
 $.fn.on = function(name, cb) {
-  $(this).map(e => e.addEventListener(name, cb));
+  $(this).map((k, e) => e.addEventListener(name, cb));
 
   return $(this);
 };
 
 $.fn.off = function(name, cb) {
-  $(this).map(e => e.removeEventListener(name, cb));
+  $(this).map((k, e) => e.removeEventListener(name, cb));
 
   return $(this);
 };
 
 $.fn.dispatch = function(event) {
-  $(this).map(e => e.dispatchEvent(event));
+  $(this).map((k, e) => e.dispatchEvent(event));
 
   return $(this);
 };
