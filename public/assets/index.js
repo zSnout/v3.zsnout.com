@@ -56,3 +56,12 @@ $.onlocal = function(keyToTrack, cb) {
     }
   });
 };
+
+$.escape = (text) => {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/'/g, "&apos;")
+    .replace(/"/g, "&quot;");
+};
