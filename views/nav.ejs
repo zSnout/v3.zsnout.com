@@ -11,14 +11,8 @@ for (let key in groups) {
   echo(`<h1>${escapeXML(key)}</h1>\n<div>`);
 
   for (let item in groups[key]) {
-    echo (`<a href="${escapeXML(groups[key][item])}">${escapeXML(item)}</a>`);
+    echo (`<a target="_parent" href="${escapeXML(groups[key][item])}">${escapeXML(item)}</a>`);
   }
 }
 
 %>
-
-<h1>Header 1</h1>
-<div><a href="/abc">Page 1</a><a href="/abc">Page 2</a><a href="/abc">Page 3</a><a href="/abc">Page 4</a></div>
-
-<h1>Header 2</h1>
-<div><a href="/abc">Page 1</a><a href="/abc">Page 2</a><a href="/abc">Page 3</a></div>
