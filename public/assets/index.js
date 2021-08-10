@@ -9,7 +9,23 @@ $.later = function(cb = null) {
   else return Promise.resolve();
 };
 
+$.nslocal = function(key) {
+  let ns = "zsnout-v3";
+
+  if ("ns" in key) {
+    ns = `${ns}#${key.ns.replace(/[#:]/g, "")}`;
+
+    if ("key" in key) key == key.key;
+  }
+
+  key = key.replace(/[#:]/g, "");
+
+  return `${ns}:${key}`;
+};
+
 $.local = async function(key, value = undefined) {
+  key = $.nslocal(key);
+  
   if (value !== undefined) {
     localStorage.setItem(key, JSON.stringify(value));
     
@@ -26,6 +42,8 @@ $.local = async function(key, value = undefined) {
 };
 
 $.onlocal = function(keyToTrack, cb) {
+  key = $.nslocal(key);
+
   $(window).on("storage", ({key, newValue: value}) => {
     if (key == keyToTrack) {
       try {
