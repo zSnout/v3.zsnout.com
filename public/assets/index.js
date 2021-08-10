@@ -49,7 +49,7 @@ $.local = async function(key, value = undefined) {
   if (value !== undefined) {
     localStorage.setItem(key, JSON.stringify(value));
     
-    $(window).dispatch("storage", {key, newValue: JSON.stringify(value)});
+    $(window).dispatch(new StorageEvent("storage", {key, newValue: JSON.stringify(value)}));
   } else {
     let item = localStorage.getItem(key);
     
