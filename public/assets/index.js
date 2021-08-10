@@ -44,7 +44,7 @@ $.local = async function(key, value = undefined) {
 };
 
 $.onlocal = function(keyToTrack, cb) {
-  key = $.nslocal(key);
+  keyToTrack = $.nslocal(ketToTrack);
 
   $(window).on("storage", ({key, newValue: value}) => {
     if (key == keyToTrack) {
