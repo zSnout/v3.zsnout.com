@@ -36,11 +36,11 @@ app.decorate("load", async function (path) {
   require(__dirname + `/routes/${path}`)(app);
 });
 
-app.decorateReply("sendView", async function (view, data = {}, {frame = false}) {
+app.decorateReply("sendView", async function (view, data = {}, {frame = false} = {}) {
   let layout = null;
   let title = "";
   let styles = ["/index.css"];
-  let preload = ["/jquery.js", "/index.js"];
+  let preload = ["/jquery.js", "/underscore.js", "/index.js"];
   let postload = ["/index.mjs"];
   let meta = [];
   let info = {};
