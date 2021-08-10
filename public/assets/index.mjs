@@ -4,8 +4,6 @@ let $nav = $("nav");
 
 $icon.on("click", async () => {
   $html.toggleClass("nav");
-  
-  await $.local("nav", $html.hasClass("nav"));
 });
 
 $html.on("contextmenu", ({originalEvent: event}) => {
