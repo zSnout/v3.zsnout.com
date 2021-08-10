@@ -1,13 +1,17 @@
-let html = document.documentElement;
-let icon = document.getElementById("nav-icon");
-let nav = document.getElementById("nav");
+let html = $(document.documentElement);
+let icon = $("#nav-icon");
+let nav = $("nav");
 
 if (icon) {
-  icon.addEventListener("click", async () => {
-    html.classList.toggle("nav");
+  icon.on("click", async () => {
+    html.toggleClass("nav");
     
-    await $.local("nav", html.classList.contains("nav"));
+    await $.local("nav", html.hasClass("nav"));
   });
-
-  icon.addEventListener("contextmenu", (event) => event.preventDefault());
 }
+
+html.on("contextmenu", ({path, preventDefaultF: prev}) => {
+  path.map((element) => {
+    if (element.hasAttribute("nctx")) prev();
+  });
+});
