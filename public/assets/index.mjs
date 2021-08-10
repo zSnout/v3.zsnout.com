@@ -10,8 +10,9 @@ if (icon) {
   });
 }
 
-html.on("contextmenu", ({path, preventDefaultF: prev}) => {
-  path.map((element) => {
-    if (element.hasAttribute("nctx")) prev();
+html.on("contextmenu", ({originalEvent: event}) => {
+  event.path.map((element) => {
+    if (element.hasAttribute && element.hasAttribute("nctx"))
+      event.preventDefault();
   });
 });
