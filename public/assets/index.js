@@ -12,10 +12,12 @@ $.later = function(cb = null) {
 $.nslocal = function(key) {
   let ns = "zsnout-v3";
 
-  if ("ns" in key) {
-    ns = `${ns}#${key.ns.replace(/[#:]/g, "")}`;
+  if (typeof key == "object") {
+    if ("ns" in key) {
+      ns = `${ns}#${key.ns.replace(/[#:]/g, "")}`;
 
-    if ("key" in key) key == key.key;
+      if ("key" in key) key == key.key;
+    }
   }
 
   key = key.replace(/[#:]/g, "");
