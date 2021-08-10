@@ -1,20 +1,8 @@
-nav {
-  z-index: 2;
-  display: block;
-  width: 299px;
-  height: 100vh;
-  background: var(--bg);
-  border-right: 1px solid var(--border);
-  position: fixed;
-  top: 0;
-  left: -300px;
-  user-select: none;
-  /* transition: left 0.5s; */
+main::-webkit-scrollbar {
+  display: none;
 }
 
-.nav-transitions nav { transition: left 0.5s }
-
-#nav-input {
+#field {
   display: block;
   background: var(--input);
   border: none;
@@ -24,58 +12,69 @@ nav {
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  width: 283px;
+  width: calc(100vw - 16px);
   padding: 8px;
   margin: 0;
   outline: none;
   transition: var(--transitions);
 }
 
-#nav-input::placeholder {
+#field::placeholder {
   color: var(--color);
 }
 
-#nav-input:hover, #nav-input:focus {
+#field:hover, #field:focus {
   background: var(--input-selected);
   color: var(--color-selected);
   border-color: var(--border-selected);
 }
 
-#nav-input:focus::placeholder {
+#field:focus::placeholder {
   color: transparent;
 }
 
-nav-name {
+h1 {
   display: block;
+  margin: 0;
+  border: 0;
   width: calc(100% - 16px);
   padding: 8px;
-  font-size: 20px;
+  font-size: 16px;
   text-align: center;
   background: var(--input);
   border-bottom: 1px solid var(--border);
   border-top: 3px solid var(--border);
   color: var(--color);
+  font-weight: bold;
 }
 
-nav-div:last-child :last-child { border-bottom-width: 4px }
-
-nav-div {
+div {
   display: block;
 }
 
-nav a {
-  display: block;
-  width: calc(100% - 16px);
+a {
+  display: inline-block;
+  width: calc(50% - 16.5px);
   padding: 8px;
+  margin: 0;
   font-size: 16px;
   text-align: center;
+  border-right: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   text-decoration: none;
   color: var(--color);
   transition: var(--transitions);
 }
 
-nav a:hover {
+a:nth-child(2n) {
+  border-right: 0;
+}
+
+a:last-child, a:nth-last-child(2):nth-child(2n + 1) {
+  border-bottom: 0;
+}
+
+a:hover {
   border-color: var(--border-selected);
   background: var(--input-selected);
   color: var(--color-selected);
