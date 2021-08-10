@@ -1,3 +1,7 @@
+main {
+  user-select: none;
+}
+
 main::-webkit-scrollbar {
   display: none;
 }
@@ -64,6 +68,7 @@ a {
   text-decoration: none;
   color: var(--color);
   transition: var(--transitions);
+  cursor: pointer;
 }
 
 a:nth-child(2n) {
