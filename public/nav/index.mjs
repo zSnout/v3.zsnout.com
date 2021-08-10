@@ -1,29 +1,35 @@
-let field = document.getElementById("nav-input");
-let nav = document.getElementsByTagName("nav")[0];
-let icon = document.getElementsByTagName("nav-icon")[0];
-let html = document.documentElement;
+let field = $("#field");
+let add = $("#add-fav");
+let href = parent.location.pathname + parent.location.search;
 
-field.addEventListener("input", () => {
-  let words = field.value.toLowerCase().match(/[A-Za-z0-9]+/g);
+field.on("input", () => {
+  let words = field.val().toLowerCase().match(/[A-Za-z0-9]+/g);
 
-  if (!words || !words.length)
-    return [...document.querySelectorAll("nav a, nav-div, nav-name")]
-      .map(e => e.style.display = "block");
+  if (!words || !words.length) {
+    $("div, h1").css("display", "block");
+    $("a").css("display", "inline-block");
 
-  [...nav.getElementsByTagName("a")].map(e => {
-    let mywords = e.textContent.toLowerCase().match(/[A-Za-z0-9]+/g);
+    return;
+  };
+
+  $("a").map((e) => {
+    let mywords = e.text().toLowerCase().match(/[A-Za-z0-9]+/g);
 
     for (let word of words) {
-      if (mywords.indexOf(word) == -1) return e.style.display = "none";
+      if (mywords.indexOf(word) == -1) return e.css("display", "none");
     }
     
-    e.style.display = "block";
+    e.css("display", "block");
   });
 
-  [...document.getElementsByTagName("nav-div")].map(e => {
-    if ([...e.children].every(e => e.style.display == "none")) e.style.display = "none";
+  $("div").map((e) => {
+    if (e.children().map(e => e.style.display == "none")) e.style.display = "none";
     else e.style.display = "block";
 
     e.previousElementSibling.style.display = e.style.display;
   });
+});
+
+add.on("click", () => {
+
 });
