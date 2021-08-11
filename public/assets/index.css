@@ -40,7 +40,7 @@ main {
   position: fixed;
   top: 8px;
   left: 8px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
@@ -92,4 +92,12 @@ nav-icon {
     width: 100vw;
     height: 100vh;
   }
+}
+
+[noselect] {
+  user-select: none;
+}
+
+[select] {
+  user-select: text;
 }
