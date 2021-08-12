@@ -1,8 +1,3 @@
-// 001ms
-// 1.00s
-// 10.0s
-// 1000s
-
 {
   let now = Date.now();
 
@@ -12,24 +7,38 @@
     if (diff < 1000) {
       diff = ("00" + diff).substr(-3) + "m";
     } else if (diff < 1000000) {
-      if (diff < 10000) diff = Math.floor(diff / 10);
-      else if (diff < 100000) diff = Math.floor(diff / 100);
-      else diff = Math.floor(diff / 1000);
+      if (diff < 10000) diff = Math.round(diff / 100) / 10;
+      else if (diff < 100000) diff = Math.round(diff / 100) / 10;
+      else diff = Math.round(diff / 1000);
 
-      diff = ("000" + diff).substr(-4);
+      if (diff < 1000) {
+        diff = String(diff);
+        let hasDot = diff.indexOf(".") > -1;
+
+        if (diff.length == 1) diff = diff + ".00";
+        else if (diff.length == 2 && hasDot) diff = diff + "00";
+        else if (diff.length == 2) diff = diff + ".0";
+        else if (diff.length == 3 && hasDot) diff = diff + "0";
+        else if (diff.length == 3) diff = "0" + diff;
+      }
     } else {
       diff = Math.floor(diff / 1000);
     }
 
-    console.log(`<${name}> at ${diff}s: ${message}`);
+    console.log(`<${name}> at ${diff}s (${Date.now() - now}): ${message}`);
   }
 }
 
 console.write("server", "booting up...");
 
-require("dotenv").config()
+require("dotenv").config();
 
-const app = require("fastify").fastify();
+const app = require("fastify").fastify({
+  https: {
+    cert: require("fs").readFileSync(__dirname + "/cert.pem"),
+    key: require("fs").readFileSync(__dirname + "/key.pem"),
+  }
+});
 
 const escapeXML = (text) => {
   return String(text)
