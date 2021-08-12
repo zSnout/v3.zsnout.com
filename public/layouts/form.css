@@ -84,3 +84,21 @@ message a {
   text-decoration: none;
   color: var(--link);
 }
+
+input.failed, input.failed:hover {
+  border-color: var(--border);
+  background: var(--incorrect);
+  color: var(--color);
+}
+
+input.passed, input.passed:hover {
+  border-color: var(--border);
+  background: var(--partial);
+  color: var(--color);
+}
+
+input.success, input.success:hover {
+  border-color: var(--border);
+  background: var(--correct);
+  color: var(--color);
+}
