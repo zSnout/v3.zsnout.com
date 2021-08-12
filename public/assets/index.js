@@ -84,6 +84,42 @@ $.escape = (text) => {
     .replace(/"/g, "&quot;");
 };
 
+$.fetch = async (url, options = undefined) => {
+  let body = await fetch(url, {
+    ...options,
+    credentials: "omit",
+  });
+
+  return await body.text();
+};
+
+$.rest = async (method, url, body = null) => {
+  let info = {
+    method,
+    headers: {
+      "x-zsnout-session": await $.local("session")
+    }
+  };
+
+  if (method != "GET" && method != "HEAD" && body) {
+    info.headers["content-type"] = "application/json";
+    info.body = JSON.stringify(body);
+  }
+
+  let fetched = fetch(url, info);
+
+  if (fetched.headers.has("x-zsnout-session")) {
+    let token = fetched.headers.get("x-zsnout-session");
+
+    await $.local("session", token);
+  }
+
+  return await fetched.text();
+};
+
+$.get = (url) => $.rest("GET", url);
+$.post = (url) => $.rest("POST", url);
+
 {
   let html = document.documentElement;
   let mql = window.matchMedia("(hover: hover) and (pointer: fine)");
