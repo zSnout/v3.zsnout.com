@@ -113,7 +113,9 @@ console.write("server", "fastify loaded...");
 
 app.load("index");
 app.load("nav");
+app.load("account");
 app.load("404");
+
 app.listen(3000, "127.0.0.1");
 
 console.write("server", "started on port 3000");
