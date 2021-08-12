@@ -80,8 +80,8 @@ app.decorateReply("sendView", async function (view, data = {}, {frame = false} =
   let layout = null;
   let title = "";
   let styles = ["/assets/index.css"];
-  let preload = ["/assets/jquery.js", "/assets/underscore.js", "/assets/index.js"];
-  let postload = ["/assets/index.mjs"];
+  let preload = ["/assets/jquery.js", "/assets/underscore.js"];
+  let postload = ["/assets/preindex.mjs", "/assets/index.mjs"];
   let meta = [];
   let info = {};
 
