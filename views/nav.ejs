@@ -13,6 +13,10 @@ for (let key in groups) {
   for (let item in groups[key]) {
     echo (`<a target="_parent" href="${escapeXML(groups[key][item])}">${escapeXML(item)}</a>`);
   }
+
+  echo("</div>");
 }
 
 %>
+
+<hr>

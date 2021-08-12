@@ -83,3 +83,13 @@ $.escape = (text) => {
     .replace(/'/g, "&apos;")
     .replace(/"/g, "&quot;");
 };
+
+{
+  let html = document.documentElement;
+  let mql = window.matchMedia("(hover: hover) and (pointer: fine)");
+  
+  html.classList.toggle("hover", mql.matches);
+  mql.onchange = () => {
+    html.classList.toggle("hover", mql.matches);
+  };
+}

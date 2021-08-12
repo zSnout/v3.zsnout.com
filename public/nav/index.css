@@ -27,7 +27,7 @@ main::-webkit-scrollbar {
   color: var(--color);
 }
 
-#field:hover, #field:focus {
+.hover #field:hover, #field:focus {
   background: var(--input-selected);
   color: var(--color-selected);
   border-color: var(--border-selected);
@@ -79,8 +79,27 @@ a:last-child, a:nth-last-child(2):nth-child(2n + 1) {
   border-bottom: 0;
 }
 
-a:hover {
+.hover a:hover {
   border-color: var(--border-selected);
   background: var(--input-selected);
   color: var(--color-selected);
+}
+
+hr {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 250px) {
+  a {
+    border-right: 0;
+    width: calc(100% - 16px);
+  }
+
+  /* need to overqualify selector */
+  a:nth-last-child(2):nth-last-child(2) {
+    border-bottom: 1px solid var(--border);
+  }
 }
