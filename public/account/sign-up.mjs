@@ -7,10 +7,6 @@ $username.on("keydown", ({key}) => {
   return false;
 });
 
-$username.on("input", () => {
-  
-});
-
 $email.on("keydown", ({key}) => {
   if (key.toLowerCase() == "enter") $email.blur(), $form.submit();
   return false;

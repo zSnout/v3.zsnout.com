@@ -22,6 +22,12 @@ $.fn.dispatch = function(event) {
   return $(this);
 };
 
+$.fn.verify = function(label) {
+  $(this).attr("status", label);
+
+  return $(this);
+};
+
 $.later = function(cb = null) {
   if (typeof cb == "function") return setTimeout(cb, 0);
   else return Promise.resolve();

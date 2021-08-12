@@ -85,19 +85,19 @@ message a {
   color: var(--link);
 }
 
-input.failed, input.failed:hover {
+input[status=incorrect], input[status=incorrect]:hover {
   border-color: var(--border);
   background: var(--incorrect);
   color: var(--color);
 }
 
-input.passed, input.passed:hover {
+input[status=partial], input[status=partial]:hover {
   border-color: var(--border);
   background: var(--partial);
   color: var(--color);
 }
 
-input.success, input.success:hover {
+input[status=correct], input[status=correct]:hover {
   border-color: var(--border);
   background: var(--correct);
   color: var(--color);
