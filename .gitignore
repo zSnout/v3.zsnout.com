@@ -18,3 +18,5 @@
 /.wget-hsts
 /boringproxy-linux-arm64
 /node_modules
+/cert.pem
+/key.pem
