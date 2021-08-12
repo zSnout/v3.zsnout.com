@@ -25,7 +25,7 @@
       diff = Math.floor(diff / 1000);
     }
 
-    console.log(`<${name}> at ${diff}s (${Date.now() - now}): ${message}`);
+    console.log(`<${name}> at ${diff}s: ${message}`);
   }
 }
 
