@@ -1,4 +1,33 @@
-require("dotenv").config();
+// 001ms
+// 1.00s
+// 10.0s
+// 1000s
+
+{
+  let now = Date.now();
+
+  console.write = (name, message) => {
+    let diff = Date.now() - now;
+
+    if (diff < 1000) {
+      diff = ("00" + diff).substr(-3) + "m";
+    } else if (diff < 1000000) {
+      if (diff < 10000) diff = Math.floor(diff / 10);
+      else if (diff < 100000) diff = Math.floor(diff / 100);
+      else diff = Math.floor(diff / 1000);
+
+      diff = ("000" + diff).substr(-4);
+    } else {
+      diff = Math.floor(diff / 1000);
+    }
+
+    console.log(`<${name}> at ${diff}s: ${message}`);
+  }
+}
+
+console.write("server", "booting up...");
+
+require("dotenv").config()
 
 const app = require("fastify").fastify();
 
@@ -34,6 +63,8 @@ app.register(require("point-of-view"), {
 
 app.decorate("load", async function (path) {
   require(__dirname + `/routes/${path}`)(app);
+
+  console.write("server", "loaded " + path);
 });
 
 app.decorateReply("sendView", async function (view, data = {}, {frame = false} = {}) {
@@ -78,9 +109,11 @@ app.decorateReply("sendView", async function (view, data = {}, {frame = false} =
   await this.view(`layout.ejs`, { body, title, resources, meta, frame, escapeXML, indent });
 });
 
+console.write("server", "fastify loaded...");
+
 app.load("index");
 app.load("nav");
 app.load("404");
-
 app.listen(3000, "127.0.0.1");
-console.log("app has started on port 3000");
+
+console.write("server", "started on port 3000");
