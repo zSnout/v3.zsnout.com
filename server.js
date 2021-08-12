@@ -34,10 +34,10 @@ console.write("server", "booting up...");
 require("dotenv").config();
 
 const app = require("fastify").fastify({
-  https: {
-    cert: require("fs").readFileSync(__dirname + "/cert.pem"),
-    key: require("fs").readFileSync(__dirname + "/key.pem"),
-  }
+  // https: {
+  //   cert: require("fs").readFileSync(__dirname + "/cert.pem"),
+  //   key: require("fs").readFileSync(__dirname + "/key.pem"),
+  // }
 });
 
 const escapeXML = (text) => {
