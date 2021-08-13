@@ -124,7 +124,7 @@ $.rest = async (method, url, body = null) => {
 };
 
 $.get = (url) => $.rest("GET", url);
-$.post = (url) => $.rest("POST", url);
+$.post = (url, body = null) => $.rest("POST", url, body);
 
 {
   let html = document.documentElement;
