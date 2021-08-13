@@ -45,6 +45,7 @@ input, button, message {
   outline: 0;
   color: var(--color);
   transition: var(--transitions);
+  --focused: var(--input-selected);
 }
 
 .hover input:hover, input:focus {
@@ -59,6 +60,15 @@ input[unbox]:not([type=submit]), message[unbox] {
   border-radius: 0;
   width: 100%;
   background: var(--bg);
+  --focused: var(--bg);
+}
+
+input::placeholder {
+  transition: color 0.3s;
+}
+
+input:focus::placeholder {
+  color: var(--focused);
 }
 
 .hover input[unbox]:hover, input[unbox]:focus {
@@ -85,20 +95,26 @@ message a {
   color: var(--link);
 }
 
-input[status=incorrect], input[status=incorrect]:hover {
+input[status=incorrect], input[status=incorrect]:hover, input[validate]:invalid {
   border-color: var(--border);
   background: var(--incorrect);
   color: var(--color);
+
+  --focused: var(--incorrect);
 }
 
 input[status=partial], input[status=partial]:hover {
   border-color: var(--border);
   background: var(--partial);
   color: var(--color);
+  
+  --focused: var(--partial);
 }
 
-input[status=correct], input[status=correct]:hover {
+input[status=correct], input[status=correct]:hover, input[validate]:valid {
   border-color: var(--border);
   background: var(--correct);
   color: var(--color);
+
+  --focused: var(--correct);
 }
