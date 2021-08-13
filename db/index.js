@@ -77,4 +77,5 @@ function remove(table, conditions) {
   return query(text);
 }
 
+console.write("database", "started database...");
 module.exports = { escape, query, insert, select, update, remove, delete: remove };

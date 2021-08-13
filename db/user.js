@@ -67,4 +67,5 @@ class User {
   }
 }
 
+console.write("database", "loaded user...");
 module.exports = User;

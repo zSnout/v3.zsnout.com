@@ -112,7 +112,7 @@ $.rest = async (method, url, body = null) => {
     info.body = JSON.stringify(body);
   }
 
-  let fetched = fetch(url, info);
+  let fetched = await fetch(url, info);
 
   if (fetched.headers.has("x-zsnout-session")) {
     let token = fetched.headers.get("x-zsnout-session");
@@ -120,7 +120,15 @@ $.rest = async (method, url, body = null) => {
     await $.local("session", token);
   }
 
-  return await fetched.text();
+  let json = await fetched.text();
+  try {
+    json = JSON.parse(json);
+  } catch (err) {
+    throw {message: err.message, json};
+  }
+
+  if (fetched.status != 200) throw json;
+  else return json;
 };
 
 $.get = (url) => $.rest("GET", url);

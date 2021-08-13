@@ -1,3 +1,4 @@
+// console.write
 {
   let now = Date.now();
 
@@ -29,19 +30,20 @@
   }
 }
 
-console.write("server", "booting up...");
+console.write("server", "initializing...");
 
 require("dotenv").config();
+console.write("dotenv", "loaded");
 
-const app = require("fastify").fastify({
-  ajv: {
-    plugins: [require("ajv-formats")]
-  },
-  // https: {
-  //   cert: require("fs").readFileSync(__dirname + "/cert.pem"),
-  //   key: require("fs").readFileSync(__dirname + "/key.pem"),
-  // }
-});
+const Ajv = require("ajv");
+const ajv = new Ajv();
+
+require("ajv-formats")(ajv);
+console.write("ajv", "loaded");
+
+const app = require("fastify")();
+app.schemaCompiler = (schema) => (ajv.compile(schema));
+console.write("fastify", "initialized server...");
 
 const escapeXML = (text) => {
   return String(text)
@@ -62,6 +64,7 @@ const indent = (text, indent) => {
 app.register(require("fastify-static"), {
   root: __dirname + "/public"
 });
+console.write("fastify-static", "loaded fastify-static...");
 
 app.register(require("point-of-view"), {
   engine: {
@@ -72,11 +75,12 @@ app.register(require("point-of-view"), {
     root: "/home/zsakowitz",
   }
 });
+console.write("point-of-view", "loaded point-of-view...");
 
 app.decorate("load", async function (path) {
   require(__dirname + `/routes/${path}`)(app);
 
-  console.write("server", "loaded " + path);
+  console.write("fastify", "loaded " + path + "...");
 });
 
 app.decorateReply("sendView", async function (view, data = {}, {frame = false} = {}) {
@@ -121,7 +125,7 @@ app.decorateReply("sendView", async function (view, data = {}, {frame = false} =
   await this.view(`layout.ejs`, { body, title, resources, meta, frame, escapeXML, indent });
 });
 
-console.write("server", "fastify loaded...");
+console.write("fastify", "decorators complete...");
 
 app.load("index");
 app.load("nav");
@@ -130,4 +134,4 @@ app.load("404");
 
 app.listen(3000, "127.0.0.1");
 
-console.write("server", "started on port 3000");
+console.write("fastify", "server started...");

@@ -28,5 +28,6 @@ ${text}
 `);
 }
 
+console.write("mail", "initialized mail...");
 if ("TESTMODE" in process.env) module.exports = { send: test };
 else module.exports = { send };
