@@ -34,6 +34,9 @@ console.write("server", "booting up...");
 require("dotenv").config();
 
 const app = require("fastify").fastify({
+  ajv: {
+    plugins: [require("ajv-formats")]
+  },
   // https: {
   //   cert: require("fs").readFileSync(__dirname + "/cert.pem"),
   //   key: require("fs").readFileSync(__dirname + "/key.pem"),
