@@ -5,27 +5,27 @@ Promise.wait = function(ms) {
 };
 
 $.fn.on = function(name, cb) {
-  $(this).map((k, e) => e.addEventListener(name, cb));
+  this.map((k, e) => e.addEventListener(name, cb));
 
-  return $(this);
+  return this;
 };
 
 $.fn.off = function(name, cb) {
-  $(this).map((k, e) => e.removeEventListener(name, cb));
+  this.map((k, e) => e.removeEventListener(name, cb));
 
-  return $(this);
+  return this;
 };
 
 $.fn.dispatch = function(event) {
-  $(this).map((k, e) => e.dispatchEvent(event));
+  this.map((k, e) => e.dispatchEvent(event));
 
-  return $(this);
+  return this;
 };
 
 $.fn.verify = function(label) {
-  $(this).attr("status", label);
+  this.attr("status", label);
 
-  return $(this);
+  return this;
 };
 
 $.later = function(cb = null) {
