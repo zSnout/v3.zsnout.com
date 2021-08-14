@@ -3,7 +3,6 @@
 /.bashrc
 /.cache
 /.config
-/.db
 /.env
 /.gitconfig
 /.gnupg
@@ -19,5 +18,6 @@
 /.wget-hsts
 /boringproxy-linux-arm64
 /cert.pem
+/database.json
 /key.pem
 /node_modules
