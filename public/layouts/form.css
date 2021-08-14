@@ -95,7 +95,7 @@ message a {
   color: var(--link);
 }
 
-input[status=incorrect], input[status=incorrect]:hover, input[validate]:invalid {
+input[status=incorrect], .hover input[status=incorrect]:hover, input[validate]:invalid {
   border-color: var(--border);
   background: var(--incorrect);
   color: var(--color);
@@ -103,7 +103,7 @@ input[status=incorrect], input[status=incorrect]:hover, input[validate]:invalid 
   --focused: var(--incorrect);
 }
 
-input[status=partial], input[status=partial]:hover {
+input[status=partial], .hover input[status=partial]:hover {
   border-color: var(--border);
   background: var(--partial);
   color: var(--color);
@@ -111,7 +111,7 @@ input[status=partial], input[status=partial]:hover {
   --focused: var(--partial);
 }
 
-input[status=correct], input[status=correct]:hover, input[validate]:valid {
+input[status=correct], .hover input[status=correct]:hover, input[validate]:valid {
   border-color: var(--border);
   background: var(--correct);
   color: var(--color);
