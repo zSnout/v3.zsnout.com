@@ -48,7 +48,7 @@ input, button, message {
   --focused: var(--input-selected);
 }
 
-.hover input:hover, input:focus {
+.hover input:hover, input:not([type=submit]):focus {
   border-color: var(--border-selected);
   background: var(--input-selected);
   color: var(--color-selected);
