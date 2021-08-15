@@ -5,11 +5,11 @@ const bcrypt = require("../bcrypt");
 
 class User {
   static async isNameAvailable(username) {
-    if (!username.match(/^[A-Za-z_][A-Za-z0-9_]{5,}$/)) return false;
+    if (!username.match(/^[A-Za-z_][A-Za-z0-9_]{4,15}$/)) return false;
     
-    if ((await db.select("users", ["id"], {username})).rows.length > 0) return false;
-    if ((await db.select("pending_users", ["id"], {username})).rows.length > 0) return false;
-
+    if (await db.has("users/username_to_id", username)) return false;
+    if (await db.has("pending_users/username_to_id", username)) return false;
+    
     return true;
   }
 

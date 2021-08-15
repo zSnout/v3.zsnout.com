@@ -1,81 +1,75 @@
-let format = require("pg-format");
+/* old database at commit 214059f6482b02ecb18e9a7c99568a365dd18406 */
 
-let { Client } = require("pg");
-let client = new Client({
-  host: "localhost",
-  port: 5433,
-  username: process.env.DB_USER,
-  password: process.env.DB_PASSWD,
-  database: process.env.DB_DB,
-});
+console.write = console.log
 
-client.connect();
+let fs = require("fs");
+let db = JSON.parse(fs.readFileSync(__dirname + "/../database.json"));
+console.write("database", "loaded database...");
 
-function idSeq(array) {
-  return array.map(() => "%I").join(",");
-}
-
-function objSeq(object) {
-  object = Object.entries(object);
+function autosave() {
+  let content = JSON.stringify(db);
   
-  let text = object.map(() => "%I = %L");
-  let values = []; object.map(([key, val]) => values.push(key, val));
+  let now = Date.now();
+  let size = content.length / 1024;
+  size = Math.round(size * 10) / 10;
+  if (size == Math.floor(size)) size = size + ".0";
 
-  return {text, values};
+  console.write("database", `saving ${size} KB to disk...`);
+  fs.writeFile(__dirname + "/../database.json", content, () => {
+    console.write("database", `saved after ${Date.now() - now}ms...`);
+
+    setTimeout(autosave, 15000);
+  });
 }
 
-function escape(text, ...values) {
-  return format(text, ...values);
-}
+async function get(path) {
+  path = Array.isArray(path) ? path : [path];
+  let obj = db;
 
-function query(text, ...values) {
-  return client.query({ text, values });
-}
+  try {
+    for (let item of path) {
+      obj = obj[item];
+    }
 
-function insert(table, data) {
-  let keys = Object.keys(data), values = Object.values(data);
-  
-  let text = `INSERT INTO %I (${idSeq(keys)}) VALUES (%L)`;
-  text = escape(text, table, ...keys, values);
-
-  return query(text);
-}
-
-function select(table, columns, conditions = null) {
-  if (typeof columns == "string") columns = columns.split(/, |,| /g);
-
-  let text;
-  if (conditions === null) {
-    text = `SELECT ${idSeq(columns)} FROM %I`;
-    text = escape(text, ...columns, table);
-  } else {
-    conditions = objSeq(conditions);
-    
-    text = `SELECT ${idSeq(columns)} FROM %I WHERE ${conditions.text.join(" AND ")}`;
-    text = escape(text, ...columns, table, ...conditions.values);
+    return obj;
+  } catch {
+    return undefined;
   }
-
-  return query(text);
 }
 
-function update(table, data, conditions = null) {
-  conditions = objSeq(conditions);
-  data = objSeq(data);
+async function set(...paths) {
+  let value = paths.pop();
+  let path = paths.join("/").split("/");
+  let last = path[path.length - 1];
+  path.pop();
 
-  let text = `UPDATE %I SET ${data.text.join(", ")} WHERE ${conditions.text.join(" AND ")}`;
-  text = escape(text, table, ...data.values, ...conditions.values);
+  let obj = db;
 
-  return query(text);
+  try {
+    for (let item of path) {
+      obj = obj[item];
+    }
+
+    obj[last] = value;
+  } catch {
+    return undefined;
+  }
 }
 
-function remove(table, conditions) {
-  conditions = objSeq(conditions);
-  
-  let text = `DELETE FROM %I WHERE ${conditions.text.join(" AND ")}`;
-  text = escape(text, table, ...conditions.values);
+async function has(...paths) {
+  let value = paths.pop();
+  let item = get(...paths);
 
-  return query(text);
+  try {
+    return value in item;
+  } catch {
+    return false;
+  }
 }
 
-console.write("database", "started database...");
-module.exports = { escape, query, insert, select, update, remove, delete: remove };
+async function insert(...paths) {
+  let value = paths.pop();
+}
+
+setTimeout(autosave, 15000);
+module.exports = { get, set, has };
