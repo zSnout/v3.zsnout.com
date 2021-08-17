@@ -14,6 +14,8 @@ This is source code for a NodeJS version of zSnout.com. zSnout hopes to upgrade 
 
 - [views](/views): This is where all EJS views are put. A view can be requested to be sent as a response by a route.
 
+## Files
+
 - [bcrypt.js](/bcrypt.js): This is a short file to make the `bcryptjs` API easier to work with.
 
 - [layout.ejs](/layout.ejs): The index layout. All views get passed through this before being sent as a response.
