@@ -1,7 +1,0 @@
-<% title("Sign up for zSnout"), layout("form"), js("/account/sign-up.mjs") %>
-
-<input type="text" id="username" autocomplete="username" placeholder="Username" validate required pattern="[A-Za-z][A-Za-z0-9]{4,15}" title="Begin with a letter, then continue with letters, numbers, and underscores.">
-<input type="email" id="email" autocomplete="email" placeholder="Email Address" validate required>
-<input type="submit" id="submit" value="Sign Up">
-<hr>
-<message unbox>Or <a href="/account/log-in">log in with an existing account</a>.</message>

@@ -1,5 +1,5 @@
 /.env
 /.git
 /.prettierignore
-/database.json
+/resources/database.json
 /node_modules
