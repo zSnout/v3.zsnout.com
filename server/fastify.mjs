@@ -20,7 +20,7 @@ app.register(pointOfView, {
   },
 });
 
-app.register(prepareClient);
 app.register(decorators);
+app.register(prepareClient);
 
 export default app;
