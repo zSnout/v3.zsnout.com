@@ -25,4 +25,4 @@ console.write = (name, message) => {
   }
 
   console.log(`<${name}> at ${diff}s: ${message}`);
-}
+};

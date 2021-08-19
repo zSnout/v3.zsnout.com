@@ -27,7 +27,8 @@ main::-webkit-scrollbar {
   color: var(--color);
 }
 
-.hover #field:hover, #field:focus {
+.hover #field:hover,
+#field:focus {
   background: var(--input-selected);
   color: var(--color-selected);
   border-color: var(--border-selected);
@@ -75,7 +76,8 @@ a:nth-child(2n) {
   border-right: 0;
 }
 
-a:last-child, a:nth-last-child(2):nth-child(2n + 1) {
+a:last-child,
+a:nth-last-child(2):nth-child(2n + 1) {
   border-bottom: 0;
 }
 

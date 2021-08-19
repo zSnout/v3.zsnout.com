@@ -1,39 +1,39 @@
-Promise.wait = function(ms) {
+Promise.wait = function (ms) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
 };
 
-$.fn.on = function(name, cb) {
+$.fn.on = function (name, cb) {
   this.map((k, e) => e.addEventListener(name, cb));
 
   return this;
 };
 
-$.fn.off = function(name, cb) {
+$.fn.off = function (name, cb) {
   this.map((k, e) => e.removeEventListener(name, cb));
 
   return this;
 };
 
-$.fn.dispatch = function(event) {
+$.fn.dispatch = function (event) {
   this.map((k, e) => e.dispatchEvent(event));
 
   return this;
 };
 
-$.fn.verify = function(label) {
+$.fn.verify = function (label) {
   this.attr("status", label);
 
   return this;
 };
 
-$.later = function(cb = null) {
+$.later = function (cb = null) {
   if (typeof cb == "function") return setTimeout(cb, 0);
   else return Promise.resolve();
 };
 
-$.nslocal = function(key) {
+$.nslocal = function (key) {
   let ns = "zsnout-v3";
 
   if (typeof key == "object") {
@@ -49,16 +49,18 @@ $.nslocal = function(key) {
   return `${ns}:${key}`;
 };
 
-$.local = async function(key, value = undefined) {
+$.local = async function (key, value = undefined) {
   key = $.nslocal(key);
-  
+
   if (value !== undefined) {
     localStorage.setItem(key, JSON.stringify(value));
-    
-    $(window).dispatch(new StorageEvent("storage", {key, newValue: JSON.stringify(value)}));
+
+    $(window).dispatch(
+      new StorageEvent("storage", { key, newValue: JSON.stringify(value) })
+    );
   } else {
     let item = localStorage.getItem(key);
-    
+
     try {
       return JSON.parse(item);
     } catch (error) {
@@ -67,10 +69,10 @@ $.local = async function(key, value = undefined) {
   }
 };
 
-$.onlocal = function(keyToTrack, cb) {
+$.onlocal = function (keyToTrack, cb) {
   keyToTrack = $.nslocal(keyToTrack);
 
-  $(window).on("storage", ({key, newValue}) => {
+  $(window).on("storage", ({ key, newValue }) => {
     if (key == keyToTrack) {
       try {
         cb(JSON.parse(newValue), key);
@@ -103,8 +105,8 @@ $.rest = async (method, url, body = null) => {
   let info = {
     method,
     headers: {
-      "x-zsnout-session": await $.local("session")
-    }
+      "x-zsnout-session": await $.local("session"),
+    },
   };
 
   if (method != "GET" && method != "HEAD" && body) {
@@ -124,7 +126,7 @@ $.rest = async (method, url, body = null) => {
   try {
     json = JSON.parse(json);
   } catch (err) {
-    throw {message: err.message, json};
+    throw { message: err.message, json };
   }
 
   if (fetched.status != 200) throw json;
@@ -137,7 +139,7 @@ $.post = (url, body = null) => $.rest("POST", url, body);
 {
   let html = document.documentElement;
   let mql = window.matchMedia("(hover: hover) and (pointer: fine)");
-  
+
   html.classList.toggle("hover", mql.matches);
   mql.onchange = () => {
     html.classList.toggle("hover", mql.matches);

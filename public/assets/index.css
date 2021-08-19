@@ -13,9 +13,10 @@
   --correct: #004b00;
   --partial: #4b4b00;
   --incorrect: #4b0000;
-  
-  --sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  --serif: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+  --sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --serif: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   --transitions: background 0.3s, color 0.3s, border-color 0.3s;
 }
 
@@ -62,14 +63,38 @@ nav-icon {
   cursor: pointer;
 }
 
-nav-icon[loc=l] { top: calc(50vh - 16px) ; left: -40px }
-nav-icon[loc=tl] { top: -32px ; left: -32px }
-nav-icon[loc=t] { top: -40px ; left: calc(50vw - 16px) }
-nav-icon[loc=tr] { top: -32px ; right: -32px }
-nav-icon[loc=r] { top: calc(50vh - 16px) ; right: -40px }
-nav-icon[loc=br] { bottom: -32px ; right: -32px }
-nav-icon[loc=b] { bottom: -40px ; left: calc(50vw - 16px) }
-nav-icon[loc=bl] { bottom: -32px ; left: -32px }
+nav-icon[loc="l"] {
+  top: calc(50vh - 16px);
+  left: -40px;
+}
+nav-icon[loc="tl"] {
+  top: -32px;
+  left: -32px;
+}
+nav-icon[loc="t"] {
+  top: -40px;
+  left: calc(50vw - 16px);
+}
+nav-icon[loc="tr"] {
+  top: -32px;
+  right: -32px;
+}
+nav-icon[loc="r"] {
+  top: calc(50vh - 16px);
+  right: -40px;
+}
+nav-icon[loc="br"] {
+  bottom: -32px;
+  right: -32px;
+}
+nav-icon[loc="b"] {
+  bottom: -40px;
+  left: calc(50vw - 16px);
+}
+nav-icon[loc="bl"] {
+  bottom: -32px;
+  left: -32px;
+}
 
 #nav {
   background: var(--bg);
@@ -87,7 +112,9 @@ nav-icon[loc=bl] { bottom: -32px ; left: -32px }
   display: none;
 }
 
-.nav #nav { display: block }
+.nav #nav {
+  display: block;
+}
 
 @media only screen and (max-width: 417px) {
   #nav {

@@ -2,12 +2,12 @@ let $form = $("#form");
 let $username = $("#username");
 let $email = $("#email");
 
-$username.on("keydown", ({key}) => {
+$username.on("keydown", ({ key }) => {
   if (key.toLowerCase() == "enter") $email.focus();
   return false;
 });
 
-$email.on("keydown", ({key}) => {
+$email.on("keydown", ({ key }) => {
   if (key.toLowerCase() == "enter") $email.blur(), $form.submit();
   return false;
 });

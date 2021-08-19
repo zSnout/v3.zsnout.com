@@ -6,24 +6,28 @@ module.exports = (app) => {
     res.sendView("signup");
   });
 
-  app.post("/account/sign-up", {
-    schema: {
-      body: {
-        type: "object",
-        required: ["username", "email"],
-        properties: {
-          username: {
-            type: "string",
-            pattern: "^[A-Za-z][A-Za-z0-9_]{4,15}$"
+  app.post(
+    "/account/sign-up",
+    {
+      schema: {
+        body: {
+          type: "object",
+          required: ["username", "email"],
+          properties: {
+            username: {
+              type: "string",
+              pattern: "^[A-Za-z][A-Za-z0-9_]{4,15}$",
+            },
+            email: {
+              type: "string",
+              format: "email",
+            },
           },
-          email: {
-            type: "string",
-            format: "email"
-          }
-        }
-      }
+        },
+      },
+    },
+    (req, res) => {
+      res.send('"hello"');
     }
-  }, (req, res) => {
-    res.send("\"hello\"")
-  });
+  );
 };

@@ -10,9 +10,9 @@ $icon.on("click", async () => {
 $.local("nav-icon-loc").then(async (loc) => {
   if (locs.indexOf(loc) > -1) {
     $icon.attr("loc", loc);
-  } else await $.local("nav-icon-loc", "bl"), $icon.attr("loc", loc = "bl");
+  } else await $.local("nav-icon-loc", "bl"), $icon.attr("loc", (loc = "bl"));
 
-  $icon.on("contextmenu", async ({shiftKey, ctrlKey, altKey}) => {
+  $icon.on("contextmenu", async ({ shiftKey, ctrlKey, altKey }) => {
     let loc = await $.local("nav-icon-loc");
     if (locs.indexOf(loc) == -1) loc = "bl";
 
@@ -26,7 +26,7 @@ $.local("nav-icon-loc").then(async (loc) => {
   });
 
   $.onlocal("nav-icon-loc", (loc) => $icon.attr("loc", loc));
-  
+
   $icon.css("display", "block");
 });
 
@@ -35,7 +35,8 @@ $html.on("contextmenu", (event) => {
 
   event.path.reverse().map((element) => {
     if (element.hasAttribute && element.hasAttribute("nctx")) prevent = true;
-    else if (element.hasAttribute && element.hasAttribute("ctx")) prevent = false;
+    else if (element.hasAttribute && element.hasAttribute("ctx"))
+      prevent = false;
   });
 
   if (prevent) event.preventDefault();

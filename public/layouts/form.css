@@ -18,8 +18,12 @@ form {
   transform: translate(-50%, -50%);
 }
 
-form > :first-child { margin-top: 0 !important }
-form > :last-child { margin-bottom: 0 !important }
+form > :first-child {
+  margin-top: 0 !important;
+}
+form > :last-child {
+  margin-bottom: 0 !important;
+}
 
 hr {
   display: block;
@@ -28,10 +32,16 @@ hr {
   border-top: 2px solid var(--border);
   padding: 0;
 }
-hr[thin] { border-top-width: 1px }
-hr[dashed] { border-top-style: dashed }
+hr[thin] {
+  border-top-width: 1px;
+}
+hr[dashed] {
+  border-top-style: dashed;
+}
 
-input, button, message {
+input,
+button,
+message {
   display: block;
   margin: 8px 0;
   padding: 8px;
@@ -48,13 +58,15 @@ input, button, message {
   --focused: var(--input-selected);
 }
 
-.hover input:hover, input:not([type=submit]):focus {
+.hover input:hover,
+input:not([type="submit"]):focus {
   border-color: var(--border-selected);
   background: var(--input-selected);
   color: var(--color-selected);
 }
 
-input[unbox]:not([type=submit]), message[unbox] {
+input[unbox]:not([type="submit"]),
+message[unbox] {
   padding: 0;
   border: 0;
   border-radius: 0;
@@ -71,12 +83,14 @@ input:focus::placeholder {
   color: var(--focused);
 }
 
-.hover input[unbox]:hover, input[unbox]:focus {
+.hover input[unbox]:hover,
+input[unbox]:focus {
   background: var(--bg);
   color: var(--color);
 }
 
-input[type=submit], button {
+input[type="submit"],
+button {
   width: 100%;
   font-weight: bold;
   user-select: none;
@@ -95,7 +109,9 @@ message a {
   color: var(--link);
 }
 
-input[status=incorrect], .hover input[status=incorrect]:hover, input[validate]:invalid {
+input[status="incorrect"],
+.hover input[status="incorrect"]:hover,
+input[validate]:invalid {
   border-color: var(--border);
   background: var(--incorrect);
   color: var(--color);
@@ -103,15 +119,18 @@ input[status=incorrect], .hover input[status=incorrect]:hover, input[validate]:i
   --focused: var(--incorrect);
 }
 
-input[status=partial], .hover input[status=partial]:hover {
+input[status="partial"],
+.hover input[status="partial"]:hover {
   border-color: var(--border);
   background: var(--partial);
   color: var(--color);
-  
+
   --focused: var(--partial);
 }
 
-input[status=correct], .hover input[status=correct]:hover, input[validate]:valid {
+input[status="correct"],
+.hover input[status="correct"]:hover,
+input[validate]:valid {
   border-color: var(--border);
   background: var(--correct);
   color: var(--color);

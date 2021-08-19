@@ -11,7 +11,7 @@ require("ajv-formats")(ajv);
 console.write("ajv", "loaded");
 
 const app = require("fastify")();
-app.schemaCompiler = (schema) => (ajv.compile(schema));
+app.schemaCompiler = (schema) => ajv.compile(schema);
 console.write("fastify", "initialized server...");
 
 const escapeXML = (text) => {
@@ -26,23 +26,23 @@ const escapeXML = (text) => {
 const indent = (text, indent) => {
   return String(text)
     .split("\n")
-    .map(e => indent + e)
+    .map((e) => indent + e)
     .join("\n");
 };
 
 app.register(require("fastify-static"), {
-  root: __dirname + "/public"
+  root: __dirname + "/public",
 });
 console.write("fastify-static", "loaded fastify-static...");
 
 app.register(require("point-of-view"), {
   engine: {
-    ejs: require("ejs")
+    ejs: require("ejs"),
   },
   options: {
     outputFunctionName: "echo",
     root: "/home/zsakowitz",
-  }
+  },
 });
 console.write("point-of-view", "loaded point-of-view...");
 
@@ -52,47 +52,69 @@ app.decorate("load", async function (path) {
   console.write("fastify", "loaded " + path + "...");
 });
 
-app.decorateReply("sendView", async function (view, data = {}, {frame = false} = {}) {
-  let layout = null;
-  let title = "";
-  let styles = ["/assets/index.css"];
-  let preload = ["/assets/jquery.js", "/assets/underscore.js"];
-  let postload = ["/assets/preindex.mjs", "/assets/index.mjs"];
-  let meta = [];
-  let info = {};
+app.decorateReply(
+  "sendView",
+  async function (view, data = {}, { frame = false } = {}) {
+    let layout = null;
+    let title = "";
+    let styles = ["/assets/index.css"];
+    let preload = ["/assets/jquery.js", "/assets/underscore.js"];
+    let postload = ["/assets/preindex.mjs", "/assets/index.mjs"];
+    let meta = [];
+    let info = {};
 
-  let body = await app.view(`views/${view}.ejs`, {
-    ...data, data, info, escapeXML, indent,
-    layout: (path) => layout = path,
-    title: (name) => title = name,
-    css: (href) => styles.push(href),
-    js: (src) => postload.push(src),
-    lib: (src) => preload.push(src),
-    meta: (name, content) => meta.push({name, content}),
-  });
-
-  body = body.trimStart();
-
-  if (layout) {
-    body = await app.view(`layouts/${layout}.ejs`, {
-      ...info, data: info, body, escapeXML, indent,
-      title: (name) => title = name,
+    let body = await app.view(`views/${view}.ejs`, {
+      ...data,
+      data,
+      info,
+      escapeXML,
+      indent,
+      layout: (path) => (layout = path),
+      title: (name) => (title = name),
       css: (href) => styles.push(href),
       js: (src) => postload.push(src),
       lib: (src) => preload.push(src),
-      meta: (name, content) => meta.push({name, content}),
+      meta: (name, content) => meta.push({ name, content }),
     });
-    
-    body = body.trimStart();
-  }
 
-  let resources = [];
-  for (let href of styles) resources.push(`<link rel="stylesheet" href="${escapeXML(href)}">`);
-  for (let src of preload) resources.push(`<script src="${escapeXML(src)}"></script>`);
-  for (let src of postload) resources.push(`<script src="${escapeXML(src)}" type="module"></script>`);
-  
-  await this.view(`layout.ejs`, { body, title, resources, meta, frame, escapeXML, indent });
-});
+    body = body.trimStart();
+
+    if (layout) {
+      body = await app.view(`layouts/${layout}.ejs`, {
+        ...info,
+        data: info,
+        body,
+        escapeXML,
+        indent,
+        title: (name) => (title = name),
+        css: (href) => styles.push(href),
+        js: (src) => postload.push(src),
+        lib: (src) => preload.push(src),
+        meta: (name, content) => meta.push({ name, content }),
+      });
+
+      body = body.trimStart();
+    }
+
+    let resources = [];
+    for (let href of styles)
+      resources.push(`<link rel="stylesheet" href="${escapeXML(href)}">`);
+    for (let src of preload)
+      resources.push(`<script src="${escapeXML(src)}"></script>`);
+    for (let src of postload)
+      resources.push(`<script src="${escapeXML(src)}" type="module"></script>`);
+
+    await this.view(`layout.ejs`, {
+      body,
+      title,
+      resources,
+      meta,
+      frame,
+      escapeXML,
+      indent,
+    });
+  }
+);
 
 console.write("fastify", "decorators complete...");
 

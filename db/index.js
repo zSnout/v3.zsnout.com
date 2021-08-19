@@ -1,14 +1,12 @@
 /* old database at commit 214059f6482b02ecb18e9a7c99568a365dd18406 */
 
-console.write = console.log
-
 let fs = require("fs");
 let db = JSON.parse(fs.readFileSync(__dirname + "/../database.json"));
 console.write("database", "loaded database...");
 
 function autosave() {
   let content = JSON.stringify(db);
-  
+
   let now = Date.now();
   let size = content.length / 1024;
   size = Math.round(size * 10) / 10;

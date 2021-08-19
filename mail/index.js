@@ -7,19 +7,22 @@ let mailer = require("nodemailer").createTransport({
   auth: {
     user: process.env.EMAIL_ADDR,
     pass: process.env.EMAIL_PASSWD,
-  }
+  },
 });
 
-function send({to, subject, text, html}) {
+function send({ to, subject, text, html }) {
   return mailer.sendMail({
-    to, subject, text, html,
+    to,
+    subject,
+    text,
+    html,
     from: `zSnout <${process.env.EMAIL_ADDR}>`,
     inReplyTo: uuid.v4() + Math.random(),
     messageId: uuid.v4() + Math.random(),
   });
 }
 
-function test({to, subject, text}) {
+function test({ to, subject, text }) {
   console.log(`
 To: ${to}
 Email: ${subject}
