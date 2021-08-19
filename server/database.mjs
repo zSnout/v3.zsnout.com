@@ -9,8 +9,12 @@ let database = JSON.parse(
 function save() {
   fs.writeFile(
     process.env.ROOT + "/resources/database.json",
-    JSON.stringify(database, null, "  ")
+    JSON.stringify(database, null, "  "),
+    () => {
+      setTimeout(save, 1500);
+    }
   );
 }
+setTimeout(save, 1500);
 
 export default { raw: database };

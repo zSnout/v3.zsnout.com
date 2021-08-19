@@ -26,6 +26,12 @@ export default function (app) {
   let io = new Server(app.server);
   app.decorate("io", io);
 
+  app.decorate("static", (path, to = path) => {
+    app.get(`/${to}`, (req, res) =>
+      res.sendFile(`${process.env.ROOT}/client/${to}`)
+    );
+  });
+
   app.decorateReply(
     "sendView",
     async function (view, data = {}, { frame = false } = {}) {
