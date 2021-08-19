@@ -4,7 +4,7 @@
   "description": "The NodeJS project for zsnout.com.",
   "main": "server/index.mjs",
   "scripts": {
-    "start": "node ~/server/index.mjs"
+    "start": "node server/index.mjs"
   },
   "dependencies": {
     "ajv": "^8.6.2",

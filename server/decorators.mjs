@@ -1,5 +1,5 @@
-import bcrypt from "./bcrypt";
-import database from "./database";
+import bcrypt from "./bcrypt.mjs";
+import database from "./database.mjs";
 import { Server } from "socket.io";
 
 function escapeXML(text) {
