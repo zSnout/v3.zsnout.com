@@ -5,16 +5,16 @@ let database = JSON.parse(
     encoding: "utf-8",
   })
 );
+console.debug("database", "Started database");
 
 function save() {
-  fs.writeFile(
-    process.env.ROOT + "/resources/database.json",
-    JSON.stringify(database, null, "  "),
-    () => {
-      setTimeout(save, 1500);
-    }
-  );
+  let content = JSON.stringify(database, null, "  ");
+
+  fs.writeFile(process.env.ROOT + "/resources/database.json", content, () => {
+    console.debug("database", "Completed autosave");
+    setTimeout(save, 15000);
+  });
 }
-setTimeout(save, 1500);
+setTimeout(save, 15000);
 
 export default { raw: database };

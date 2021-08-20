@@ -20,17 +20,22 @@ function indent(text, indent) {
 
 export default function (app) {
   app.decorate("bcrypt", bcrypt);
+  console.debug("fastify", "Added app.bcrypt");
+
   app.decorate("database", database);
-  app.decorate("db", database);
+  console.debug("fastify", "Added app.database");
 
   let io = new Server(app.server);
+  console.debug("socket.io", "Started socket.io");
   app.decorate("io", io);
+  console.debug("fastify", "Added app.io");
 
   app.decorate("static", (path, to = path) => {
     app.get(`/${to}`, (req, res) =>
       res.sendFile(`${process.env.ROOT}/client/${to}`)
     );
   });
+  console.debug("fastify", "Added app.static");
 
   app.decorateReply(
     "sendView",
@@ -43,7 +48,7 @@ export default function (app) {
       let meta = [];
       let info = {};
 
-      let body = await app.view(`views/${view}.ejs`, {
+      let body = await app.view(`../client/${view}.ejs`, {
         ...data,
         data,
         info,
@@ -60,7 +65,7 @@ export default function (app) {
       body = body.trimStart();
 
       if (layout) {
-        body = await app.view(`layouts/${layout}.ejs`, {
+        body = await app.view(`../layouts/${layout}.ejs`, {
           ...info,
           data: info,
           body,
@@ -86,7 +91,7 @@ export default function (app) {
           `<script src="${escapeXML(src)}" type="module"></script>`
         );
 
-      await this.view(`layout.ejs`, {
+      await this.view(`../layouts/index.ejs`, {
         body,
         title,
         resources,
@@ -97,4 +102,6 @@ export default function (app) {
       });
     }
   );
+
+  console.debug("fastify", "Added Reply.sendView");
 }

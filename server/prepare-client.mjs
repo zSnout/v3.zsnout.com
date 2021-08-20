@@ -1,10 +1,13 @@
-export default function (app) {
-  async function load(dir) {
-    let route = await import(`${process.env.ROOT}/${dir}/ROUTE.mjs`);
+export default async function (app) {
+  async function load(path) {
+    let route = await import(`${process.env.ROOT}/${path}.mjs`);
 
-    route(app);
+    route.default(app);
+    console.debug("server", "Loaded route " + path);
   }
 
-  await load("assets");
-  setImmediate(() => app.listen(3000, "127.0.0.1"));
+  await load("routes/assets");
+
+  app.listen(3000, "127.0.0.1");
+  console.debug("fastify", "Server started");
 }
