@@ -1,16 +1,19 @@
 import Ajv from "ajv";
 import ajvFormats from "ajv-formats";
-import fastify from "fastify";
+import decorators from "./decorators.mjs";
 import ejs from "ejs";
+import fastify from "fastify";
 import pointOfView from "point-of-view";
 import prepareClient from "./prepare-client.mjs";
-import decorators from "./decorators.mjs";
+console.debug("server", "Loaded dependencies");
 
 let ajv = new Ajv();
 ajvFormats(ajv);
+console.debug("ajv", "Started AJV");
 
 let app = fastify();
 app.schemaCompiler = (schema) => ajv.compile(schema);
+console.debug("fastify", "Started fastify");
 
 app.register(pointOfView, {
   engine: { ejs },
@@ -19,8 +22,7 @@ app.register(pointOfView, {
     root: process.env.ROOT,
   },
 });
+console.debug("ejs", "Loaded EJS");
 
-app.register(decorators);
-app.register(prepareClient);
-
-export default app;
+decorators(app);
+prepareClient(app);
