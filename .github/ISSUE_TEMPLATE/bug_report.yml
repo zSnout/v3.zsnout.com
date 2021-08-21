@@ -3,9 +3,6 @@ description: File a bug report.
 title: "[Bug]: "
 labels: [bug]
 body:
-  - type: markdown
-    attributes:
-      value: Thanks for filing a bug report!
   - type: textarea
     id: what-happened
     attributes:
@@ -44,4 +41,4 @@ body:
     id: extras
     attributes:
       label: Additional context
-      description: Anything else you want to tell us?
+      description: Anything else you want to tell us? You can also attach screenshots and logs to help us if available.
