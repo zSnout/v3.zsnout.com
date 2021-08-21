@@ -11,7 +11,6 @@ function save() {
   let content = JSON.stringify(database, null, "  ");
 
   fs.writeFile(process.env.ROOT + "/resources/database.json", content, () => {
-    console.debug("database", "Completed autosave");
     setTimeout(save, 15000);
   });
 }
