@@ -6,6 +6,7 @@ export default async function (app) {
     console.debug("server", "Loaded route " + path);
   }
 
+  await load("routes/index");
   await load("routes/assets");
 
   app.listen(3000, "127.0.0.1");

@@ -48,7 +48,7 @@ export default function (app) {
       let meta = [];
       let info = {};
 
-      let body = await app.view(`../client/${view}.ejs`, {
+      let body = await app.view(`client/${view}.ejs`, {
         ...data,
         data,
         info,
@@ -65,7 +65,7 @@ export default function (app) {
       body = body.trimStart();
 
       if (layout) {
-        body = await app.view(`../layouts/${layout}.ejs`, {
+        body = await app.view(`layouts/${layout}.ejs`, {
           ...info,
           data: info,
           body,
@@ -91,7 +91,7 @@ export default function (app) {
           `<script src="${escapeXML(src)}" type="module"></script>`
         );
 
-      await this.view(`../layouts/index.ejs`, {
+      await this.view(`layouts/index.ejs`, {
         body,
         title,
         resources,
