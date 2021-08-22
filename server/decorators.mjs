@@ -1,3 +1,5 @@
+import fs from "node:fs/promises";
+import { extname } from "node:path";
 import bcrypt from "./bcrypt.mjs";
 import database from "./database.mjs";
 import { Server } from "socket.io";
@@ -20,22 +22,19 @@ function indent(text, indent) {
 
 export default function (app) {
   app.decorate("bcrypt", bcrypt);
-  console.debug("fastify", "Added app.bcrypt");
-
   app.decorate("database", database);
-  console.debug("fastify", "Added app.database");
 
   let io = new Server(app.server);
   console.debug("socket.io", "Started socket.io");
   app.decorate("io", io);
-  console.debug("fastify", "Added app.io");
+
+  app.decorate("redirect", (from, to = "/" + from) => {
+    app.get(from, (req, res) => res.redirect(302, to));
+  });
 
   app.decorate("static", (path, to = path) => {
-    app.get(`/${to}`, (req, res) =>
-      res.sendFile(`${process.env.ROOT}/client/${to}`)
-    );
+    app.get(`/${to}`, (req, res) => res.sendFile(`client/${path}`));
   });
-  console.debug("fastify", "Added app.static");
 
   app.decorateReply(
     "sendView",
@@ -102,6 +101,4 @@ export default function (app) {
       });
     }
   );
-
-  console.debug("fastify", "Added Reply.sendView");
 }
