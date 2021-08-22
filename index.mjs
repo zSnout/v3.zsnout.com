@@ -7,4 +7,4 @@ console.debug("server", "Loading dependencies");
 dotenv.config();
 console.debug("dotenv", "Loaded environment variables");
 
-import("./server/fastify.mjs");
+await import("./server/fastify.mjs");
