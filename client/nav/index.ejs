@@ -1,0 +1,22 @@
+<% title("Navigation"), css("/nav/index.css"), js("/nav/index.mjs") %>
+
+<input id="field" type="text" placeholder="Search Navigation" autocomplete="off">
+
+<h1>Favorites</h1>
+<div id="favorites"><a id="toggle-fav">Toggle this page</a></div>
+
+<%
+
+for (let key in groups) {
+  echo(`<h1>${escapeXML(key)}</h1>\n<div>`);
+
+  for (let item in groups[key]) {
+    echo (`<a target="_parent" href="${escapeXML(groups[key][item])}">${escapeXML(item)}</a>`);
+  }
+
+  echo("</div>");
+}
+
+%>
+
+<hr>
