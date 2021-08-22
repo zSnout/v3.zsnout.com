@@ -61,6 +61,7 @@ nav-icon {
   background: var(--input-selected);
   transform: rotate(45deg);
   cursor: pointer;
+  user-select: none;
 }
 
 nav-icon[loc="l"] {
@@ -107,9 +108,27 @@ nav-icon[loc="bl"] {
   width: 400px;
   height: 200px;
   position: fixed;
-  top: 8px;
-  left: 8px;
+  top: calc(50vh - 100px);
+  left: calc(50vw - 200px);
   display: none;
+  user-select: none;
+}
+
+#nav-bg {
+  background: var(--bg);
+  opacity: 0.2;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  user-select: none;
+  z-index: 2;
+}
+
+.nav #nav-bg {
+  display: block;
 }
 
 .nav #nav {
