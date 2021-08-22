@@ -1,6 +1,8 @@
 import "./server/console.mjs";
 import dotenv from "dotenv";
 
+console.clear();
+
 console.debug("server", "Starting server");
 console.debug("server", "Loading dependencies");
 
