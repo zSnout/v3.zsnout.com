@@ -14,5 +14,5 @@ export default async function (app) {
   app.listen(3000, "127.0.0.1");
   console.debug("fastify", "Server started");
 
-  await import("./terminal.mjs");
+  (await import("./terminal.mjs")).default(app);
 }
