@@ -98,12 +98,11 @@ nav-icon[loc="bl"] {
 }
 
 #nav {
-  background: var(--bg);
+  background: var(--border);
   z-index: 2;
   margin: 0;
-  border-radius: 8px;
   border: 0;
-  box-shadow: var(--border) 0 0 8px 4px;
+  border-radius: 8px;
   padding: 0;
   width: 400px;
   height: 200px;
@@ -115,6 +114,8 @@ nav-icon[loc="bl"] {
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.5s, visibility 0.5s;
+  border: 1px solid var(--border);
+  border-top-width: 1.5px;
 }
 
 #nav-bg {
