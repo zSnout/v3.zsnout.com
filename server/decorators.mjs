@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import { extname } from "node:path";
 import bcrypt from "./bcrypt.mjs";
 import database from "./database.mjs";
+import dbclasses from "./dbclasses.mjs";
 import { Server } from "socket.io";
 
 function escapeXML(text) {
@@ -23,6 +24,7 @@ function indent(text, indent) {
 export default function (app) {
   app.decorate("bcrypt", bcrypt);
   app.decorate("database", database);
+  dbclasses(app);
 
   let io = new Server(app.server);
   console.debug("socket.io", "Started socket.io");
