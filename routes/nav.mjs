@@ -11,6 +11,10 @@ export default function (app) {
           Main: {
             Home: "/",
           },
+          Account: {
+            "Log In": "/account/log-in",
+            "Sign Up": "/account/sign-up",
+          },
         },
       },
       { frame: true }

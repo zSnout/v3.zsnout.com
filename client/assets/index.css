@@ -102,22 +102,26 @@ nav-icon[loc="bl"] {
   z-index: 2;
   margin: 0;
   border-radius: 8px;
-  border: 1px solid var(--border);
-  box-shadow: var(--border) 0 0 6px 1px;
+  border: 0;
+  box-shadow: var(--border) 0 0 8px 4px;
   padding: 0;
   width: 400px;
   height: 200px;
   position: fixed;
   top: calc(50vh - 100px);
   left: calc(50vw - 200px);
-  display: none;
+  display: block;
   user-select: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s, visibility 0.5s;
 }
 
 #nav-bg {
-  background: var(--bg);
-  opacity: 0.2;
-  display: none;
+  background: transparent;
+  display: block;
+  visibility: hidden;
+  opacity: 0;
   position: fixed;
   top: 0;
   left: 0;
@@ -125,17 +129,21 @@ nav-icon[loc="bl"] {
   right: 0;
   user-select: none;
   z-index: 2;
+  backdrop-filter: blur(2px);
+  transition: opacity 0.5s, visibility 0.5s;
 }
 
 .nav #nav-bg {
-  display: block;
+  visibility: visible;
+  opacity: 1;
 }
 
 .nav #nav {
-  display: block;
+  visibility: visible;
+  opacity: 1;
 }
 
-@media only screen and (max-width: 417px) {
+@media only screen and (max-width: 432px) {
   #nav {
     border: 0;
     border-radius: 0;
