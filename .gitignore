@@ -1,6 +1,6 @@
 /.env
 /.git
 /.prettierignore
-/resources/database.json
+/server/database.json
 /node_modules
 /package-lock.json
