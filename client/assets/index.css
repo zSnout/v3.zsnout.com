@@ -98,7 +98,7 @@ nav-icon[loc="bl"] {
 }
 
 #nav {
-  background: var(--border);
+  background: var(--input);
   z-index: 2;
   margin: 0;
   border: 0;
@@ -114,8 +114,7 @@ nav-icon[loc="bl"] {
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.5s, visibility 0.5s;
-  border: 1px solid var(--border);
-  border-top-width: 1.5px;
+  box-shadow: var(--border) 0 0 8px 4px, inset var(--border) 0 0 8px 4px;
 }
 
 #nav-bg {
