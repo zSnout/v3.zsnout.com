@@ -5,4 +5,5 @@ export default function (app) {
   app.static("assets/jquery.js");
   app.static("assets/preindex.mjs");
   app.static("assets/underscore.js");
+  app.static("assets/form.css");
 }
