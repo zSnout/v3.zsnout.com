@@ -33,3 +33,5 @@ console.debug("ejs", "Loaded EJS");
 
 decorators(app);
 prepareClient(app);
+
+global.app = app;
