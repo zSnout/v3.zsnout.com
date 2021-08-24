@@ -7,6 +7,8 @@ export default function (app) {
   class PendingUser {
     static async create(email, username) {
       let emailCode = uuid.v4();
+      let displayName = username;
+      username = username.toLowerCase();
 
       if (!app.verifyEmail(email) || !app.verifyUsername(username))
         return false;
@@ -22,6 +24,7 @@ export default function (app) {
       await db.insert("pending_users", {
         email,
         username,
+        display_name: displayName,
         email_code: emailCode,
       });
 
@@ -42,6 +45,7 @@ export default function (app) {
       await db.insert("users", {
         username: user.username,
         email: user.email,
+        display_name: user.display_name,
         password: await app.hash(password),
         session: uuid.v4(),
       });
