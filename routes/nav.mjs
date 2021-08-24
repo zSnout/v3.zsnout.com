@@ -12,8 +12,8 @@ export default function (app) {
             Home: "/",
           },
           Account: {
-            "Log In": "/account/log-in",
-            "Sign Up": "/account/sign-up",
+            "Log In": "/account/log-in/",
+            "Sign Up": "/account/sign-up/",
           },
         },
       },
