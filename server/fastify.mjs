@@ -16,6 +16,15 @@ let app = fastify();
 app.schemaCompiler = (schema) => ajv.compile(schema);
 console.debug("fastify", "Started fastify");
 
+app.verifyEmail = ajv.compile({ type: "string", format: "email" }).bind(ajv);
+
+app.verifyUsername = ajv
+  .compile({
+    type: "string",
+    pattern: "^[A-Za-z_][A-Za-z0-9_]{4,15}$",
+  })
+  .bind(ajv);
+
 app.register(fastifyStatic, {
   serve: false,
   root: process.env.ROOT,
