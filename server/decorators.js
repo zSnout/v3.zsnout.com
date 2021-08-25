@@ -47,7 +47,7 @@ export default function (app) {
       let title = "";
       let styles = ["/assets/index.css"];
       let preload = ["/assets/jquery.js", "/assets/underscore.js"];
-      let postload = ["/assets/preindex.mjs", "/assets/index.mjs"];
+      let postload = ["/assets/preindex.js", "/assets/index.js"];
       let meta = [];
       let info = {};
 
