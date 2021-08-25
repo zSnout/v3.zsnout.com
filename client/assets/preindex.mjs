@@ -4,6 +4,10 @@ Promise.wait = function (ms) {
   });
 };
 
+$.fn.forEach = function (cb) {
+  return [...this.map((k, e) => cb($(e)))];
+};
+
 $.fn.on = function (name, cb) {
   this.map((k, e) => e.addEventListener(name, cb));
 

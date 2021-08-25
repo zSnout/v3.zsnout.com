@@ -8,33 +8,36 @@ $field.on("input", () => {
     .toLowerCase()
     .match(/[A-Za-z0-9]+/g);
 
-  if (!words || !words.length) {
-    $("div, h1").css("display", "block");
-    $("a").css("display", "inline-block");
+  $("div, h1").css("display", "block");
+  $("a").css("display", "inline-block");
 
-    return;
+  if (words?.length) {
+    $("a").forEach(($e) => {
+      let mywords = $e
+        .text()
+        .toLowerCase()
+        .match(/[A-Za-z0-9]+/g);
+
+      if (!mywords?.length) $e.css("display", "none");
+      else {
+        for (let word of mywords) if (words.includes(word)) return;
+
+        $e.css("display", "none");
+      }
+    });
+
+    $("div").forEach(($e) => {
+      if (
+        $e
+          .children()
+          .forEach(($e) => $e.css("display"))
+          .every((e) => e == "none")
+      ) {
+        $e.css("display", "none");
+        $e.prev().css("display", "none");
+      }
+    });
   }
-
-  $("a").map((e) => {
-    let mywords = e
-      .text()
-      .toLowerCase()
-      .match(/[A-Za-z0-9]+/g);
-
-    for (let word of words) {
-      if (mywords.indexOf(word) == -1) return e.css("display", "none");
-    }
-
-    e.css("display", "block");
-  });
-
-  $("div").map((e) => {
-    if (e.children().map((e) => e.style.display == "none"))
-      e.style.display = "none";
-    else e.style.display = "block";
-
-    e.previousElementSibling.style.display = e.style.display;
-  });
 });
 
 function populate(data) {
