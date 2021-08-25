@@ -2,7 +2,7 @@
   "name": "@zsnout/zsnout.com",
   "version": "0.0.1",
   "description": "The NodeJS project for zsnout.com.",
-  "main": "index.mjs",
+  "main": "index.js",
   "scripts": {
     "start": "clear & node index.mjs",
     "dev": "clear & node --inspect index.mjs"
