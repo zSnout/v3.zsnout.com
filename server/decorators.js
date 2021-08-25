@@ -15,11 +15,16 @@ function escapeXML(text) {
     .replace(/'/g, "&apos;");
 }
 
-function indent(text, indent) {
-  return String(text)
+function indent(text, indent, first = "") {
+  if (first === true) first = indent;
+
+  text = String(text)
     .split("\n")
-    .map((e) => indent + e)
-    .join("\n");
+    .map((e) => indent + e);
+
+  text[0] = first + text[0].substr(indent.length);
+
+  return text.join("\n");
 }
 
 export default function (app) {
@@ -65,7 +70,7 @@ export default function (app) {
         meta: (name, content) => meta.push({ name, content }),
       });
 
-      body = body.trimStart();
+      body = body.trim();
 
       if (layout) {
         body = await app.view(`layouts/${layout}.ejs`, {
@@ -81,7 +86,7 @@ export default function (app) {
           meta: (name, content) => meta.push({ name, content }),
         });
 
-        body = body.trimStart();
+        body = body.trim();
       }
 
       let resources = [];
