@@ -1,44 +1,5 @@
-let $field = $("#field");
 let $toggle = $("#toggle-fav");
 let $favs = $("#favorites");
-
-$field.on("input", () => {
-  let words = $field
-    .val()
-    .toLowerCase()
-    .match(/[A-Za-z0-9]+/g);
-
-  $("div, h1").css("display", "block");
-  $("a").css("display", "inline-block");
-
-  if (words?.length) {
-    $("a").forEach(($e) => {
-      let mywords = $e
-        .text()
-        .toLowerCase()
-        .match(/[A-Za-z0-9]+/g);
-
-      if (!mywords?.length) $e.css("display", "none");
-      else {
-        for (let word of mywords) if (words.includes(word)) return;
-
-        $e.css("display", "none");
-      }
-    });
-
-    $("div").forEach(($e) => {
-      if (
-        $e
-          .children()
-          .forEach(($e) => $e.css("display"))
-          .every((e) => e == "none")
-      ) {
-        $e.css("display", "none");
-        $e.prev().css("display", "none");
-      }
-    });
-  }
-});
 
 function populate(data) {
   $toggle.detach();

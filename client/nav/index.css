@@ -6,38 +6,6 @@ main::-webkit-scrollbar {
   display: none;
 }
 
-#field {
-  display: block;
-  background: var(--input);
-  border: none;
-  border-bottom: 1px solid var(--border);
-  color: var(--color);
-  font-family: var(--sans-serif);
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  width: calc(100vw - 16px);
-  padding: 8px;
-  margin: 0;
-  outline: none;
-  transition: var(--transitions);
-}
-
-#field::placeholder {
-  color: var(--color);
-}
-
-.hover #field:hover,
-#field:focus {
-  background: var(--input-selected);
-  color: var(--color-selected);
-  border-color: var(--border-selected);
-}
-
-#field:focus::placeholder {
-  color: transparent;
-}
-
 h1 {
   display: block;
   margin: 0;
@@ -51,6 +19,10 @@ h1 {
   border-top: 3px solid var(--border);
   color: var(--color);
   font-weight: bold;
+}
+
+h1:first-child {
+  border-top: 0;
 }
 
 div {
