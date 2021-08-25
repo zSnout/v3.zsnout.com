@@ -4,6 +4,6 @@ export default function (app) {
   });
 
   app.setErrorHandler((err, req, res) => {
-    res.send({ message: err.message });
+    res.send({ error: true, message: err.message });
   });
 }
