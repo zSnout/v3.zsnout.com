@@ -1,6 +1,6 @@
 export default async function (app) {
   async function load(path) {
-    let route = await import(`${process.env.ROOT}/${path}.mjs`);
+    let route = await import(`${process.env.ROOT}/${path}.js`);
 
     route.default(app);
     console.debug("server", "Loaded route " + path);
@@ -15,5 +15,5 @@ export default async function (app) {
   app.listen(3000, "127.0.0.1");
   console.debug("fastify", "Server started");
 
-  (await import("./terminal.mjs")).default(app);
+  (await import("./terminal.js")).default(app);
 }

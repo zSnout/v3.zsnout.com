@@ -1,11 +1,11 @@
 import Ajv from "ajv";
 import ajvFormats from "ajv-formats";
-import decorators from "./decorators.mjs";
+import decorators from "./decorators.js";
 import ejs from "ejs";
 import fastify from "fastify";
 import fastifyStatic from "fastify-static";
 import pointOfView from "point-of-view";
-import prepareClient from "./prepare-client.mjs";
+import prepareClient from "./prepare-client.js";
 console.debug("server", "Loaded dependencies");
 
 let ajv = new Ajv();

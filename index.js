@@ -1,4 +1,4 @@
-import "./server/console.mjs";
+import "./server/console.js";
 import dotenv from "dotenv";
 
 console.clear();
@@ -9,4 +9,4 @@ console.debug("server", "Loading dependencies");
 dotenv.config();
 console.debug("dotenv", "Loaded environment variables");
 
-await import("./server/fastify.mjs");
+import("./server/fastify.js");

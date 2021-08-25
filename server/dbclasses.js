@@ -1,5 +1,5 @@
 import * as uuid from "uuid";
-import { send } from "./mail.mjs";
+import { send } from "./mail.js";
 
 export default function (app) {
   let db = app.database;

@@ -1,9 +1,9 @@
 import fs from "node:fs/promises";
 import { extname } from "node:path";
-import bcrypt from "./bcrypt.mjs";
-import database from "./database.mjs";
-import dbclasses from "./dbclasses.mjs";
-import "./mail.mjs";
+import bcrypt from "./bcrypt.js";
+import database from "./database.js";
+import dbclasses from "./dbclasses.js";
+import "./mail.js";
 import { Server } from "socket.io";
 
 function escapeXML(text) {
