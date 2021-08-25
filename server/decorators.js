@@ -90,10 +90,13 @@ export default function (app) {
       }
 
       let resources = [];
+
       for (let href of styles)
         resources.push(`<link rel="stylesheet" href="${escapeXML(href)}">`);
+
       for (let src of preload)
         resources.push(`<script src="${escapeXML(src)}"></script>`);
+
       for (let src of postload)
         resources.push(
           `<script src="${escapeXML(src)}" type="module"></script>`
