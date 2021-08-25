@@ -1,6 +1,6 @@
 export default function (app) {
   app.static("nav/index.css");
-  app.static("nav/index.mjs");
+  app.static("nav/index.js");
 
   app.redirect("/nav");
   app.get("/nav/", (req, res) => {
