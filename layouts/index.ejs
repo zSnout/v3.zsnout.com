@@ -3,17 +3,18 @@
   <head>
     <title><%- title %></title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><% meta.map(({name, content}) => echo(`\n    <meta name="${escapeXML(name)}" content="${escapeXML(content)}">`)) _%>
-<%- resources.length ? ("\n\n" + indent(resources.join("\n"), "    ")) : "" %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% meta.map(({name, content}) => echo(`\n    <meta name="${escapeXML(name)}" content="${escapeXML(content)}">`)) _%>
+    <%- resources.length ? ("\n\n" + indent(resources.join("\n"), "    ")) : "" %>
   </head>
   <body>
     <% if (!frame) { %><nav-icon nctx id="nav-icon"></nav-icon>
-    
+
     <bg nctx id="nav-bg"></bg>
     <iframe nctx id="nav" src="/nav/"></iframe><% } %>
 
     <main>
-<%- indent(body, "      ") %>
+      <%- indent(body, "      ") %>
     </main>
   </body>
 </html>
