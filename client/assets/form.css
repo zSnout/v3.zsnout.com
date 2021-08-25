@@ -1,13 +1,10 @@
 main {
-  position: relative;
+  display: flex;
 }
 
 form {
   width: min(500px, calc(100vw - 16px));
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: auto;
 }
 
 form > :first-child {
@@ -91,12 +88,22 @@ button {
 
 message {
   font-weight: bold;
-  font-family: var(--serif);
   text-align: center;
   font-size: 20px;
 }
 
-message a {
+desc {
+  display: block;
+  text-align: left;
+  font-size: 16px;
+}
+
+input + desc {
+  margin-top: 20px;
+}
+
+message a,
+desc a {
   text-decoration: none;
   color: var(--link);
 }
