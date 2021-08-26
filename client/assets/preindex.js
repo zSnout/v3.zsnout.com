@@ -105,7 +105,7 @@ $.fetch = async (url, options = undefined) => {
   return await body.text();
 };
 
-$.rest = async (method, url, body = null) => {
+$.server = async (method, url, body = null) => {
   let info = {
     method,
     headers: {
@@ -130,22 +130,18 @@ $.rest = async (method, url, body = null) => {
   try {
     json = JSON.parse(json);
   } catch (err) {
-    throw { message: err.message, json };
+    throw err;
   }
 
-  if (fetched.status != 200) throw json;
+  if (fetched.status != 200)
+    throw new Error({ status: fetched.status, text: json });
   else return json;
 };
 
-$.get = (url) => $.rest("GET", url);
-$.post = (url, body = null) => $.rest("POST", url, body);
+let html = document.documentElement;
+let mql = window.matchMedia("(hover: hover) and (pointer: fine)");
 
-{
-  let html = document.documentElement;
-  let mql = window.matchMedia("(hover: hover) and (pointer: fine)");
-
+html.classList.toggle("hover", mql.matches);
+mql.onchange = () => {
   html.classList.toggle("hover", mql.matches);
-  mql.onchange = () => {
-    html.classList.toggle("hover", mql.matches);
-  };
-}
+};
