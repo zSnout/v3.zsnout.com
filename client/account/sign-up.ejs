@@ -4,15 +4,17 @@
 
 <hr />
 
-<desc><b>Username:</b> Your username must only contain letters, numbers, and underscores, and must not begin with a
-  number.</desc>
+<label for="username"><b>Username:</b> Your username must only contain letters, numbers, and underscores, and must not
+  begin with a
+  number.</label>
 <input ctx id="username" type="text" placeholder="Username" autocomplete="username" validate required
   pattern="^[A-Za-z_][A-Za-z0-9_]{4,15}$" minlength="5" maxlength="16" />
 
-<desc><b>Email Address:</b> This must be your real email address!</desc>
+<label for="email"><b>Email Address:</b> This must be your real email address!</label>
 <input ctx id="email" type="email" placeholder="Email Address" autocomplete="email" validate required />
 
-<desc><b>Password:</b> Your password must contain at least 8 characters, one letter, and one number.</desc>
+<label for="password"><b>Password:</b> Your password must contain at least 8 characters, one letter, and one
+  number.</label>
 <input ctx id="password" type="password" placeholder="Password" autocomplete="new-password" validate required
   pattern="^.*([A-Za-z].*[0-9]|[0-9].*[A-Za-z]).*$" minlength="8" maxlength="512" />
 
