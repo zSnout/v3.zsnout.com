@@ -2,35 +2,35 @@ main {
   display: flex;
 }
 
-form {
+.main-form {
   width: min(500px, calc(100vw - 16px));
   margin: auto;
 }
 
-form > :first-child {
+.main-form > :first-child {
   margin-top: 0 !important;
 }
-form > :last-child {
+.main-form > :last-child {
   margin-bottom: 0 !important;
 }
 
-hr {
+.main-form hr {
   display: block;
   margin: 8px 0;
   border: 0;
   border-top: 2px solid var(--border);
   padding: 0;
 }
-hr[thin] {
+.main-form hr[thin] {
   border-top-width: 1px;
 }
-hr[dashed] {
+.main-form hr[dashed] {
   border-top-style: dashed;
 }
 
-input,
-button,
-message {
+.main-form input,
+.main-form button,
+.main-form message {
   display: block;
   margin: 8px 0;
   padding: 8px;
@@ -47,15 +47,15 @@ message {
   --focused: var(--input-selected);
 }
 
-.hover input:hover,
-input:not([type="submit"]):focus {
+.hover .main-form input:hover,
+.main-form input:not([type="submit"]):focus {
   border-color: var(--border-selected);
   background: var(--input-selected);
   color: var(--color-selected);
 }
 
-input[unbox]:not([type="submit"]),
-message[unbox] {
+.main-form input[unbox]:not([type="submit"]),
+.main-form message[unbox] {
   padding: 0;
   border: 0;
   border-radius: 0;
@@ -64,53 +64,53 @@ message[unbox] {
   --focused: var(--bg);
 }
 
-input::placeholder {
+.main-form input::placeholder {
   transition: color 0.3s;
 }
 
-input:focus::placeholder {
+.main-form input:focus::placeholder {
   color: var(--focused);
 }
 
-.hover input[unbox]:hover,
-input[unbox]:focus {
+.hover .main-form input[unbox]:hover,
+.main-form input[unbox]:focus {
   background: var(--bg);
   color: var(--color);
 }
 
-input[type="submit"],
-button {
+.main-form input[type="submit"],
+.main-form button {
   width: 100%;
   font-weight: bold;
   user-select: none;
   cursor: pointer;
 }
 
-message {
+.main-form message {
   font-weight: bold;
   text-align: center;
   font-size: 20px;
 }
 
-desc {
+.main-form desc {
   display: block;
   text-align: left;
   font-size: 16px;
 }
 
-input + desc {
+.main-form input + desc {
   margin-top: 20px;
 }
 
-message a,
-desc a {
+.main-form message a,
+.main-form desc a {
   text-decoration: none;
   color: var(--link);
 }
 
-input[status="incorrect"],
-.hover input[status="incorrect"]:hover,
-input[validate]:invalid {
+.html input[status="incorrect"],
+.hover.html input[status="incorrect"]:hover,
+.html input[validate]:invalid {
   border-color: var(--border);
   background: var(--incorrect);
   color: var(--color);
@@ -118,8 +118,8 @@ input[validate]:invalid {
   --focused: var(--incorrect);
 }
 
-input[status="partial"],
-.hover input[status="partial"]:hover {
+.html input[status="partial"],
+.hover.html input[status="partial"]:hover {
   border-color: var(--border);
   background: var(--partial);
   color: var(--color);
@@ -127,9 +127,9 @@ input[status="partial"],
   --focused: var(--partial);
 }
 
-input[status="correct"],
-.hover input[status="correct"]:hover,
-input[validate]:valid {
+.html input[status="correct"],
+.hover.html input[status="correct"]:hover,
+.html input[validate]:valid {
   border-color: var(--border);
   background: var(--correct);
   color: var(--color);
