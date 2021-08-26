@@ -29,6 +29,10 @@ div {
   display: block;
 }
 
+div:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
 a {
   display: inline-block;
   width: calc(50% - 16.5px);
@@ -53,17 +57,14 @@ a:nth-last-child(2):nth-child(2n + 1) {
   border-bottom: 0;
 }
 
+a:last-child:nth-child(2n + 1) {
+  width: calc(100vw - 16px);
+}
+
 .hover a:hover {
   border-color: var(--border-selected);
   background: var(--input-selected);
   color: var(--color-selected);
-}
-
-hr {
-  margin: 0;
-  border: 0;
-  padding: 0;
-  border-top: 1px solid var(--border);
 }
 
 @media (max-width: 250px) {
