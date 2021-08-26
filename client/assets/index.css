@@ -5,7 +5,7 @@
   --header-color: #59918d;
   --subheader-color: #59918d;
   --color: #ffffff;
-  --link: #94ccc8;
+  --link: #7fffd4;
   --input-selected: #41908b;
   --border-selected: #67d0c9;
   --color-selected: #ffffff;
@@ -17,7 +17,7 @@
   --sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   --serif: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  --transitions: background 0.3s, color 0.3s, border-color 0.3s;
+  --transitions: background 0.5s, color 0.5s, border-color 0.5s;
 }
 
 html {
@@ -52,8 +52,32 @@ html.frame main {
   left: 0;
 }
 
-nav-icon {
+#nav {
+  background: var(--input);
   z-index: 3;
+  margin: 0;
+  border: 0;
+  border-radius: 8px;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: calc(-100vw - 8px);
+  display: block;
+  user-select: none;
+  transition: left 0.5s, visibility 0.5s;
+  visibility: hidden;
+  box-shadow: var(--border) 0 0 6px 1px;
+}
+
+.nav #nav {
+  left: 0;
+  visibility: visible;
+}
+
+nav-icon {
+  z-index: 4;
   display: block;
   position: fixed;
   cursor: pointer;
@@ -67,51 +91,116 @@ nav-icon {
   transition: text-shadow 0.5s, bottom 0.5s, left 0.5s;
 }
 
-.hover nav-icon:hover,
-nav-icon:active {
+.hover nav-icon:hover {
   text-shadow: var(--border) 0 0 16px;
 }
 
-.nav nav-icon {
-  left: 16px;
-  bottom: 16px;
+@media only screen and (min-width: 318px) {
+  #nav {
+    width: 301px;
+    height: calc(100vh - 16px);
+    left: -309px;
+    top: 8px;
+  }
+
+  .nav #nav {
+    left: 8px;
+  }
+
+  .nav nav-icon {
+    left: 16px;
+    bottom: 16px;
+  }
 }
 
-#nav {
-  background: var(--input);
+#modal-bg {
   z-index: 2;
-  margin: 0;
-  border: 0;
-  border-radius: 8px;
-  padding: 0;
-  width: 301px;
-  height: calc(100vh - 16px);
   position: fixed;
-  top: 8px;
-  left: 8px;
-  display: block;
-  user-select: none;
-  visibility: hidden;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background: #00000080;
   opacity: 0;
-  transition: opacity 0.5s, visibility 0.5s;
+  visibility: hidden;
+  transition: visibility 0.5s, opacity 0.5s;
+}
+
+.modal #modal-bg {
+  opacity: 1;
+  visibility: visible;
+}
+
+#modal {
+  position: relative;
+  bottom: 100vh;
+  display: block;
+  margin: auto;
+  width: min(500px, calc(100vw - 32px));
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--border) 0 0 6px 1px;
+  background: var(--input);
+  font-size: 20px;
+  transition: bottom 0.5s;
+}
+
+.modal #modal {
+  bottom: 0;
+}
+
+#modal-info {
+  display: block;
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+#modal-input {
+  display: block;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 0;
+  background: var(--input-selected);
+  color: var(--color);
+  font-size: 16px;
+  width: calc(min(500px, calc(100vw - 32px)) - 8px);
+  outline: 0;
+  transition: box-shadow 0.3s;
+}
+#modal-input:focus {
   box-shadow: var(--border) 0 0 6px 1px;
 }
 
-.nav #nav {
-  visibility: visible;
-  opacity: 1;
+#modal-buttons {
+  margin-top: 12px;
+  white-space: pre;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
-@media only screen and (max-width: 317px) {
-  #nav {
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-  }
+#modal-buttons button {
+  margin: 0;
+  margin-right: 12px;
+  border: 0;
+  padding: 0;
+  font-size: 20px;
+  color: var(--link);
+  background: var(--input);
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: background 0.3s;
+  outline: 0;
+  padding: 2px;
+}
+#modal-buttons button:last-child {
+  margin-right: 0;
+}
+#modal-buttons button:focus {
+  background: var(--input-selected);
 }
 
 [noselect] {
