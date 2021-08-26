@@ -37,7 +37,7 @@ export default function (app) {
   console.debug("socket.io", "Started socket.io");
   app.decorate("io", io);
 
-  app.decorate("redirect", (from, to = "/" + from) => {
+  app.decorate("redirect", (from, to = from + "/") => {
     app.get(from, (req, res) => res.redirect(302, to));
   });
 
