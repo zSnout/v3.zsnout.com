@@ -1,16 +1,16 @@
 <% title("Navigation"), css("/nav/index.css"), js("/nav/index.js") %>
 
-<!-- <h1>Favorites</h1>
-<div id="favorites"><a id="toggle-fav">Toggle this page</a></div> -->
+<nav>
+  <h1>Favorites</h1>
+  <div id="favorites"><a id="toggle-fav">Toggle this page</a></div><%
+    for (let key in groups) {
+      echo(`\n\n  <h1>${escapeXML(key)}</h1>\n  <div>`);
 
-<%
-  for (let key in groups) {
-    echo(`<h1>${escapeXML(key)}</h1>\n<div>`);
+      for (let item in groups[key]) {
+        echo (`<a target="_parent" href="${escapeXML(groups[key][item])}">${escapeXML(item)}</a>`);
+      }
 
-    for (let item in groups[key]) {
-      echo (`<a target="_parent" href="${escapeXML(groups[key][item])}">${escapeXML(item)}</a>`);
+      echo("</div>");
     }
-
-    echo("</div>");
-  }
-%>
+  %>
+</nav>
