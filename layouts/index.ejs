@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="<% if (frame) echo("frame"); %>">
+<html class="html<%= frame ? " frame" : "" %>">
   <head>
     <title><%- title %></title>
     <meta charset="utf-8">
@@ -8,7 +8,7 @@
     <%- "\n" + indent(resources.join("\n"), "    ", true) %>
   </head>
   <body nctx noselect>
-    <% if (!frame) { %><nav-icon id="nav-icon"></nav-icon>
+    <% if (!frame) { %><nav-icon id="nav-icon" role="button" aria-hidden="true">🧭</nav-icon>
 
     <iframe id="nav" src="/nav/"></iframe><% } %>
 
