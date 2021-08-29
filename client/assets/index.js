@@ -4,9 +4,11 @@ $html.on("contextmenu", (event) => {
   let prevent = false;
 
   event.path.reverse().map((element) => {
-    if (element.hasAttribute && element.hasAttribute("nctx")) prevent = true;
-    else if (element.hasAttribute && element.hasAttribute("ctx"))
-      prevent = false;
+    if (element?.hasAttribute?.("nctx")) prevent = true;
+    else if (element?.hasAttribute?.("ctx")) prevent = false;
+    else if (element.type == "submit" || element.type == "button");
+    else if (element.tagName == "INPUT") prevent = false;
+    else if (element.tagName == "TEXTAREA") prevent = false;
   });
 
   if (prevent) event.preventDefault();
@@ -55,7 +57,7 @@ $.alert = function (message) {
   });
 };
 
-$.confirm = function (message, ok = "OK", cancel = "Cancel") {
+$.confirm = function (message, { ok = "OK", cancel = "Cancel" }) {
   return new Promise(async (resolve) => {
     if ($html.hasClass("modal")) {
       $html.removeClass("modal");
@@ -89,7 +91,7 @@ $.confirm = function (message, ok = "OK", cancel = "Cancel") {
   });
 };
 
-$.prompt = function (message, initial = "", blank = false, ok = "Submit") {
+$.prompt = function (message, { initial = "", blank = false, ok = "Submit" }) {
   return new Promise(async (resolve) => {
     if ($html.hasClass("modal")) {
       $html.removeClass("modal");
