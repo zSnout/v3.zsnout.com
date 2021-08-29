@@ -1,6 +1,9 @@
 import bcrypt from "bcryptjs";
 
-export default function (app) {
-  app.decorate("hash", (text) => bcrypt.hash(text, 10));
-  app.decorate("check", (text, hash) => bcrypt.compare(text, hash));
+export function hash(text) {
+  return bcrypt.hash(text, 10);
+}
+
+export function check(text) {
+  return bcrypt.compare(text, hash);
 }
