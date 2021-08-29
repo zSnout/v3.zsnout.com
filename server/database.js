@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import * as uuid from "uuid";
-import { send } from "./mail.js";
 
 let db = { select, insert, update, remove, has };
 console.debug("database", "Started database");
@@ -66,28 +65,26 @@ async function select(tablename, id, row = "id", out = "_") {
     }
 
     if (typeof id == "string") {
-      let val = JSON.parse(JSON.stringify(data[id] ?? null), protoless);
+      let val = data[id] ?? null;
 
       if (out == "_") return val;
-      else return val[out];
+      else return val?.[out];
     } else {
       let rows = {};
 
       if (out == "_") for (let uid of id) rows[uid] = data[id] ?? null;
       else for (let uid of id) rows[uid] = data[id]?.[out] ?? null;
 
-      return JSON.parse(JSON.stringify(rows), protoless);
+      return rows;
     }
   } catch {}
 }
 
 async function insert(tablename, data) {
   try {
-    data = JSON.parse(JSON.stringify(data), protoless);
-
     let table = await get(TABLE_PREFIX + tablename);
-    data.id = uuid.v4();
-    data.creation = Date.now();
+
+    data = { ...data, id: uuid.v4(), creation: Date.now() };
 
     for (let map in table) {
       if (map.startsWith("_")) {
@@ -107,10 +104,7 @@ async function insert(tablename, data) {
 
 async function update(tablename, id, data) {
   try {
-    data = JSON.parse(JSON.stringify(data), protoless);
-
     let table = await get(TABLE_PREFIX + tablename);
-    delete data.id;
 
     for (let map in table) {
       if (map.startsWith("_")) {
@@ -155,7 +149,7 @@ async function has(tablename, row, item) {
 }
 
 class PendingUser {
-  static async create(email, username) {
+  static async create(email, username, password) {
     let emailCode = uuid.v4();
     let displayName = username;
     username = username.toLowerCase();
@@ -175,12 +169,6 @@ class PendingUser {
       username,
       display_name: displayName,
       email_code: emailCode,
-    });
-
-    await send({
-      to: email,
-      subject: "Verify your account on zSnout!",
-      text: `Welcome to zSnout! Click this link to verify your account: ${process.env.HOST}/account/verify/${emailCode}`,
     });
 
     return true;
