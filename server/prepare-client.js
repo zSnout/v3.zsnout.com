@@ -1,9 +1,6 @@
-export default async function (app) {
+setImmediate(async () => {
   async function load(path) {
-    let route = await import(`${process.env.ROOT}/${path}.js`);
-
-    route.default(app);
-    console.debug("server", "Loaded route " + path);
+    await import(`${process.env.ROOT}/${path}.js`);
   }
 
   await load("routes/index");
@@ -16,4 +13,4 @@ export default async function (app) {
   console.debug("fastify", "Server started");
 
   (await import("./terminal.js")).default(app);
-}
+});
