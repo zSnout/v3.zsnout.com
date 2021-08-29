@@ -118,7 +118,16 @@ $.server = async (method, url, body = null) => {
     info.body = JSON.stringify(body);
   }
 
-  let fetched = await fetch(url, info);
+  let fetched;
+  try {
+    fetched = await fetch(url, info);
+  } catch (err) {
+    let error = new Error(`Failed to ${method} ${url}`);
+    error.type = "fetch";
+    error.cause = err;
+
+    throw error;
+  }
 
   if (fetched.headers.has("x-zsnout-session")) {
     let token = fetched.headers.get("x-zsnout-session");
@@ -130,12 +139,22 @@ $.server = async (method, url, body = null) => {
   try {
     json = JSON.parse(json);
   } catch (err) {
-    throw err;
+    let error = new Error("Failed to parse JSON");
+    error.type = "json";
+    error.cause = err;
+
+    throw error;
   }
 
-  if (fetched.status != 200)
-    throw new Error({ status: fetched.status, text: json });
-  else return json;
+  if (fetched.status != 200) {
+    let error = new Error(json?.message || "unknown error");
+    error.type = "fetch";
+    error.original = json;
+
+    throw error;
+  }
+
+  return json;
 };
 
 let html = document.documentElement;
