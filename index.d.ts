@@ -8,11 +8,13 @@ declare module "fastify" {
     static(path: string, to?: string): void;
     verifyEmail(email: string): boolean;
     verifyUsername(username: string): boolean;
+    view(file: string, data?: object): Promise<string>;
   }
 
   interface FastifyReply {
-    sendView(
-      viewname: string,
+    rawView(file: string, data?: object): Promise<void>;
+    view(
+      file: string,
       data?: object,
       options?: { frame: boolean }
     ): Promise<void>;

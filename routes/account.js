@@ -3,7 +3,7 @@ import app from "../server/fastify.js";
 app.static("account/sign-up.js", "account/sign-up/index.js");
 
 app.redirect("/account/sign-up");
-app.get("/account/sign-up/", (req, res) => res.sendView("account/sign-up"));
+app.get("/account/sign-up/", (req, res) => res.view("account/sign-up"));
 app.post(
   "/account/sign-up/",
   {

@@ -32,13 +32,18 @@ app.register(fastifyStatic, {
 });
 console.debug("fastify", "Added Reply.sendFile");
 
-app.register(pointOfView, {
-  engine: { ejs },
-  options: {
+app.decorate("view", (file, data = {}, options = { frame: false }) => {
+  return await ejs.renderFile(file, data, {
     outputFunctionName: "echo",
-    root: process.env.ROOT,
-  },
+  });
 });
+
+app.decorateReply("rawView", async function (file, data = {}) {
+  let data = await app.view(file, data);
+
+  this.send(data);
+});
+
 console.debug("ejs", "Loaded EJS");
 
 function escapeXML(text) {
@@ -125,7 +130,7 @@ app.decorateReply(
     for (let src of postload)
       resources.push(`<script src="${escapeXML(src)}" type="module"></script>`);
 
-    await this.view(`layouts/index.ejs`, {
+    await this.rawView(`layouts/index.ejs`, {
       body,
       title,
       resources,

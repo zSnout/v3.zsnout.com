@@ -5,7 +5,7 @@ app.static("nav/index.js");
 
 app.redirect("/nav");
 app.get("/nav/", (req, res) => {
-  res.sendView(
+  res.view(
     "nav/index",
     {
       groups: {
