@@ -32,16 +32,16 @@ app.register(fastifyStatic, {
 });
 console.debug("fastify", "Added Reply.sendFile");
 
-app.decorate("view", (file, data = {}, options = { frame: false }) => {
+app.decorate("view", async (file, data = {}, options = { frame: false }) => {
   return await ejs.renderFile(file, data, {
     outputFunctionName: "echo",
   });
 });
 
 app.decorateReply("rawView", async function (file, data = {}) {
-  let data = await app.view(file, data);
+  let content = await app.view(file, data);
 
-  this.send(data);
+  this.send(content);
 });
 
 console.debug("ejs", "Loaded EJS");
