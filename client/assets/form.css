@@ -18,7 +18,7 @@ main {
   display: block;
   margin: 8px 0;
   border: 0;
-  border-top: 2px solid var(--border);
+  border-top: 2px solid var(--accent-border);
   padding: 0;
 }
 .main-form hr[thin] {
@@ -34,34 +34,33 @@ main {
   display: block;
   margin: 8px 0;
   padding: 8px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--accent-border);
   border-radius: 8px;
-  background: var(--input);
+  background: var(--accent-background);
   width: calc(100% - 18px);
   font-size: 16px;
-  font-family: var(--sans-serif);
+  font-family: var(--font-sans-serif);
   font-weight: normal;
   outline: 0;
-  color: var(--color);
+  color: var(--accent-color);
   transition: var(--transitions), box-shadow 0.3s;
-  --focused: var(--input-selected);
+
+  --focused: var(--focused-background);
 }
 
 .hover .main-form input:hover,
 .main-form input:not([type="submit"]):focus {
-  border-color: var(--border-selected);
-  background: var(--input-selected);
-  color: var(--color-selected);
+  border-color: var(--focused-border);
+  background: var(--focused-background);
+  color: var(--focused-color);
 }
 
-.main-form input[unbox]:not([type="submit"]),
 .main-form message[unbox] {
   padding: 0;
   border: 0;
   border-radius: 0;
   width: 100%;
   background: var(--bg);
-  --focused: var(--bg);
 }
 
 .main-form input::placeholder {
@@ -69,13 +68,7 @@ main {
 }
 
 .main-form input:focus::placeholder {
-  color: var(--focused);
-}
-
-.hover .main-form input[unbox]:hover,
-.main-form input[unbox]:focus {
-  background: var(--bg);
-  color: var(--color);
+  color: transparent;
 }
 
 .main-form input[type="submit"],
@@ -105,7 +98,7 @@ main {
 .main-form message a,
 .main-form label a {
   text-decoration: none;
-  color: var(--link);
+  color: var(--standard-accent);
   outline: 0;
   border-radius: 4px;
   padding: 2px;
@@ -115,34 +108,27 @@ main {
 .main-form input:focus,
 .main-form button:focus,
 .main-form a:focus {
-  box-shadow: var(--border) 0 0 6px 1px;
+  --shadow: var(--accent-border);
+
+  box-shadow: var(--shadow) 0 0 6px 1px;
 }
 
-.html input[status="incorrect"],
-.hover.html input[status="incorrect"]:hover,
+.html input[status="invalid"],
+.hover.html input[status="invalid"]:hover,
 .html input[validate]:invalid {
-  border-color: var(--border);
-  background: var(--incorrect);
-  color: var(--color);
+  background: var(--invalid-background);
+  border-color: var(--invalid-border);
+  color: var(--invalid-color);
 
-  --focused: var(--incorrect);
+  --shadow: var(--invalid-border);
 }
 
-.html input[status="partial"],
-.hover.html input[status="partial"]:hover {
-  border-color: var(--border);
-  background: var(--partial);
-  color: var(--color);
-
-  --focused: var(--partial);
-}
-
-.html input[status="correct"],
-.hover.html input[status="correct"]:hover,
+.html input[status="valid"],
+.hover.html input[status="valid"]:hover,
 .html input[validate]:valid {
-  border-color: var(--border);
-  background: var(--correct);
-  color: var(--color);
+  background: var(--valid-background);
+  border-color: var(--valid-border);
+  color: var(--valid-color);
 
-  --focused: var(--correct);
+  --shadow: var(--valid-border);
 }

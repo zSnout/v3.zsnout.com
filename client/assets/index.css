@@ -1,31 +1,38 @@
 :root {
-  --bg: #063937;
-  --input: #095b58;
-  --border: #67d0c9;
-  --header-color: #59918d;
-  --subheader-color: #59918d;
-  --color: #ffffff;
-  --link: #7fffd4;
-  --input-selected: #41908b;
-  --border-selected: #67d0c9;
-  --color-selected: #ffffff;
-  --link-selected: #ffffff;
-  --correct: #004b00;
-  --partial: #4b4b00;
-  --incorrect: #4b0000;
+  --standard-background: #063937;
+  --standard-color: #ffffff;
+  --standard-accent: #7fffd4;
 
-  --sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  --serif: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  --accent-background: #095b58;
+  --accent-color: #ffffff;
+  --accent-border: #67d0c9;
+
+  --focused-background: #41908b;
+  --focused-color: #ffffff;
+  --focused-border: #67d0c9;
+
+  --invalid-background: #4b0000;
+  --invalid-color: #ffffff;
+  --invalid-border: #d64e4e;
+
+  --valid-background: #004b00;
+  --valid-color: #ffffff;
+  --valid-border: #67d069;
+
+  --font-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  --font-serif: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  --font-monospace: "Courier New", Courier, monospace;
+
   --transitions: background 0.5s, color 0.5s, border-color 0.5s;
 }
 
 html {
   width: 100vw;
   height: 100vh;
-  background: var(--bg);
-  color: var(--color);
-  font-family: var(--sans-serif);
+  background: var(--standard-background);
+  color: var(--standard-color);
+  font-family: var(--font-sans-serif);
 }
 
 body {
@@ -53,7 +60,7 @@ html.frame main {
 }
 
 #nav {
-  background: var(--input);
+  background: var(--accent-background);
   z-index: 3;
   margin: 0;
   border: 0;
@@ -68,7 +75,7 @@ html.frame main {
   user-select: none;
   transition: left 0.5s, visibility 0.5s;
   visibility: hidden;
-  box-shadow: var(--border) 0 0 6px 1px;
+  box-shadow: var(--accent-border) 0 0 6px 1px;
 }
 
 .nav #nav {
@@ -86,13 +93,13 @@ nav-icon {
   border-radius: 50%;
   overflow: visible;
   font-size: 48px;
-  text-shadow: var(--border) 0 0 6px;
+  text-shadow: var(--accent-border) 0 0 6px;
   outline: none;
   transition: text-shadow 0.5s, bottom 0.5s, left 0.5s;
 }
 
 .hover nav-icon:hover {
-  text-shadow: var(--border) 0 0 16px;
+  text-shadow: var(--accent-border) 0 0 16px;
 }
 
 @media only screen and (min-width: 318px) {
@@ -139,10 +146,10 @@ nav-icon {
   margin: auto;
   width: min(500px, calc(100vw - 32px));
   padding: 8px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--accent-border);
   border-radius: 8px;
-  box-shadow: var(--border) 0 0 6px 1px;
-  background: var(--input);
+  box-shadow: var(--accent-border) 0 0 6px 1px;
+  background: var(--accent-background);
   font-size: 20px;
   transition: bottom 0.5s;
 }
@@ -160,18 +167,18 @@ nav-icon {
 #modal-input {
   display: block;
   padding: 3px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--accent-border);
   border-radius: 8px;
   margin: 0;
-  background: var(--input-selected);
-  color: var(--color);
+  background: var(--focused-background);
+  color: var(--focused-color);
   font-size: 16px;
   width: calc(min(500px, calc(100vw - 32px)) - 8px);
   outline: 0;
   transition: box-shadow 0.3s;
 }
 #modal-input:focus {
-  box-shadow: var(--border) 0 0 6px 1px;
+  box-shadow: var(--accent-border) 0 0 6px 1px;
 }
 
 #modal-buttons {
@@ -187,8 +194,8 @@ nav-icon {
   border: 0;
   padding: 0;
   font-size: 20px;
-  color: var(--link);
-  background: var(--input);
+  color: var(--accent-color);
+  background: var(--accent-background);
   cursor: pointer;
   font-weight: bold;
   border-radius: 4px;
@@ -200,7 +207,7 @@ nav-icon {
   margin-right: 0;
 }
 #modal-buttons button:focus {
-  background: var(--input-selected);
+  background: var(--focused-background);
 }
 
 [noselect] {
