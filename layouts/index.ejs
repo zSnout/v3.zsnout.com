@@ -8,7 +8,7 @@
     <%- "\n" + indent(resources.join("\n"), "    ", true) %>
   </head>
   <body nctx noselect>
-    <% if (!frame) { %><nav-icon id="nav-icon" role="button" aria-hidden="true">🧭</nav-icon>
+    <% if (!frame) { %><button id="nav-icon" role="button" aria-hidden="true" tabindex="1">🧭</button>
 
     <iframe id="nav" src="/nav/"></iframe><% } %>
 
