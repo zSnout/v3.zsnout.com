@@ -83,7 +83,7 @@ html.frame main {
   visibility: visible;
 }
 
-nav-icon {
+#nav-icon {
   z-index: 4;
   display: block;
   position: fixed;
@@ -95,10 +95,15 @@ nav-icon {
   font-size: 48px;
   text-shadow: var(--accent-border) 0 0 6px;
   outline: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
   transition: text-shadow 0.5s, bottom 0.5s, left 0.5s;
 }
 
-.hover nav-icon:hover {
+.hover #nav-icon:hover,
+.hover #nav-icon:focus {
   text-shadow: var(--accent-border) 0 0 16px;
 }
 
@@ -114,7 +119,7 @@ nav-icon {
     left: 8px;
   }
 
-  .nav nav-icon {
+  .nav #nav-icon {
     left: 16px;
     bottom: 16px;
   }
