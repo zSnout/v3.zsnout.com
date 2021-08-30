@@ -14,10 +14,10 @@ nav h1 {
   padding: 8px;
   font-size: 16px;
   text-align: center;
-  background: var(--input);
-  border-bottom: 1px solid var(--border);
-  border-top: 3px solid var(--border);
-  color: var(--color);
+  background: var(--accent-background);
+  border-bottom: 1px solid var(--accent-border);
+  border-top: 3px solid var(--accent-border);
+  color: var(--accent-color);
   font-weight: bold;
 }
 
@@ -30,7 +30,7 @@ nav div {
 }
 
 nav div:last-child {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--accent-border);
 }
 
 nav a {
@@ -40,12 +40,13 @@ nav a {
   margin: 0;
   font-size: 16px;
   text-align: center;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--accent-border);
+  border-bottom: 1px solid var(--accent-border);
   text-decoration: none;
-  color: var(--color);
+  color: var(--standard-color);
   transition: var(--transitions);
   cursor: pointer;
+  outline: 0;
 }
 
 nav a:nth-child(2n) {
@@ -61,10 +62,11 @@ nav a:last-child:nth-child(2n + 1) {
   width: calc(100vw - 16px);
 }
 
-.hover nav a:hover {
-  border-color: var(--border-selected);
-  background: var(--input-selected);
-  color: var(--color-selected);
+.hover nav a:hover,
+nav a:focus {
+  background: var(--focused-background);
+  border-color: var(--focused-border);
+  color: var(--focused-color);
 }
 
 @media (max-width: 250px) {
@@ -75,6 +77,6 @@ nav a:last-child:nth-child(2n + 1) {
 
   /* need to overqualify selector */
   nav a:nth-last-child(2):nth-last-child(2) {
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--accent-border);
   }
 }
