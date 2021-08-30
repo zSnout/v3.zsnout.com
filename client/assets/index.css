@@ -93,18 +93,20 @@ html.frame main {
   border-radius: 50%;
   overflow: visible;
   font-size: 48px;
-  text-shadow: var(--accent-border) 0 0 6px;
+  box-shadow: var(--accent-border) 0 0 6px;
+  background: var(--accent-background);
   outline: none;
-  background: transparent;
   border: 0;
   padding: 0;
   margin: 0;
-  transition: text-shadow 0.5s, bottom 0.5s, left 0.5s;
+  transition: box-shadow 0.5s, bottom 0.5s, left 0.5s;
+  width: 48px;
+  height: 48px;
 }
 
 .hover #nav-icon:hover,
 .hover #nav-icon:focus {
-  text-shadow: var(--accent-border) 0 0 16px;
+  box-shadow: var(--accent-border) 0 0 16px;
 }
 
 @media only screen and (min-width: 318px) {
