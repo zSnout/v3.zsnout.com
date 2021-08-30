@@ -2,7 +2,7 @@
 
 <nav>
   <h1>Favorites</h1>
-  <div id="favorites"><a id="toggle-fav">Toggle this page</a></div><%
+  <div id="favorites"><a id="toggle-fav" tabindex="1">Toggle this page</a></div><%
     for (let key in groups) {
       echo(`\n\n  <h1>${escapeXML(key)}</h1>\n  <div>`);
 
