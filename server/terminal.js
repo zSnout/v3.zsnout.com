@@ -1,6 +1,10 @@
 import app from "./fastify.js";
+import Database from "./database.js";
 import evaluate from "./eval.js";
 import { createInterface } from "node:readline";
+
+global.app = app;
+global.Database = Database;
 
 function toString(_, item) {
   if (typeof item == "function") {
@@ -80,8 +84,6 @@ async function runCommand(command) {
 
   rl.query("> ").then(runCommand);
 }
-
-global.app = app;
 
 rl.writeln();
 rl.query("> ").then(runCommand);
