@@ -9,10 +9,10 @@ declare module "fastify" {
     verifyEmail(email: string): boolean;
     verifyUsername(username: string): boolean;
     view(file: string, data?: object): Promise<string>;
+    format(file: string, data?: object): Promise<string>;
   }
 
   interface FastifyReply {
-    rawView(file: string, data?: object): Promise<void>;
     view(
       file: string,
       data?: object,
