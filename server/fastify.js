@@ -54,6 +54,7 @@ setImmediate(async () => {
     await import(`${process.env.ROOT}/${path}.js`);
   }
 
+  await load("server/socket");
   await load("routes/index");
   await load("routes/404");
   await load("routes/assets");
