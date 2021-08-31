@@ -60,11 +60,10 @@ setImmediate(async () => {
   await load("routes/assets");
   await load("routes/nav");
   await load("routes/account");
+  await load("server/terminal");
 
   app.listen(3000, "127.0.0.1");
   console.debug("fastify", "Server started");
-
-  (await import("./terminal.js")).default(app);
 });
 
 export default app;
