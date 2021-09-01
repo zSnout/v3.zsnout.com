@@ -4,7 +4,7 @@ import * as uuid from "uuid";
 console.debug("database", "Started database");
 
 let db;
-let loc = `${process.env.ROOT}/server/database.json`;
+let loc = `${process.env.ROOT}/database.json`;
 
 let main = {
   protoless(k, v) {
@@ -15,10 +15,13 @@ let main = {
     return v;
   },
   load() {
-    db = JSON.parse(fs.readFileSync(loc, { encoding: "utf-8" }), protoless);
+    db = JSON.parse(
+      fs.readFileSync(loc, { encoding: "utf-8" }),
+      main.protoless
+    );
   },
   save() {
-    let content = JSON.stringify(database);
+    let content = JSON.stringify(db);
 
     fs.writeFile(loc, content, () => {
       setTimeout(main.save, 15000);
@@ -49,7 +52,7 @@ class Database {
       if (type == "update") {
         let table = db.tables[action.table];
         let meta = db.meta_tables[action.table];
-        
+
         let row = table?.[id];
 
         for (let key in data) {
