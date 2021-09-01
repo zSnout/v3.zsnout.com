@@ -109,12 +109,10 @@ async function runCommand(command) {
 
 console.debug("terminal", "started built-in terminal");
 
-setTimeout(() => {
-  commands.clear();
-  rl.query(mode == "EVAL" ? "> " : "$ ").then(runCommand);
+commands.clear();
+rl.query(mode == "EVAL" ? "> " : "$ ").then(runCommand);
 
-  rl.on("close", () => {
-    console.clear();
-    process.exit(0);
-  });
-}, 1000);
+rl.on("close", () => {
+  console.clear();
+  process.exit(0);
+});
