@@ -85,6 +85,7 @@ async function runCommand(command) {
   rl.query("> ").then(runCommand);
 }
 
+console.debug("terminal", "started built-in terminal");
 rl.writeln();
 rl.query("> ").then(runCommand);
 
