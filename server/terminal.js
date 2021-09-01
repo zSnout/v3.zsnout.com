@@ -86,10 +86,13 @@ async function runCommand(command) {
 }
 
 console.debug("terminal", "started built-in terminal");
-rl.writeln();
-rl.query("> ").then(runCommand);
 
-rl.on("close", () => {
-  console.clear();
-  process.exit(0);
-});
+setTimeout(() => {
+  commands.clear();
+  rl.query("> ").then(runCommand);
+
+  rl.on("close", () => {
+    console.clear();
+    process.exit(0);
+  });
+}, 1000);
