@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "strict": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "newLine": "lf"
+  },
+  "files": ["index.ts"]
+}
