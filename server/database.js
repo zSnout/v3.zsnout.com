@@ -30,16 +30,64 @@ let main = {
 };
 
 class Database {
-  actions = [];
-  cid = null;
+  static ANS = Symbol("Database.RESULT"); // last result
+
+  static result;
+  static results = {};
+
+  static save(name) {
+    Database.results[name] = Database.result;
+
+    return Database.result;
+  }
+
+  static load(name) {
+    return Database.results[name];
+  }
+
+  static id(table, item, column) {
+    return db.meta_tables[table]?.[column]?.[item] ?? null;
+  }
+
+  static has(table, item, column = "id") {
+    if (column == "id") return typeof db.tables[table]?.[item] == "object";
+    else return typeof db.meta_tables[table]?.[column]?.[item] == "object";
+  }
+
+  static select(a) {}
+
+  static actions = [];
+
+  action(func, args) {
+    this.actions.push({ func, args });
+
+    return this;
+  }
+
+  save(name) {
+    return this.action(Database.save, [name]);
+  }
+
+  load(name) {
+    return this.action(Database.load, [name]);
+  }
+
+  id(table, item, column) {
+    return this.action(Database.id, [table, item, column]);
+  }
+
+  has(table, item, column) {
+    return this.action(Database.has, [table, item, column]);
+  }
+
+  select(table, id) {
+    return this.action(Database.select, [table, item, column]);
+  }
 
   insert(table, data) {
-    let id = this.cid;
-    if (!id) id = uuid.v4();
-
     this.actions.push({
-      id,
       table,
+      id: uuid.v4(),
       type: "insert",
       data: { ...data },
     });
@@ -47,20 +95,28 @@ class Database {
     return this;
   }
 
-  async execute() {
-    for (let { id, type, data, ...action } of this.actions) {
-      if (type == "update") {
-        let table = db.tables[action.table];
-        let meta = db.meta_tables[action.table];
+  update(table, id, data) {
+    this.actions.push({
+      table,
+      id,
+      type: "update",
+      data: { ...data },
+    });
 
-        let row = table?.[id];
-
-        for (let key in data) {
-          if (key == "id") continue;
-        }
-      }
-    }
+    return this;
   }
+
+  remove(table, id) {
+    this.actions.push({
+      table,
+      id,
+      type: "remove",
+    });
+
+    return this;
+  }
+
+  execute() {}
 }
 
 main.load();
