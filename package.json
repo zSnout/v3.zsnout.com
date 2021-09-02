@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "clear & node --unhandled-rejections=strict index.js",
+    "build": "clear & npm exec tsc --build --verbose",
     "dev": "clear & node --inspect --unhandled-rejections=strict index.js"
   },
   "dependencies": {
@@ -31,13 +32,6 @@
   "keywords": [],
   "author": "zsnout",
   "devDependencies": {
-    "@types/bcryptjs": "^2.4.2",
-    "@types/ejs": "^3.0.7",
-    "@types/node": "^16.4.10",
-    "@types/nodemailer": "^6.4.4",
-    "@types/pg": "^8.6.1",
-    "@types/pg-format": "^1.0.2",
-    "@types/uuid": "^8.3.1",
     "typescript": "^4.4.2"
   }
 }
