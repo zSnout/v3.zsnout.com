@@ -8,7 +8,9 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "alwaysStrict": true
+    "alwaysStrict": true,
+    "moduleResolution": "node"
   },
-  "files": ["index.ts"]
+  "include": ["*.ts"],
+  "exclude": ["node_modules/*"]
 }
