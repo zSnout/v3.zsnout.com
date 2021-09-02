@@ -27,16 +27,16 @@ let commands = {
   __proto__: null,
   help(topic) {
     if (!topic) {
-      rl.writeln("All topics: " + Object.keys(help).join(", "));
+      console.log("All topics: " + Object.keys(help).join(", "));
     } else if (topic in help) {
-      rl.writeln(help[topic]);
+      console.log(help[topic]);
     } else {
       throw new ReferenceError("topic not found");
     }
   },
   clear() {
     rl.clear();
-    rl.writeln("\x1b[2m\x1b[3mconsole was cleared\x1b[0m");
+    console.log("\x1b[2m\x1b[3mconsole was cleared\x1b[0m");
   },
   async exec(text) {
     await evaluate(text);
@@ -60,10 +60,6 @@ let rl = createInterface({
 
 rl.clear = console.clear.bind(console);
 
-rl.writeln = (data = "") => {
-  rl.write(data + "\n");
-};
-
 rl.query = (query) => {
   return new Promise((resolve) => {
     rl.question(query, (resp) => {
@@ -74,22 +70,26 @@ rl.query = (query) => {
 
 let mode = "EVAL";
 async function runCommand(command) {
-  if (mode == "EVAL" && command[0] != ".") command = "eval " + command;
-  else if (mode == "EVAL") command = command.substr(1);
-  else if (command[0] == ".") command = command.substr(1);
-  command = command.split(" ");
-  let original = command;
-
-  let context = commands;
-  while (typeof (context = context?.[command.shift()]) == "object");
-
   try {
+    if (mode == "EVAL" && command[0] != ".") {
+      console.log(await evaluate(command));
+      rl.query(mode == "EVAL" ? "> " : "$ ").then(runCommand);
+
+      return;
+    }
+
+    if (command[0] == ".") command = command.substr(1);
+    command = command.split(" ");
+
+    let context = commands;
+    while (typeof (context = context?.[command.shift()]) == "object");
+
     if (typeof context != "function")
       throw new ReferenceError("command not found");
 
     await context(command.join(" "));
   } catch (error) {
-    rl.writeln(
+    console.log(
       `\x1b[1;31m${
         error instanceof Error
           ? error?.toString?.()
@@ -97,14 +97,8 @@ async function runCommand(command) {
       }\x1b[0m`
     );
 
-    if (original[0] in commands && mode == "EVAL") {
-      rl.writeln(
-        `\x1b[1;31mDid you mean to execute \x1b[0;1m${original[0]}\x1b[1;31m? Type it with a \x1b[0;1m.\x1b[1;31m at the beginning.\x1b[0m`
-      );
-    }
+    rl.query(mode == "EVAL" ? "> " : "$ ").then(runCommand);
   }
-
-  rl.query(mode == "EVAL" ? "> " : "$ ").then(runCommand);
 }
 
 console.debug("terminal", "started built-in terminal");
