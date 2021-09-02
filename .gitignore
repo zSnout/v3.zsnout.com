@@ -4,4 +4,6 @@
 database.json
 node_modules
 package-lock.json
+*.js
+*.js.map
 .DS_Store
