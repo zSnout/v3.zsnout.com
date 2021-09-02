@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "clear & node --unhandled-rejections=strict index.js",
-    "build": "clear & npm exec tsc --build --verbose",
+    "build": "clear & npm exec tsc --verbose",
     "dev": "clear & node --inspect --unhandled-rejections=strict index.js"
   },
   "dependencies": {
