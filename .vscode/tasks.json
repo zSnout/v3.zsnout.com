@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "label": "Compile project"
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": [],
+      "label": "Start the server"
+    }
+  ]
+}
