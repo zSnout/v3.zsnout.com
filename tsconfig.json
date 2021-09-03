@@ -11,7 +11,5 @@
     "alwaysStrict": true,
     "moduleResolution": "node",
     "noEmitOnError": true
-  },
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules/**"]
+  }
 }
