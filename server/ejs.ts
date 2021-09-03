@@ -33,10 +33,22 @@ function indent(text: string, indent: string, first: string = ""): string {
   return texts.join("\n");
 }
 
+/**
+ * Renders an EJS file.
+ * @param file A path to the file to be rendered, relative to the root.
+ * @param data The data to be passed to the file.
+ * @returns A rendered version of the EJS file.
+ */
 async function renderFile(file: string, data: object = {}) {
   return ejs.renderFile(file, data, { outputFunctionName: "echo" });
 }
 
+/**
+ * Renders an EJS file into a complete HTML file.
+ * @param file A path to the file to be rendered, relative to the project root.
+ * @param data An object containing data to be passed to the EJS file.
+ * @returns A rendered version of the EJS file as a complete HTML file.
+ */
 async function renderView(file: string, { frame = true, ...data }) {
   let layout = "";
   let title = "";
@@ -52,7 +64,7 @@ async function renderView(file: string, { frame = true, ...data }) {
   let js = postload.push.bind(postload);
   let metaFn = (name: string, content: string) => meta.push({ name, content });
 
-  let body = await renderFile(file, {
+  let body = await renderFile(`client/${file}.ejs`, {
     ...data,
     data,
     escapeXML,
@@ -106,6 +118,12 @@ async function renderView(file: string, { frame = true, ...data }) {
   return body.trim();
 }
 
+/**
+ * Renders an EJS file into a complete HTML file, then sends it as a response.
+ * @param file A path to the file to be rendered, relative to the project root.
+ * @param data An object containing data to be passed to the EJS file.
+ * @returns A rendered version of the EJS file as a complete HTML file.
+ */
 async function renderReply(this: FastifyReply, file: string, data: object) {
   this.header("Content-Type", "text/html").send(await renderView(file, data));
 }
