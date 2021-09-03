@@ -10,7 +10,6 @@
     "noImplicitThis": true,
     "alwaysStrict": true,
     "moduleResolution": "node",
-    "exactOptionalPropertyTypes": true,
     "noEmitOnError": true
   },
   "include": ["**/*.ts"],
