@@ -1,4 +1,8 @@
-import { readFileSync, writeFile } from "node:fs";
+import { existsSync, copyFileSync, readFileSync, writeFile } from "node:fs";
+
+if (!existsSync("../database.json")) {
+  copyFileSync("../database-template.json", "../database.json");
+}
 
 let db: {
   tables: { [id: string]: object };
