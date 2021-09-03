@@ -72,6 +72,12 @@ class Query {
     return this;
   }
 
+  /**
+   * Selects some data from the database.
+   * @param table The table to select data from.
+   * @param id The ID of the row to select. If omitted, uses the previous result.
+   * @returns The `Query` instance, to allow chaining.
+   */
   select(table: string, id?: string): this {
     return this.action(queries.select, table, id);
   }
