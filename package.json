@@ -6,7 +6,7 @@
   "types": "types/index.d.ts",
   "scripts": {
     "start": "clear & node --unhandled-rejections=strict index.js",
-    "build": "clear & tsc --build --verbose",
+    "build": "clear & tsc --build --verbose & sass --update --color .",
     "dev": "clear & node --inspect --unhandled-rejections=strict index.js"
   },
   "dependencies": {
@@ -37,6 +37,7 @@
     "@types/ejs": "^3.1.0",
     "@types/nodemailer": "^6.4.4",
     "@types/uuid": "^8.3.1",
+    "sass": "^1.39.0",
     "typescript": "^4.4.2"
   }
 }
