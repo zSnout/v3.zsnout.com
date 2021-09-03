@@ -11,8 +11,6 @@
     "alwaysStrict": true,
     "moduleResolution": "node",
     "exactOptionalPropertyTypes": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "noEmitOnError": true
   },
   "include": ["**/*.ts"],
