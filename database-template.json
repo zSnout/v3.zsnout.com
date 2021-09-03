@@ -1,0 +1,15 @@
+{
+  "tables": {
+    "pending_users": {},
+    "users": {}
+  },
+  "meta_tables": {
+    "pending_users": {
+      "email_code": {}
+    },
+    "users": {
+      "username": {},
+      "email": {}
+    }
+  }
+}
