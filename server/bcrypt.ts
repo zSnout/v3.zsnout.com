@@ -2,7 +2,7 @@ import * as bcrypt from "bcryptjs";
 
 /**
  * Hashes some text asynchronously.
- * @param text - The string to hash.
+ * @param text The string to hash.
  * @returns A promise resolving with the hashed string.
  */
 export function hash(text: string) {
