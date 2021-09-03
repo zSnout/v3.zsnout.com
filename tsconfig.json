@@ -9,7 +9,8 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "exactOptionalPropertyTypes": true
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules/**"]
