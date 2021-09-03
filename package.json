@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "The NodeJS project for zsnout.com.",
   "main": "index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "start": "clear & node --unhandled-rejections=strict index.js",
     "build": "clear & tsc --build --verbose",
