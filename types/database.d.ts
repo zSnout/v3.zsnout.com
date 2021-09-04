@@ -23,6 +23,9 @@ export namespace Database {
     users: Table<TableData.Users, MetaData.Users>;
   };
 
+  type TableData<T extends keyof Database.Tables> =
+    Database.Tables[T]["data"][string];
+
   namespace TableData {
     type PendingUsers = {
       id: string;
@@ -42,6 +45,8 @@ export namespace Database {
       email: string;
     };
   }
+
+  type MetaData<T extends keyof Database.Tables> = Database.Tables[T]["meta"];
 
   namespace MetaData {
     type PendingUsers = "email_code";
