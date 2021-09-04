@@ -1,4 +1,5 @@
 import { existsSync, copyFileSync, readFileSync, writeFile } from "node:fs";
+import { Database } from "../types/database";
 
 if (!existsSync("database.json")) {
   copyFileSync("database-template.json", "database.json");
@@ -15,72 +16,37 @@ function hasOwn(obj: object, key: string | symbol | number): boolean {
 }
 
 /** The original database as a JSON file. */
-let db: {
-  tables: {
-    [id: string]: {
-      [id: string]: object;
-    };
-  };
-  meta_tables: {
-    [tablename: string]: {
-      [colname: string]: {
-        [item: string]: string;
-      };
-    };
-  };
-} = JSON.parse(readFileSync("database.json", { encoding: "utf-8" }));
+let database: Database.DB = JSON.parse(
+  readFileSync("database.json", { encoding: "utf-8" })
+);
 
 /** Saves the database into a JSON file. */
 function save() {
-  writeFile("database.json", JSON.stringify(db), () => {
+  writeFile("database.json", JSON.stringify(database), () => {
     setTimeout(save, 15000);
   });
 }
 
 setTimeout(save, 15000);
 
-let queries = {
-  /**
-   * Selects some data from the database.
-   * @param _result The current result, which may be passed as `id` if `id` is omitted.
-   * @param table The table to select data from.
-   * @param id The ID of the row to select.
-   * @returns An object containing the data of the row selected, or `null` if the data was not found.
-   */
-  select(_result: string, table: string, id: string = _result): object | null {
-    if (!hasOwn(db.tables, table)) return null;
-    else if (!hasOwn(db.tables[table], id)) return null;
-    if (typeof db.tables[table][id] == "object") return db.tables[table][id];
-    return null;
+/** A namespace that contains functions that work with the database. */
+let Query = {
+  id<T extends keyof Database.Tables, K extends keyof Database.MetaData<T>>(
+    table: T,
+    col: K,
+    item: string
+  ): string | null {
+    let metas = database.tables[table].meta as Database.MetaData<T>;
+    let meta = metas[col] as unknown as Database.MetaRow;
+
+    return meta[item] ?? null;
+  },
+
+  select<T extends keyof Database.Tables>(table: T, id: string) {
+    return database.tables[table].data[id] as Database.TableData<T>;
   },
 };
 
-/** A class that can be used to chain database queries to prevent them from desyncing. */
-class Query {
-  /** A list of actions that this query will act upon. */
-  private actions: { func: () => any; args: any[] }[] = [];
-
-  /**
-   * Adds a function to the list of actions to act upon.
-   * @param func The function to add to the list of actions.
-   * @param args The arguments to pass to the function.
-   * @returns The Query object to allow chaining.
-   */
-  private action(func: (...args: any[]) => any, ...args: any[]) {
-    this.actions.push({ func, args });
-
-    return this;
-  }
-
-  /**
-   * Selects some data from the database.
-   * @param table The table to select data from.
-   * @param id The ID of the row to select. If omitted, uses the previous result.
-   * @returns The `Query` instance, to allow chaining.
-   */
-  select(table: string, id?: string): this {
-    return this.action(queries.select, table, id);
-  }
-}
+let a = Query.id("users", "username", "def");
 
 export default Query;
