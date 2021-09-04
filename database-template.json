@@ -3,7 +3,7 @@
     "pending_users": {},
     "users": {}
   },
-  "meta_tables": {
+  "meta": {
     "pending_users": {
       "email_code": {}
     },
