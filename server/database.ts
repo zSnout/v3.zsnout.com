@@ -50,6 +50,24 @@ let Query = {
   },
 
   /**
+   * Checks if an item exists within a table.
+   * @param table The table to check within.
+   * @param col The column to use as the key.
+   * @param item The item in the database.
+   * @returns A boolean indicating whether `item` exists within the column `col`.
+   */
+  has<T extends keyof Database.Tables, K extends keyof Database.MetaData<T>>(
+    table: T,
+    col: K,
+    item: string
+  ) {
+    let metas = database.tables[table].meta as Database.MetaData<T>;
+    let meta = metas[col] as unknown as Database.MetaRow;
+
+    return hasOwn(meta, item);
+  },
+
+  /**
    * Selects some data from the database.
    * @param table The table to select from.
    * @param id The ID of the row to select from.
@@ -58,7 +76,7 @@ let Query = {
   select<T extends keyof Database.Tables>(table: T, id: string) {
     let data = database.tables[table].data;
 
-    if (id in data) return data[id] as Database.TableData<T>;
+    if (hasOwn(data, id)) return data[id] as Database.TableData<T>;
     else return null;
   },
 };
