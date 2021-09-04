@@ -31,6 +31,13 @@ setTimeout(save, 15000);
 
 /** A namespace that contains functions that work with the database. */
 let Query = {
+  /**
+   * Gets the ID of a row in the database based on another piece of data.
+   * @param table The table to get the ID from.
+   * @param col The column to use as the key.
+   * @param item The key that maps to the ID.
+   * @returns A string containing the ID of the database row, or `null` if the key doesn't exist.
+   */
   id<T extends keyof Database.Tables, K extends keyof Database.MetaData<T>>(
     table: T,
     col: K,
@@ -42,11 +49,18 @@ let Query = {
     return meta[item] ?? null;
   },
 
+  /**
+   * Selects some data from the database.
+   * @param table The table to select from.
+   * @param id The ID of the row to select from.
+   * @returns The row with ID `id`, or `null` if the ID doesn't exist.
+   */
   select<T extends keyof Database.Tables>(table: T, id: string) {
-    return database.tables[table].data[id] as Database.TableData<T>;
+    let data = database.tables[table].data;
+
+    if (id in data) return data[id] as Database.TableData<T>;
+    else return null;
   },
 };
-
-let a = Query.id("users", "username", "def");
 
 export default Query;
