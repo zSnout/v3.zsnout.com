@@ -6,4 +6,3 @@ if (!existsSync(".env")) {
 }
 
 config();
-console.log(process.env);
