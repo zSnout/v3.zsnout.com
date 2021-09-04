@@ -19,8 +19,8 @@ export namespace Database {
   };
 
   type Tables = {
-    pending_users: Table<TableData.PendingUsers, MetaData.PendingUsers>;
-    users: Table<TableData.Users, MetaData.Users>;
+    pending_users: Table<TableData.PendingUsers, "email_code">;
+    users: Table<TableData.Users, "username" | "email">;
   };
 
   type TableData<T extends keyof Database.Tables> =
@@ -47,10 +47,4 @@ export namespace Database {
   }
 
   type MetaData<T extends keyof Database.Tables> = Database.Tables[T]["meta"];
-
-  namespace MetaData {
-    type PendingUsers = "email_code";
-
-    type Users = "username" | "email";
-  }
 }
