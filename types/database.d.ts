@@ -3,7 +3,7 @@ export namespace Database {
     id: string;
     creation: number;
   };
-  type MetaCols = string | number;
+  type MetaCols = string;
 
   type Rows<T extends Cols> = { [id: string]: T };
   type MetaRows<T extends MetaCols> = { [K in T]: MetaRow };
