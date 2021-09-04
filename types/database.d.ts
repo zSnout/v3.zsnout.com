@@ -1,42 +1,51 @@
-type DBCols = {
-  id: string;
-  creation: number;
-};
-
-type DBMetaCols = string | number;
-
-type DBTable<Data extends DBCols, MetaCols extends DBMetaCols> = {
-  data: {
-    [id: string]: Data;
+export namespace Database {
+  type Cols = {
+    id: string;
+    creation: number;
   };
-  meta: {
-    [K in MetaCols]: { [x: string]: string };
+  type MetaCols = string | number;
+
+  type Rows<T extends Cols> = { [id: string]: T };
+  type MetaRows<T extends MetaCols> = { [K in T]: MetaRow };
+  type MetaRow = { [x: string]: string };
+
+  type Table<T extends Cols, K extends MetaCols> = {
+    data: Rows<T>;
+    meta: MetaRows<K>;
   };
-};
 
-export type DBPendingUsers = {
-  id: string;
-  creation: number;
-  email_code: string;
-  username: string;
-  password: string;
-  email: string;
-};
+  type DB = {
+    tables: Tables;
+  };
 
-export type DBUsers = {
-  id: string;
-  creation: number;
-  session: string;
-  username: string;
-  password: string;
-  email: string;
-};
+  type Tables = {
+    pending_users: Table<TableData.PendingUsers, MetaData.PendingUsers>;
+    users: Table<TableData.Users, MetaData.Users>;
+  };
 
-export type DBRows = {
-  pending_users: DBTable<DBPendingUsers, "email_code">;
-  users: DBTable<DBUsers, "username" | "email">;
-};
+  namespace TableData {
+    type PendingUsers = {
+      id: string;
+      creation: number;
+      email_code: string;
+      username: string;
+      password: string;
+      email: string;
+    };
 
-export type DB = {
-  tables: DBRows;
-};
+    type Users = {
+      id: string;
+      creation: number;
+      session: string;
+      username: string;
+      password: string;
+      email: string;
+    };
+  }
+
+  namespace MetaData {
+    type PendingUsers = "email_code";
+
+    type Users = "username" | "email";
+  }
+}
