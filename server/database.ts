@@ -1,4 +1,5 @@
 import { existsSync, copyFileSync, readFileSync, writeFile } from "node:fs";
+import { v4 } from "uuid";
 import { Database } from "../types/database";
 
 if (!existsSync("database.json")) {
@@ -78,6 +79,34 @@ let Query = {
 
     if (hasOwn(data, id)) return data[id] as Database.TableData<T>;
     else return null;
+  },
+
+  /**
+   * Inserts some data into the database.
+   * @param table The table to insert data into.
+   * @param obj The data to insert into the table.
+   */
+  insert<T extends keyof Database.Tables>(
+    table: T,
+    obj: Database.WritableTableData<T>
+  ): void {
+    let data = database.tables[table];
+    let row: Database.TableData<T> = {
+      ...obj,
+      id: v4(),
+      creation: Date.now(),
+    } as Database.TableData<T>;
+
+    data.data[row.id] = row;
+
+    let meta = data.meta as unknown as Database.MetaData<T>;
+
+    for (let key in meta) {
+      let metaRow = meta[key];
+
+      // @ts-expect-error
+      metaRow[row[key]] = row.id;
+    }
   },
 };
 
