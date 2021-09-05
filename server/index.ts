@@ -7,3 +7,5 @@ import "./mail.js";
 import "./socket.js";
 import "./database.js";
 import "./serve.js";
+
+import "../routes/index.js";
