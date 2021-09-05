@@ -23,7 +23,11 @@ function escapeXML(text: string) {
  * @param first The string to be appended to the first line. Can be used if the first line is already indented.
  * @returns An indented version of the original string.
  */
-function indent(text: string, indent: string, first: string = ""): string {
+function indent(
+  text: string,
+  indent: string = "  ",
+  first: string = ""
+): string {
   let texts = String(text)
     .split("\n")
     .map((e) => indent + e);
@@ -47,9 +51,10 @@ async function renderFile(file: string, data: object = {}) {
  * Renders an EJS file into a complete HTML file.
  * @param file A path to the file to be rendered, relative to the project root.
  * @param data An object containing data to be passed to the EJS file.
+ * @param frame Whether the HTML should include a navicon & navbar.
  * @returns A rendered version of the EJS file as a complete HTML file.
  */
-async function renderView(file: string, { frame = true, ...data }) {
+async function renderView(file: string, data = {}, frame = true) {
   let layout = "";
   let title = "";
   let styles = ["/assets/index.css"];
@@ -122,10 +127,18 @@ async function renderView(file: string, { frame = true, ...data }) {
  * Renders an EJS file into a complete HTML file, then sends it as a response.
  * @param file A path to the file to be rendered, relative to the project root.
  * @param data An object containing data to be passed to the EJS file.
+ * @param frame Whether the HTML should include a navicon & navbar.
  * @returns A rendered version of the EJS file as a complete HTML file.
  */
-async function renderReply(this: FastifyReply, file: string, data: object) {
-  this.header("Content-Type", "text/html").send(await renderView(file, data));
+async function renderReply(
+  this: FastifyReply,
+  file: string,
+  data = {},
+  frame = true
+) {
+  this.header("Content-Type", "text/html").send(
+    await renderView(file, data, frame)
+  );
 }
 
 app.decorate("view", renderFile);
