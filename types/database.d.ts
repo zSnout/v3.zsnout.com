@@ -2,6 +2,7 @@ export namespace Database {
   type Cols = {
     readonly id: string;
     readonly creation: number;
+    last_update: number;
   };
   type MetaCols = string;
 
@@ -37,6 +38,7 @@ export namespace Database {
     type PendingUsers = {
       readonly id: string;
       readonly creation: number;
+      last_update: number;
       email_code: string;
       username: string;
       password: string;
@@ -46,6 +48,7 @@ export namespace Database {
     type Users = {
       readonly id: string;
       readonly creation: number;
+      last_update: number;
       session: string;
       username: string;
       password: string;
