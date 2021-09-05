@@ -31,7 +31,7 @@ function save() {
 setTimeout(save, 15000);
 
 /** A namespace that contains functions that work with the database. */
-let Query = {
+class Query {
   /**
    * Gets the ID of a row in the database based on another piece of data.
    * @param table The table to get the ID from.
@@ -39,16 +39,15 @@ let Query = {
    * @param item The key that maps to the ID.
    * @returns A string containing the ID of the database row, or `null` if the key doesn't exist.
    */
-  id<T extends keyof Database.Tables, K extends keyof Database.MetaData<T>>(
-    table: T,
-    col: K,
-    item: string
-  ): string | null {
+  static async id<
+    T extends keyof Database.Tables,
+    K extends keyof Database.MetaData<T>
+  >(table: T, col: K, item: string): Promise<string | null> {
     let metas = database.tables[table].meta as Database.MetaData<T>;
     let meta = metas[col] as unknown as Database.MetaRow;
 
     return meta[item] ?? null;
-  },
+  }
 
   /**
    * Checks if an item exists within a table.
@@ -57,16 +56,15 @@ let Query = {
    * @param item The item in the database.
    * @returns A boolean indicating whether `item` exists within the column `col`.
    */
-  has<T extends keyof Database.Tables, K extends keyof Database.MetaData<T>>(
-    table: T,
-    col: K,
-    item: string
-  ) {
+  static async has<
+    T extends keyof Database.Tables,
+    K extends keyof Database.MetaData<T>
+  >(table: T, col: K, item: string): Promise<boolean> {
     let metas = database.tables[table].meta as Database.MetaData<T>;
     let meta = metas[col] as unknown as Database.MetaRow;
 
     return hasOwn(meta, item);
-  },
+  }
 
   /**
    * Selects some data from the database.
@@ -74,22 +72,22 @@ let Query = {
    * @param id The ID of the row to select from.
    * @returns The row with ID `id`, or `null` if the ID doesn't exist.
    */
-  select<T extends keyof Database.Tables>(table: T, id: string) {
+  static async select<T extends keyof Database.Tables>(table: T, id: string) {
     let data = database.tables[table].data;
 
     if (hasOwn(data, id)) return data[id] as Database.TableData<T>;
     else return null;
-  },
+  }
 
   /**
    * Inserts some data into the database.
    * @param table The table to insert data into.
    * @param obj The data to insert into the table.
    */
-  insert<T extends keyof Database.Tables>(
+  static async insert<T extends keyof Database.Tables>(
     table: T,
     obj: Database.WritableTableData<T>
-  ): void {
+  ): Promise<void> {
     let data = database.tables[table];
     let row: Database.TableData<T> = {
       ...obj,
@@ -104,10 +102,66 @@ let Query = {
     for (let key in meta) {
       let metaRow = meta[key];
 
-      // @ts-expect-error
+      // @ts-ignore
       metaRow[row[key]] = row.id;
     }
-  },
-};
+  }
+
+  /**
+   * Updates a row in the database.
+   * @param table The table to update.
+   * @param id The ID of the row to update.
+   * @param obj The data to update with.
+   */
+  static async update<T extends keyof Database.Tables>(
+    table: T,
+    id: string,
+    obj: Database.WritableTableData<T>
+  ): Promise<void> {
+    let data = database.tables[table];
+
+    if (!hasOwn(data.data, id)) return;
+
+    let old = data.data[id];
+    let meta = data.meta as unknown as Database.MetaData<T>;
+
+    for (let key in meta) {
+      let metaRow = meta[key];
+
+      if (hasOwn(obj, key)) {
+        // @ts-ignore
+        delete metaRow[old[key]];
+
+        // @ts-ignore
+        metaRow[obj[key]] = id;
+      }
+    }
+
+    data.data[id] = { ...old, ...obj, last_update: Date.now() };
+  }
+
+  /**
+   * Removes a row from the database.
+   * @param table The table to remove the data from.
+   * @param id The ID of the row to remove.
+   */
+  static async remove<T extends keyof Database.Tables>(table: T, id: string) {
+    let data = database.tables[table];
+
+    if (!hasOwn(data.data, id)) return;
+
+    let old = data.data[id];
+    let meta = data.meta as unknown as Database.MetaData<T>;
+
+    for (let key in meta) {
+      let metaRow = meta[key];
+
+      // @ts-ignore
+      delete metaRow[old[key]];
+    }
+
+    delete data.data[id];
+  }
+}
 
 export default Query;
