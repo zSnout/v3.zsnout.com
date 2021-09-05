@@ -37,7 +37,7 @@ class Query {
    * @param table The table to get the ID from.
    * @param col The column to use as the key.
    * @param item The key that maps to the ID.
-   * @returns A string containing the ID of the database row, or `null` if the key doesn't exist.
+   * @returns A promise resolving with a string containing the ID of the database row, or `null` if the key doesn't exist.
    */
   static async id<
     T extends keyof Database.Tables,
@@ -54,7 +54,7 @@ class Query {
    * @param table The table to check within.
    * @param col The column to use as the key.
    * @param item The item in the database.
-   * @returns A boolean indicating whether `item` exists within the column `col`.
+   * @returns A promise resolving with a boolean indicating whether `item` exists within the column `col`.
    */
   static async has<
     T extends keyof Database.Tables,
@@ -70,7 +70,7 @@ class Query {
    * Selects some data from the database.
    * @param table The table to select from.
    * @param id The ID of the row to select from.
-   * @returns The row with ID `id`, or `null` if the ID doesn't exist.
+   * @returns A promise resolving with the row with ID `id`, or `null` if the ID doesn't exist.
    */
   static async select<T extends keyof Database.Tables>(table: T, id: string) {
     let data = database.tables[table].data;
@@ -83,6 +83,7 @@ class Query {
    * Inserts some data into the database.
    * @param table The table to insert data into.
    * @param obj The data to insert into the table.
+   * @returns A promise resolving once the operation is complete.
    */
   static async insert<T extends keyof Database.Tables>(
     table: T,
@@ -112,6 +113,7 @@ class Query {
    * @param table The table to update.
    * @param id The ID of the row to update.
    * @param obj The data to update with.
+   * @returns A promise resolving once the operation is complete.
    */
   static async update<T extends keyof Database.Tables>(
     table: T,
@@ -144,6 +146,7 @@ class Query {
    * Removes a row from the database.
    * @param table The table to remove the data from.
    * @param id The ID of the row to remove.
+   * @returns A promise resolving once the operation is complete.
    */
   static async remove<T extends keyof Database.Tables>(table: T, id: string) {
     let data = database.tables[table];
