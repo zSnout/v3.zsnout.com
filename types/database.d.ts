@@ -1,7 +1,7 @@
 export namespace Database {
   type Cols = {
-    id: string;
-    creation: number;
+    readonly id: string;
+    readonly creation: number;
   };
   type MetaCols = string;
 
@@ -26,10 +26,17 @@ export namespace Database {
   type TableData<T extends keyof Database.Tables> =
     Database.Tables[T]["data"][string];
 
+  type WritableTableData<T extends keyof Database.Tables> = Omit<
+    Database.TableData<T>,
+    "id" | "creation"
+  >;
+
+  type MetaData<T extends keyof Database.Tables> = Database.Tables[T]["meta"];
+
   namespace TableData {
     type PendingUsers = {
-      id: string;
-      creation: number;
+      readonly id: string;
+      readonly creation: number;
       email_code: string;
       username: string;
       password: string;
@@ -37,14 +44,12 @@ export namespace Database {
     };
 
     type Users = {
-      id: string;
-      creation: number;
+      readonly id: string;
+      readonly creation: number;
       session: string;
       username: string;
       password: string;
       email: string;
     };
   }
-
-  type MetaData<T extends keyof Database.Tables> = Database.Tables[T]["meta"];
 }
