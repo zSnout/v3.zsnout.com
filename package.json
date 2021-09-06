@@ -5,6 +5,7 @@
   "main": "index.js",
   "types": "types/index.d.ts",
   "scripts": {
+    "go": "npm run build | npm start",
     "start": "clear & node --unhandled-rejections=strict index.js",
     "build-js": "tsc --build --verbose",
     "build-css": "sass --update --color .",
