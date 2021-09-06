@@ -6,7 +6,10 @@
   "types": "types/index.d.ts",
   "scripts": {
     "start": "clear & node --unhandled-rejections=strict index.js",
-    "build": "clear & tsc --build --verbose & sass --update --color .",
+    "build-js": "tsc --build --verbose",
+    "build-css": "sass --update --color .",
+    "build-prettier": "prettier --write .",
+    "build": "clear | npm run build-js | npm run build-css | npm run build-prettier",
     "dev": "clear & node --inspect --unhandled-rejections=strict index.js"
   },
   "dependencies": {
