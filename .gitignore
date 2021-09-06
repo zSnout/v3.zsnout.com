@@ -1,8 +1,10 @@
+.DS_Store
 .env
+.env_template
 .git
-database.json
-node_modules
-package-lock.json
 *.js
 *.js.map
-.DS_Store
+*.css
+database.json
+package-lock.json
+node_modules
