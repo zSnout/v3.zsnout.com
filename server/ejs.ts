@@ -135,12 +135,50 @@ async function renderReply(
   file: string,
   data = {},
   frame = true
-) {
+): Promise<void> {
   this.header("Content-Type", "text/html").send(
     await renderView(file, data, frame)
   );
 }
 
+/**
+ * Exposes a file from the filesystem on the server.
+ * @param route The route to expose the file on.
+ * @param file The file that will be exposed, relative to `client`.
+ */
+function sendStatic(route: string, file: string) {
+  app.get(route, (req, res) => {
+    res.sendFile("client/" + file);
+  });
+}
+
+/**
+ * Shorthand for sending an EJS template.
+ * @param route The route to expose the template on.
+ * @param file The EJS file that will be sent, relative to `client`.
+ * @param data Data to pass along with the file.
+ * @param frame Whether the HTML should include the navicon and navbar.
+ */
+function sendTemplate(route: string, file: string, data = {}, frame = true) {
+  app.get(route, (req, res) => {
+    res.view(file, data, frame);
+  });
+}
+
+/**
+ * Redirects a URL to another URL.
+ * @param route The original route that the request comes from.
+ * @param newRoute The route to redirect requests to.
+ */
+function sendRedirect(route: string, newRoute: string) {
+  app.get(route, (req, res) => {
+    res.redirect(302, newRoute);
+  });
+}
+
+app.decorate("redirect", sendRedirect);
+app.decorate("static", sendStatic);
+app.decorate("template", sendTemplate);
 app.decorate("view", renderFile);
 app.decorate("format", renderView);
 app.decorateReply("view", renderReply);
