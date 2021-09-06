@@ -5,13 +5,10 @@
   "main": "index.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "go": "npm run build | npm start",
-    "start": "clear & node --unhandled-rejections=strict index.js",
-    "build-js": "tsc --build --verbose",
-    "build-css": "sass --update --color .",
-    "build-prettier": "prettier --write .",
-    "build": "clear | npm run build-js | npm run build-css | npm run build-prettier",
-    "dev": "clear & node --inspect --unhandled-rejections=strict index.js"
+    "go": "npm run build\nnpm start",
+    "start": "clear\nnode --unhandled-rejections=strict index.js",
+    "build": "clear\ntsc --build --verbose\nsass --update --color .\nprettier --write .",
+    "dev": "clear\nnode --inspect --unhandled-rejections=strict index.js"
   },
   "dependencies": {
     "ajv": "^8.6.2",
