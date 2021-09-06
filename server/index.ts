@@ -9,3 +9,4 @@ import "./database.js";
 import "./serve.js";
 
 import "../routes/index.js";
+import "../routes/assets.js";
