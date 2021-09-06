@@ -1,5 +1,3 @@
 import app from "../server/app.js";
 
-app.get("/", (req, res) => {
-  res.view("home/index");
-});
+app.template("/", "home/index");
