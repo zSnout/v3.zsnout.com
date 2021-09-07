@@ -51,22 +51,21 @@ async function renderFile(file: string, data: object = {}) {
  * Renders an EJS file into a complete HTML file.
  * @param file A path to the file to be rendered, relative to the project root.
  * @param data An object containing data to be passed to the EJS file.
- * @param frame Whether the HTML should include a navicon & navbar.
  * @returns A rendered version of the EJS file as a complete HTML file.
  */
-async function renderView(file: string, data = {}, frame = true) {
+async function renderView(file: string, data = {}) {
   let layout = "";
   let title = "";
   let styles = ["/assets/index.css"];
-  let preload = ["/assets/jquery.js", "/assets/underscore.js"];
-  let postload = ["/assets/preindex.js", "/assets/index.js"];
+  let scripts = ["/assets/preindex.js", "/assets/index.js"];
   let meta: { name: string; content: string }[] = [];
+
+  data = { frame: false, ...data };
 
   let layoutFn = (path: string) => (layout = path);
   let titleFn = (name: string) => (title = name);
   let css = styles.push.bind(styles);
-  let lib = preload.push.bind(preload);
-  let js = postload.push.bind(postload);
+  let js = scripts.push.bind(scripts);
   let metaFn = (name: string, content: string) => meta.push({ name, content });
 
   let body = await renderFile(`client/${file}.ejs`, {
@@ -75,7 +74,6 @@ async function renderView(file: string, data = {}, frame = true) {
     escapeXML,
     indent,
     css,
-    lib,
     js,
     layout: layoutFn,
     title: titleFn,
@@ -92,7 +90,6 @@ async function renderView(file: string, data = {}, frame = true) {
       escapeXML,
       indent,
       css,
-      lib,
       js,
       meta: metaFn,
     });
@@ -103,15 +100,12 @@ async function renderView(file: string, data = {}, frame = true) {
   let resources: string[] = [];
   for (let href of styles)
     resources.push(`<link rel="stylesheet" href="${escapeXML(href)}">`);
-  for (let src of preload)
-    resources.push(`<script src="${escapeXML(src)}"></script>`);
-  for (let src of postload)
-    resources.push(`<script src="${escapeXML(src)}" type="module"></script>`);
+  for (let src of scripts)
+    resources.push(`<script type="module" src="${escapeXML(src)}"></script>`);
 
   body = await renderFile(`layouts/index.ejs`, {
     ...data,
     data,
-    frame: frame ?? false,
     body,
     title,
     resources,
@@ -133,35 +127,19 @@ async function renderView(file: string, data = {}, frame = true) {
 async function renderReply(
   this: FastifyReply,
   file: string,
-  data = {},
-  frame = true
+  data = {}
 ): Promise<void> {
-  this.header("Content-Type", "text/html").send(
-    await renderView(file, data, frame)
-  );
-}
-
-/**
- * Exposes a file from the filesystem on the server.
- * @param route The route to expose the file on.
- * @param file The file that will be exposed, relative to `client`.
- */
-function sendStatic(route: string, file: string) {
-  app.get(route, (req, res) => {
-    res.sendFile("client/" + file);
-  });
+  this.header("Content-Type", "text/html").send(await renderView(file, data));
 }
 
 /**
  * Shorthand for sending an EJS template.
  * @param route The route to expose the template on.
- * @param file The EJS file that will be sent, relative to `client`.
- * @param data Data to pass along with the file.
- * @param frame Whether the HTML should include the navicon and navbar.
+ * @param data Data to pass to the rendered template.
  */
-function sendTemplate(route: string, file: string, data = {}, frame = true) {
-  app.get(route, (req, res) => {
-    res.view(file, data, frame);
+function sendTemplate(route: string, data = {}) {
+  app.get("/" + route, (req, res) => {
+    res.view(route, data);
   });
 }
 
@@ -177,7 +155,6 @@ function sendRedirect(route: string, newRoute: string) {
 }
 
 app.decorate("redirect", sendRedirect);
-app.decorate("static", sendStatic);
 app.decorate("template", sendTemplate);
 app.decorate("view", renderFile);
 app.decorate("format", renderView);
