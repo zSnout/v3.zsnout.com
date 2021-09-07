@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <% meta.map(({name, content}) => echo(`\n    <meta name="${escapeXML(name)}" content="${escapeXML(content)}">`)) _%>
-    <%- "\n" + indent(resources.join("\n"), "    ", true) %>
+    <%- "\n" + indent(resources.join("\n"), "    ", "    ") %>
   </head>
   <body nctx noselect>
     <% if (!frame) { %><button id="nav-icon" role="button" aria-hidden="true" tabindex="1">
