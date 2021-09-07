@@ -11,6 +11,7 @@
     "alwaysStrict": true,
     "moduleResolution": "node",
     "noEmitOnError": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react"
   }
 }
