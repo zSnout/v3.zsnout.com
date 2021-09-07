@@ -35,6 +35,7 @@
     "@types/bcryptjs": "^2.4.2",
     "@types/ejs": "^3.1.0",
     "@types/nodemailer": "^6.4.4",
+    "@types/send": "^0.17.1",
     "@types/uuid": "^8.3.1",
     "prettier": "2.3.2",
     "sass": "1.39.0",
