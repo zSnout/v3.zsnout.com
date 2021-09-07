@@ -8,4 +8,5 @@ import "./socket.js";
 import "./database.js";
 import "./serve.js";
 
+import "../routes/assets.js";
 import "../routes/404.js";
