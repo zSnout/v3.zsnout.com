@@ -56,9 +56,15 @@ async function renderFile(file: string, data: object = {}) {
 async function renderView(file: string, data = {}) {
   let layout = "";
   let title = "";
-  let styles = ["/assets/index.css"];
-  let scripts = ["/assets/preindex.js", "/assets/index.js"];
   let meta: { name: string; content: string }[] = [];
+  let styles = ["/assets/index.css"];
+  let scripts = [
+    "/assets/react.js",
+    "/assets/react-dom.js",
+    "/assets/zquery.js",
+    "/assets/preindex.js",
+    "/assets/index.js",
+  ];
 
   data = { frame: false, ...data };
 
