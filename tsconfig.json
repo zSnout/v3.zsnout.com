@@ -10,6 +10,7 @@
     "noImplicitThis": true,
     "alwaysStrict": true,
     "moduleResolution": "node",
-    "noEmitOnError": true
+    "noEmitOnError": true,
+    "allowSyntheticDefaultImports": true
   }
 }
