@@ -10,4 +10,3 @@ import "./serve.js";
 
 import "../routes/index.js";
 import "../routes/404.js";
-import "../routes/assets.js";
