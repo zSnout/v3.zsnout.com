@@ -5,6 +5,7 @@
 *.js
 *.js.map
 *.css
+*.css.map
 *.html
 database.json
 package-lock.json
