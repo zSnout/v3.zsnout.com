@@ -6,7 +6,6 @@ declare module "fastify" {
      * Renders an EJS file into a complete HTML file, then sends it as a response.
      * @param file A path to the file to be rendered, relative to the project root.
      * @param data An object containing data to be passed to the EJS file.
-     * @param frame Whether the HTML should include a navicon & navbar.
      * @returns A rendered version of the EJS file as a complete HTML file.
      */
     view(file: string, data?: object, frame?: boolean): Promise<void>;
@@ -32,9 +31,8 @@ declare module "fastify" {
      * @param route The route to expose the template on.
      * @param file The EJS file that will be sent, relative to `client`.
      * @param data Data to pass along with the file.
-     * @param frame Whether the HTML should include the navicon and navbar.
      */
-    template(route: string, file: string, data?: {}, frame?: boolean): void;
+    template(route: string, file: string, data?: object): void;
 
     /**
      * Renders an EJS file.
@@ -48,9 +46,8 @@ declare module "fastify" {
      * Renders an EJS file into a complete HTML file.
      * @param file A path to the file to be rendered, relative to the project root.
      * @param data An object containing data to be passed to the EJS file.
-     * @param frame Whether the HTML should include a navicon & navbar.
      * @returns A rendered version of the EJS file as a complete HTML file.
      */
-    format(file: string, data?: object, frame?: boolean): Promise<string>;
+    format(file: string, data?: object): Promise<string>;
   }
 }
