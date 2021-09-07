@@ -4,6 +4,30 @@ This is the source code for a beta version of [zsnout.com](https://zsnout.com/) 
 
 # Our Dev Stack
 
-zSnout uses [Fastify](https://fastify.io/) as the web framework, [EJS](https://ejs.co/) as a templating library, [jQuery](https://jquery.com/) and [Underscore.js](https://underscorejs.org/) as front-end libraries, [TypeScript](https://www.typescriptlang.org/) as a type checking library, and [Sass](https://sass-lang.com/) as a CSS extension.
+zSnout uses [Fastify](https://fastify.io/) as a back-end framework, [EJS](https://ejs.co/) as an HTML templating library, [TypeScript](https://www.typescriptlang.com/) to catch compile-time errors in JavaScript, [Sass](https://sass-lang.com/) as a CSS extension, and [React](https://reactjs.org/) as a front-end framework.
 
-We do not provide a compiled version of the TypeScript and Sass, so you will need to run `npm run build` once you download this repository.
+# Code Editor Setup
+
+When using VSCode, we recommend adding the following into your `files.exclude` settings:
+
+```json
+".git": true,
+".github": true,
+".gitignore": true,
+".prettierignore": true,
+".vscode": true,
+"**/*.js": { "when": "$(basename).ts" },
+"***/*.js": { "when": "$(basename).tsx" },
+"**/*.css": { "when": "$(basename).scss" },
+"**/*.html": { "when": "$(basename).ejs" },
+"**/*.js.map": true,
+"**/*.css.map": true,
+"CODE_OF_CONDUCT.md": true,
+"LICENSE": true,
+"node_modules": true,
+"package-lock.json": true,
+".env-template": true,
+"database-template.json": true,
+```
+
+This will prevent most unimportant files from showing up (e.g. compiled output & config settings).
