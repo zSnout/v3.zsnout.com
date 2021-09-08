@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises";
 import app from "./app.js";
 import * as ejs from "ejs";
 import { FastifyReply } from "fastify";
@@ -56,7 +57,9 @@ async function renderFile(file: string, data: object = {}) {
 async function renderView(file: string, data = {}) {
   let layout = "";
   let title = "";
+  let buttons = [{ url: "/", icon: "home", label: "Home" }];
   let meta: { name: string; content: string }[] = [];
+
   let styles = ["/assets/index.css"];
   let scripts = [
     "/assets/react.js",
@@ -73,6 +76,8 @@ async function renderView(file: string, data = {}) {
   let css = styles.push.bind(styles);
   let js = scripts.push.bind(scripts);
   let metaFn = (name: string, content: string) => meta.push({ name, content });
+  let iconFn = (url: string, icon: string, label: string) =>
+    buttons.push({ url, icon, label });
 
   let body = await renderFile(`client/${file}.ejs`, {
     ...data,
@@ -84,6 +89,7 @@ async function renderView(file: string, data = {}) {
     layout: layoutFn,
     title: titleFn,
     meta: metaFn,
+    icon: iconFn,
   });
 
   body = body.trim();
@@ -98,6 +104,7 @@ async function renderView(file: string, data = {}) {
       css,
       js,
       meta: metaFn,
+      icon: iconFn,
     });
 
     body = body.trim();
@@ -118,6 +125,17 @@ async function renderView(file: string, data = {}) {
     meta,
     escapeXML,
     indent,
+    buttons: await Promise.all(
+      buttons.map(async ({ url, icon, label }) => {
+        return `<a href="${url}" src="${escapeXML(url)}">
+  <label>${label}</label>
+
+  <svg>
+    ${await readFile(`client/icons/${icon}.xml`)}
+  </svg>
+</button>`;
+      })
+    ),
   });
 
   return body.trim();
