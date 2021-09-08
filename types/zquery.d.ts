@@ -46,28 +46,28 @@ interface zQuery<T extends Element> extends Array<T> {
 }
 
 /**
- * A function that can make zQuery instances from either DOM selectors or other zQueries.
- * @param selector An HTML tag name.
- * @returns A zQuery instance made up of that HTML tag.
+ * A function that can make zQuery instances from CSS selectors, DOM elements, and zQueries.
+ * @param tag An HTML tag name.
+ * @returns A zQuery instance made up of that tag.
  */
 declare function $<T extends keyof HTMLElementTagNameMap>(
   selector: T
 ): zQuery<HTMLElementTagNameMap[T]>;
 
 /**
- * A function that can make zQuery instances from either DOM selectors or other zQueries.
- * @param selector A SVG tag name.
- * @returns A zQuery instance made up of that SVG tag.
+ * A function that can make zQuery instances from CSS selectors, DOM elements, and zQueries.
+ * @param tag An SVG tag name.
+ * @returns A zQuery instance made up of that tag.
  */
 declare function $<T extends keyof SVGElementTagNameMap>(
   selector: T
 ): zQuery<SVGElementTagNameMap[T]>;
 
 /**
- * A function that can make zQuery instances from either DOM selectors or other zQueries.
+ * A function that can make zQuery instances from CSS selectors, DOM elements, and zQueries.
  * @param selector Either a CSS selector or a zQuery instance.
  * @returns A zQuery instance.
  */
-declare function $<T extends Element = Element>(
-  selector: string | zQuery<T>
+declare function $<T extends Element>(
+  ...selectors: (string | T | zQuery<T>)[]
 ): zQuery<T>;
