@@ -1,12 +1,10 @@
 export {};
 
 /** The main zQuery class, used to create zQuery collections which provide shorthands for DOM manipulation. */
-class zQuery<T extends Element> extends Array<T> {
+class zQuery<T extends Element = Element> extends Array<T> {
   /** The constructor for the zQuery class. */
   constructor(...els: T[]) {
-    super();
-
-    this.push(...els);
+    super(...els);
   }
 
   /** Gets or sets the text content of an element. */
@@ -33,7 +31,7 @@ class zQuery<T extends Element> extends Array<T> {
  * @param selectors A list of CSS selectors, DOM elements, and zQueries.
  * @returns A zQuery instance.
  */
-function $<T extends Element>(
+function $<T extends Element = Element>(
   ...selectors: (string | T | zQuery<T>)[]
 ): zQuery<T> {
   let els: T[] = [];
@@ -48,6 +46,31 @@ function $<T extends Element>(
   return new zQuery(...els);
 }
 
+function makeChild(...children: JSX.Child[]): Node[] {
+  let all = [];
+
+  for (let child of children) {
+    if (typeof child == "string") all.push(document.createTextNode(child));
+    else if (child instanceof Element) all.push(child);
+    else if (child instanceof zQuery) all.push(...child);
+    else if (child instanceof Array) all.push(...makeChild(child));
+  }
+
+  return all;
+}
+
+function makeTextlessChild(...children: JSX.Child[]): Element[] {
+  let all = [];
+
+  for (let child of children) {
+    if (child instanceof Element) all.push(child);
+    else if (child instanceof zQuery) all.push(...child);
+    else if (child instanceof Array) all.push(...makeChild(child));
+  }
+
+  return all;
+}
+
 /**
  * A function that can make zQuery instances from JSX-style parameters.
  * @param component Either the name of an element or a function that returns a zQuery.
@@ -55,31 +78,32 @@ function $<T extends Element>(
  * @param children Children to place within the element created.
  * @returns A zQuery representing the created JSX.
  */
-function jsx<T extends Element, P extends {}>(
-  component: string | ((props: P | null) => zQuery<T>),
-  props?: P | null,
-  ...children: (string | T | zQuery<T>)[]
+function jsx(
+  component: JSX.Component,
+  props?: JSX.Props<typeof component>,
+  ...children: JSX.Child[]
 ) {
   if (typeof component == "string") {
     let el = document.createElement(component);
 
     if (props)
       for (let prop in props) {
+        if (prop.substr(0, 2) == "on")
+          el.addEventListener(
+            prop.substr(2).toLowerCase(),
+            // @ts-ignore
+            props[prop] as (...args: any[]) => void
+          );
         // @ts-ignore
-        el[prop] = props[prop];
+        else el[prop] = props[prop];
       }
 
-    for (let child of children) {
-      if (typeof child == "string")
-        el.appendChild(document.createTextNode(child));
-      else if (child instanceof Element) el.appendChild(child);
-      else if (child instanceof zQuery)
-        for (let elt of child) el.appendChild(elt);
-    }
+    for (let child of makeChild(children)) el.appendChild(child);
 
     return new zQuery(el);
   } else if (typeof component == "function") {
-    let el = component(props ?? null);
+    // @ts-ignore
+    let el = component(props ?? {}, $(...makeTextlessChild(children)));
 
     return $(el);
   } else return $();

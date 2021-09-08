@@ -1,5 +1,5 @@
 /** The main zQuery class, used to create zQuery collections which provide shorthands for DOM manipulation. */
-interface zQuery<T extends Element> extends Array<T> {
+interface zQuery<T extends Element = Element> extends Array<T> {
   /**
    * The constructor for the zQuery class.
    * @param els The elements to add to this collection.
@@ -68,6 +68,6 @@ declare function $<T extends keyof SVGElementTagNameMap>(
  * @param selector Either a CSS selector or a zQuery instance.
  * @returns A zQuery instance.
  */
-declare function $<T extends Element>(
+declare function $<T extends Element = Element>(
   ...selectors: (string | T | zQuery<T>)[]
 ): zQuery<T>;
