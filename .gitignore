@@ -10,3 +10,5 @@
 database.json
 package-lock.json
 node_modules
+local_*
+local/**/*
