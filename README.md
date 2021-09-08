@@ -4,7 +4,7 @@ This is the source code for a beta version of [zsnout.com](https://zsnout.com/) 
 
 # Our Dev Stack
 
-zSnout uses [Fastify](https://fastify.io/) as a back-end framework, [EJS](https://ejs.co/) as an HTML templating library, [TypeScript](https://www.typescriptlang.com/) to catch compile-time errors in JavaScript, [Sass](https://sass-lang.com/) as a CSS extension, and [React](https://reactjs.org/) as a front-end framework.
+zSnout uses [Fastify](https://fastify.io/) as a back-end framework, [EJS](https://ejs.co/) as an HTML templating library, [TypeScript](https://www.typescriptlang.com/) to catch compile-time errors in JavaScript, [Sass](https://sass-lang.com/) as a CSS extension, and a custom JSX implementation for the front-end.
 
 # Code Editor Setup
 
