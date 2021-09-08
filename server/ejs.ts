@@ -62,8 +62,6 @@ async function renderView(file: string, data = {}) {
 
   let styles = ["/assets/index.css"];
   let scripts = [
-    "/assets/react.js",
-    "/assets/react-dom.js",
     "/assets/zquery.js",
     "/assets/preindex.js",
     "/assets/index.js",
