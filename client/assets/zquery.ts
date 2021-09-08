@@ -29,18 +29,63 @@ class zQuery<T extends Element> extends Array<T> {
 }
 
 /**
- * A function that can make zQuery instances from either DOM selectors or other zQueries.
- * @param selector Either a CSS selector or a zQuery instance.
+ * A function that can make zQuery instances from CSS selectors, DOM elements, and zQueries.
+ * @param selectors A list of CSS selectors, DOM elements, and zQueries.
  * @returns A zQuery instance.
  */
-function $<T extends Element>(selector: string | zQuery<T>): zQuery<T> {
-  if (typeof selector == "string")
-    return new zQuery(...document.querySelectorAll<T>(selector));
+function $<T extends Element>(
+  ...selectors: (string | T | zQuery<T>)[]
+): zQuery<T> {
+  let els: T[] = [];
 
-  if (selector instanceof zQuery) return selector;
+  for (let selector of selectors) {
+    if (typeof selector == "string")
+      els.push(...document.querySelectorAll<T>(selector));
+    else if (selector instanceof Element) els.push(selector);
+    else if (selector instanceof zQuery) els.push(...selector);
+  }
 
-  return new zQuery();
+  return new zQuery(...els);
+}
+
+/**
+ * A function that can make zQuery instances from JSX-style parameters.
+ * @param component Either the name of an element or a function that returns a zQuery.
+ * @param props Properties to pass to the function, or attribute to set on the element.
+ * @param children Children to place within the element created.
+ * @returns A zQuery representing the created JSX.
+ */
+function jsx<T extends Element, P extends {}>(
+  component: string | ((props: P | null) => zQuery<T>),
+  props?: P | null,
+  ...children: (string | T | zQuery<T>)[]
+) {
+  if (typeof component == "string") {
+    let el = document.createElement(component);
+
+    if (props)
+      for (let prop in props) {
+        // @ts-ignore
+        el[prop] = props[prop];
+      }
+
+    for (let child of children) {
+      if (typeof child == "string")
+        el.appendChild(document.createTextNode(child));
+      else if (child instanceof Element) el.appendChild(child);
+      else if (child instanceof zQuery)
+        for (let elt of child) el.appendChild(elt);
+    }
+
+    return new zQuery(el);
+  } else if (typeof component == "function") {
+    let el = component(props ?? null);
+
+    return $(el);
+  } else return $();
 }
 
 // @ts-ignore
 globalThis.$ = $;
+// @ts-ignore
+globalThis.jsx = jsx;
