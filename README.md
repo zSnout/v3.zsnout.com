@@ -31,3 +31,7 @@ When using VSCode, we recommend adding the following into your `files.exclude` s
 ```
 
 This will prevent most unimportant files from showing up (e.g. compiled output & config settings).
+
+# Local Testing
+
+If testing things locally, you may name a file `local_{...}` or put it into a folder named `local`, and it won't be tracked by Git.
