@@ -1,7 +1,22 @@
 declare namespace JSX {
-  interface Element extends zQuery<globalThis.Element> {}
+  type El = globalThis.Element;
+  type Element = zQuery;
 
-  interface IntrinsicElements {
+  type HTMLTags = keyof JSX.IntrinsicElements & keyof HTMLElementTagNameMap;
+  type SVGTags = keyof JSX.IntrinsicElements & keyof SVGElementTagNameMap;
+
+  type Props<T> = T extends (props: infer P) => Result ? P : {};
+  type FunctionComponent<T extends El = El> = (
+    props: {},
+    children: zQuery<T>
+  ) => Result<T>;
+  type TagComponent = string;
+  type Component<T extends El = El> = FunctionComponent<T> | TagComponent;
+
+  type Child<T extends El = El> = string | T | zQuery<T> | Child<T>[];
+  type Result<T extends El = El> = zQuery<T>;
+
+  type IntrinsicElements = {
     a: {};
     abbr: {};
     address: {};
@@ -170,7 +185,7 @@ declare namespace JSX {
     tspan: {};
     use: {};
     view: {};
-  }
+  };
 }
 
 /**
@@ -180,13 +195,10 @@ declare namespace JSX {
  * @param children Children to place within the created element.
  * @returns A zQuery representing the created JSX.
  */
-declare function jsx<
-  T extends keyof JSX.IntrinsicElements & keyof HTMLElementTagNameMap,
-  K extends zQuery<Element> | Element | string
->(
+declare function jsx<T extends JSX.HTMLTags>(
   tag: T,
   attrs?: JSX.IntrinsicElements[T] | null,
-  ...children: K[]
+  ...children: JSX.Child[]
 ): zQuery<HTMLElementTagNameMap[T]>;
 
 /**
@@ -196,13 +208,10 @@ declare function jsx<
  * @param children Children to place within the created element.
  * @returns A zQuery representing the created JSX.
  */
-declare function jsx<
-  T extends keyof JSX.IntrinsicElements & keyof SVGElementTagNameMap,
-  K extends zQuery<Element> | Element | string
->(
+declare function jsx<T extends JSX.SVGTags>(
   tag: T,
   attrs?: JSX.IntrinsicElements[T] | null,
-  ...children: K[]
+  ...children: JSX.Child[]
 ): zQuery<SVGElementTagNameMap[T]>;
 
 /**
@@ -211,8 +220,8 @@ declare function jsx<
  * @param props Properties to pass to the function.
  * @returns A zQuery representing the created JSX.
  */
-declare function jsx<
-  T extends Element,
-  K extends (props?: P | null) => zQuery<T>,
-  P extends {}
->(component: K, attrs?: P | null): zQuery<T>;
+declare function jsx<K extends JSX.FunctionComponent>(
+  component: K,
+  attrs?: JSX.Props<K> | null,
+  ...children: JSX.Child[]
+): zQuery<JSX.El>;
