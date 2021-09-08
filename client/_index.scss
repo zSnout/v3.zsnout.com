@@ -1,0 +1,27 @@
+@use "_media" as *;
+
+$standard-background: var(--standard-background);
+$standard-color: var(--standard-color);
+$standard-accent: var(--standard-accent);
+
+$accent-background: var(--accent-background);
+$accent-color: var(--accent-color);
+$accent-border: var(--accent-border);
+
+$focused-background: var(--focused-background);
+$focused-color: var(--focused-color);
+$focused-border: var(--focused-border);
+
+$invalid-background: var(--invalid-background);
+$invalid-color: var(--invalid-color);
+$invalid-border: var(--invalid-border);
+
+$valid-background: var(--valid-background);
+$valid-color: var(--valid-color);
+$valid-border: var(--valid-border);
+
+$font-sans-serif: var(--font-sans-serif);
+$font-serif: var(--font-serif);
+$font-monospace: var(--font-monospace);
+
+$transitions: var(--transitions);
