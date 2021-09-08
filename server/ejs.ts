@@ -131,7 +131,7 @@ async function renderView(file: string, data = {}) {
   <svg>
     ${await readFile(`client/icons/${icon}.xml`)}
   </svg>
-</button>`;
+</a>`;
       })
     ),
   });
