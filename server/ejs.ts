@@ -126,9 +126,7 @@ async function renderView(file: string, data = {}) {
     buttons: await Promise.all(
       buttons.map(async ({ url, icon, label }) => {
         return `<a href="${escapeXML(url)}" src="${escapeXML(url)}">
-  <label>${escapeXML(label)}</label>
-
-  <svg viewBox="2 2 20 20">
+  <svg title="${escapeXML(label)}" viewBox="2 2 20 20">
     ${await readFile(`client/icons/${icon}.xml`)}
   </svg>
 </a>`;
