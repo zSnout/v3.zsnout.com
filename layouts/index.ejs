@@ -8,22 +8,22 @@
     <%- "\n" + indent(resources.join("\n"), "    ", "    ") %>
   </head>
   <body nctx noselect>
-    <bg id="modal-bg">
+    <dialog id="modal-bg">
       <modal id="modal">
         <label for="modal-input" id="modal-info"></label>
         <input ctx id="modal-input">
         <div id="modal-buttons"></div>
       </modal>
-    </bg>
+    </dialog>
 
     <header></header>
-
-    <main>
-      <%- indent(body, "      ") %>
-    </main>
 
     <footer>
       <%- indent(buttons.join("\n"), "      ", "") %>
     </footer>
+
+    <main>
+      <%- indent(body, "      ") %>
+    </main>
   </body>
 </html>
