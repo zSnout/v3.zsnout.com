@@ -1,0 +1,40 @@
+$inset-top: env(safe-area-inset-top, 0);
+$inset-left: env(safe-area-inset-left, 0);
+$inset-bottom: env(safe-area-inset-bottom, 0);
+$inset-right: env(safe-area-inset-right, 0);
+
+@mixin small {
+  @media screen and (max-width: 450px), screen and (max-height: 750px) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media screen and (pointer: coarse) and (min-width: 450px) and (min-height: 750px) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media screen and (pointer: fine) and (min-width: 450px) and (min-height: 750px) {
+    @content;
+  }
+}
+
+@mixin hover {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+@mixin dark {
+  @media screen and (prefers-color-scheme: dark) {
+    @content;
+  }
+}
+
+@mixin no-animation {
+  @media screen and (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
