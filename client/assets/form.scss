@@ -1,0 +1,128 @@
+@use ".." as *;
+
+main {
+  display: flex;
+}
+
+#form {
+  margin: auto;
+  width: min(100%, 500px);
+
+  label {
+    display: block;
+    text-align: left;
+    font-size: 16px;
+    margin: 8px 0;
+  }
+
+  input + label {
+    margin-top: 20px;
+  }
+
+  input,
+  button {
+    --background: #{$accent-background};
+    --color: #{$accent-color};
+    --border: #{$accent-border};
+
+    display: block;
+    font-size: 16px;
+    margin: 8px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px;
+    background: var(--background);
+    color: var(--color);
+    width: 100%;
+    outline: 0;
+    font-weight: normal;
+
+    @include animation {
+      transition: background 0.3s, color 0.3s, border 0.3s;
+    }
+
+    @include hover {
+      &:hover {
+        --background: #{$focused-background};
+        --color: #{$focused-color};
+        --border: #{$focused-border};
+
+        border-color: var(--border);
+        background: var(--background);
+        color: var(--color);
+      }
+    }
+
+    &:focus {
+      --background: #{$focused-background};
+      --color: #{$focused-color};
+      --border: #{$focused-border};
+
+      border-color: var(--border);
+      background: var(--background);
+      color: var(--color);
+    }
+
+    &[validate]:invalid {
+      --background: #{$invalid-background};
+      --color: #{$invalid-color};
+      --border: #{$invalid-border};
+    }
+
+    &[validate]:valid {
+      --background: #{$valid-background};
+      --color: #{$valid-color};
+      --border: #{$valid-border};
+    }
+  }
+
+  input::placeholder {
+    color: var(--color);
+    opacity: 0.5;
+  }
+
+  input:not([type="submit"]) {
+    width: calc(100% - 18px);
+  }
+
+  input[type="submit"] {
+    font-weight: bold;
+  }
+
+  message {
+    font-size: 20px;
+    display: block;
+    font-weight: bold;
+    text-align: center;
+
+    a {
+      color: $standard-accent;
+      outline: 0;
+      padding: 4px;
+      margin: -4px;
+      border-radius: 4px;
+      border: 0;
+
+      @include hover {
+        &:hover,
+        &:focus {
+          background: $accent-background;
+          color: $accent-color;
+        }
+      }
+
+      @include animation {
+        transition: background 0.3s, color 0.3s;
+      }
+    }
+  }
+
+  hr {
+    margin: 8px 0;
+    border: 0;
+    padding: 0;
+    width: 100%;
+    background: $accent-border;
+    height: 2px;
+  }
+}
