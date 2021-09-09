@@ -121,7 +121,7 @@ main {
   top: calc(#{$inset-top} + 8px);
   left: calc(#{$inset-left} + 8px);
   right: calc(#{$inset-right} + 8px);
-  bottom: calc(#{$inset-bottom} + #{$svg-size + 23px});
+  bottom: calc(#{$inset-bottom} + #{$svg-size + 24px});
 }
 
 [noselect] {
