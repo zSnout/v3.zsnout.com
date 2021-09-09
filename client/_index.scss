@@ -24,8 +24,6 @@ $font-sans-serif: var(--font-sans-serif);
 $font-serif: var(--font-serif);
 $font-monospace: var(--font-monospace);
 
-$transitions: var(--transitions);
-
 @mixin no-box-model {
   margin: 0;
   border: 0;
