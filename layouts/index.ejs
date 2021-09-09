@@ -7,7 +7,7 @@
     <% meta.map(({name, content}) => echo(`\n    <meta name="${escapeXML(name)}" content="${escapeXML(content)}">`)) _%>
     <%- "\n" + indent(resources.join("\n"), "    ", "    ") %>
   </head>
-  <body nctx noselect>
+  <body>
     <dialog id="modal-bg">
       <modal id="modal">
         <label for="modal-input" id="modal-info"></label>
