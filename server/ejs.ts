@@ -61,11 +61,7 @@ async function renderView(file: string, data = {}) {
   let meta: { name: string; content: string }[] = [];
 
   let styles = ["/assets/index.css"];
-  let scripts = [
-    "/assets/zquery.js",
-    "/assets/preindex.js",
-    "/assets/index.js",
-  ];
+  let scripts = ["/assets/zquery.js", "/assets/index.js"];
 
   data = { frame: false, ...data };
 
