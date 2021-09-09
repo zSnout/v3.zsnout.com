@@ -24,6 +24,7 @@ When using VSCode, we recommend adding the following into your `files.exclude` s
 "**/*.js.map": true,
 "**/*.css.map": true,
 "CODE_OF_CONDUCT.md": true,
+"CONTRIBUTING.md": true,
 "LICENSE": true,
 "node_modules": true,
 "package-lock.json": true,
