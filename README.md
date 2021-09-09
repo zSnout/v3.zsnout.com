@@ -15,6 +15,7 @@ When using VSCode, we recommend adding the following into your `files.exclude` s
 ".github": true,
 ".gitignore": true,
 ".prettierignore": true,
+".prettierrc.json": true,
 ".vscode": true,
 "**/*.js": { "when": "$(basename).ts" },
 "***/*.js": { "when": "$(basename).tsx" },
