@@ -95,7 +95,11 @@ nav {
     }
 
     @include animation {
-      transition: var(--transitions);
+      transition: background 0.3s;
+
+      svg {
+        transition: fill 0.3s;
+      }
     }
 
     &:first-child {
