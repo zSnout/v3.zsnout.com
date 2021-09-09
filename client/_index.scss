@@ -1,4 +1,4 @@
-@use "_media" as *;
+@forward "_media";
 
 $standard-background: var(--standard-background);
 $standard-color: var(--standard-color);
@@ -25,3 +25,9 @@ $font-serif: var(--font-serif);
 $font-monospace: var(--font-monospace);
 
 $transitions: var(--transitions);
+
+@mixin no-box-model {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
