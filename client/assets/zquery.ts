@@ -1,6 +1,6 @@
 /** The main zQuery class, used to create zQuery collections which provide shorthands for DOM manipulation. */
 class zQuery<T extends Element = Element> extends Array<T> {
-  /** The constructor for the zQuery class. */
+  /** The main zQuery class, used to create zQuery collections which provide shorthands for DOM manipulation. */
   constructor(...selectors: (string | T | zQuery<T>)[]) {
     let els: T[] = [];
 
@@ -14,11 +14,42 @@ class zQuery<T extends Element = Element> extends Array<T> {
     super(...els);
   }
 
-  add() {}
+  /**
+   * Adds elements to the zQuery.
+   * @param selectors A list of CSS selectors, DOM elements, and zQueries to add to the zQuery.
+   * @returns The zQuery object, to allow chaining.
+   */
+  add(...selectors: (string | T | zQuery<T>)[]): this {
+    let els: T[] = [];
+
+    for (let selector of selectors) {
+      if (typeof selector == "string")
+        els.push(...document.querySelectorAll<T>(selector));
+      else if (selector instanceof Element) els.push(selector);
+      else if (selector instanceof zQuery) els.push(...selector);
+    }
+
+    this.push(...els);
+
+    return this;
+  }
+
+  /**
+   * Gets the text content of the first element in the zQuery.
+   * @returns The text content of the first element in the zQuery.
+   */
+  text(): string | undefined;
+
+  /**
+   * Sets the text content of all elements in the zQuery.
+   * @param text The text to set elements to.
+   * @returns The zQuery object, to allow chaining.
+   */
+  text(text: string): this;
 
   /** Gets or sets the text content of an element. */
-  text(text?: string): string | void {
-    if (text) this.map((e) => (e.textContent = text));
+  text(text?: string): this | string | undefined {
+    if (text) return this.map((e) => (e.textContent = text)), this;
     else return this[0]?.textContent ?? void 0;
   }
 
@@ -28,10 +59,62 @@ class zQuery<T extends Element = Element> extends Array<T> {
     else return this[0]?.getAttribute?.(key) ?? void 0;
   }
 
-  /** Gets or sets the value of an input field. */
-  val(text?: string): string | void {
-    if (text) this.map((e) => ((e as any as HTMLInputElement).value = text));
-    else return (this[0] as any as HTMLInputElement)?.value;
+  /**
+   * Gets the value of the first element in the zQuery.
+   * @returns The value of the first element in the zQuery.
+   */
+  val(): string | undefined;
+
+  /**
+   * Sets the value of all elements in the zQuery.
+   * @param value The value to set all elements to.
+   * @returns The zQuery object, to allow chaining.
+   */
+  val(value: string): this;
+
+  /** Gets or sets the value of input fields. */
+  val(value?: string): this | string | undefined {
+    if (value) {
+      this.map((e) => ((e as any as HTMLInputElement).value = value));
+      return this;
+    } else return (this[0] as any as HTMLInputElement)?.value ?? void 0;
+  }
+
+  /**
+   * Listens for an event on all elements in the zQuery.
+   * @param event The event to listen for.
+   * @param callback A callback to call once the event has been triggered.
+   * @returns The zQuery object, to allow chaining.
+   */
+  on<T extends Event>(event: string, callback: (event: T) => any): this {
+    // @ts-ignore
+    this.map((e) => e.addEventListener(event, callback));
+
+    return this;
+  }
+
+  /**
+   * Listens for an event on all elements in the zQuery. Removes the event listener after being triggered.
+   * @param event The event to listen for.
+   * @param callback A callback to call once the event has been triggered.
+   * @returns The zQuery object, to allow chaining.
+   */
+  once<T extends Event>(event: string, callback: (event: T) => any): this {
+    // @ts-ignore
+    this.map((e) => e.addEventListener(event, callback, { once: true }));
+
+    return this;
+  }
+
+  /**
+   * Removes an event listener from all elements in a zQuery.
+   * @param event The event to remove.
+   * @param callback The callback to remove.
+   * @returns The zQuery object, to allow chaining.
+   */
+  off<T extends Event>(event: string, callback: (event: T) => any) {
+    // @ts-ignore
+    this.map((e) => e.removeEventListener(event, callback));
   }
 }
 
@@ -182,11 +265,13 @@ function jsx(
   } else return $();
 }
 
+$.root = $(document.documentElement);
+$.head = $(document.head);
+$.body = $(document.body);
+
 // @ts-ignore
 globalThis.zQuery = zQuery;
 // @ts-ignore
-globalThis.$ = <T extends Element = Element>(
-  ...selectors: (string | T | zQuery<T>)[]
-) => new zQuery<T>(...selectors);
+globalThis.$ = $;
 // @ts-ignore
 globalThis.jsx = jsx;
