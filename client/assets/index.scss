@@ -73,19 +73,28 @@ nav {
     padding: 8px;
     padding-top: 7px;
     padding-bottom: calc(#{$inset-bottom} + 8px);
+    outline: 0;
 
-    @include animation {
-      @include hover {
-        transition: var(--transitions);
+    @include hover {
+      &:hover {
+        background: $focused-background;
 
-        &:hover {
-          background: $focused-background;
-
-          svg {
-            fill: $focused-color;
-          }
+        svg {
+          fill: $focused-color;
         }
       }
+    }
+
+    &:focus {
+      background: $focused-background;
+
+      svg {
+        fill: $focused-color;
+      }
+    }
+
+    @include animation {
+      transition: var(--transitions);
     }
 
     &:first-child {
@@ -112,4 +121,12 @@ main {
   left: calc(#{$inset-left} + 8px);
   right: calc(#{$inset-right} + 8px);
   bottom: calc(#{$inset-bottom} + #{$svg-size + 23px});
+}
+
+[noselect] {
+  user-select: none;
+}
+
+[select] {
+  user-select: text;
 }
