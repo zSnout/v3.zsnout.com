@@ -119,7 +119,7 @@ nav {
 
 main {
   z-index: 1;
-  overflow: scroll;
+  overflow: visible;
   position: fixed;
   top: calc(#{$inset-top} + 8px);
   left: calc(#{$inset-left} + 8px);
