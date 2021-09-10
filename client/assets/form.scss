@@ -12,7 +12,8 @@ main {
     display: block;
     text-align: left;
     font-size: 16px;
-    margin: 8px 0;
+    margin: 8px 0 0 0;
+    padding: 0 0 8px 0;
   }
 
   input + label {
@@ -38,7 +39,7 @@ main {
     font-weight: normal;
 
     @include animation {
-      transition: background 0.3s, color 0.3s, border 0.3s;
+      transition: background 0.3s, color 0.3s, border 0.3s, box-shadow 0.3s;
     }
 
     @include hover {
@@ -59,6 +60,7 @@ main {
       --border: #{$focused-border};
 
       border-color: var(--border);
+      box-shadow: var(--border) 0 0 6px 3px;
       background: var(--background);
       color: var(--color);
     }
@@ -76,6 +78,10 @@ main {
     }
   }
 
+  label + input {
+    margin-top: 0;
+  }
+
   input::placeholder {
     color: var(--color);
     opacity: 0.5;
@@ -85,8 +91,11 @@ main {
     width: calc(100% - 18px);
   }
 
-  input[type="submit"] {
+  input[type="submit"],
+  button {
     font-weight: bold;
+    text-align: center;
+    cursor: pointer;
   }
 
   message {
