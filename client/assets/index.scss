@@ -113,18 +113,21 @@ nav {
       width: $svg-size;
       height: $svg-size;
       fill: var(--accent-color);
+      overflow: visible;
     }
   }
 }
 
 main {
   z-index: 1;
-  overflow: visible;
+  overflow: scroll;
   position: fixed;
-  top: calc(#{$inset-top} + 8px);
-  left: calc(#{$inset-left} + 8px);
-  right: calc(#{$inset-right} + 8px);
-  bottom: calc(#{$inset-bottom} + #{$svg-size + 24px});
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: calc(#{$inset-bottom} + #{$svg-size + 16px});
+  padding: calc(#{$inset-top} + 8px) calc(#{$inset-right} + 8px) 8px
+    calc(#{$inset-left} + 8px);
 }
 
 [noselect] {
