@@ -3,6 +3,7 @@
   <head>
     <title><%= title %></title>
     <meta charset="utf-8">
+    <meta http-equiv="content-security-policy" content="default-src 'self'; script-src 'self'">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <% meta.map(({name, content}) => echo(`\n    <meta name="${escapeXML(name)}" content="${escapeXML(content)}">`)) _%>
     <%- "\n" + indent(resources.join("\n"), "    ", "    ") %>
