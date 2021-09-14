@@ -6,8 +6,10 @@
   "types": "types/index.d.ts",
   "scripts": {
     "go": "npm run build\necho Running project...\nnode --unhandled-rejections=strict index.js",
+    "go-silent": "npm run build-silent\necho Running project...\nnode --unhandled-rejections=strict index.js",
     "start": "clear\nnode --unhandled-rejections=strict index.js",
-    "build": "clear\necho Prettifying code...\nprettier --write --loglevel silent .\necho Compiling JavaScript...\ntsc --build\necho Compiling CSS...\nsass --update --color . > /dev/null\necho Compiling HTML...\nnode ./server/build.js\necho Project built!",
+    "build": "clear\necho Prettifying code...\nprettier --write .\necho Compiling JavaScript...\ntsc --build --verbose\necho Compiling CSS...\nsass --update --color .\necho Compiling HTML...\nnode ./server/build.js\necho Project built!",
+    "build-silent": "clear\necho Prettifying code...\nprettier --write --loglevel silent .\necho Compiling JavaScript...\ntsc --build\necho Compiling CSS...\nsass --update --color . > /dev/null\necho Compiling HTML...\nnode ./server/build.js > /dev/null\necho Project built!",
     "dev": "clear\nnode --inspect --unhandled-rejections=strict index.js"
   },
   "dependencies": {
