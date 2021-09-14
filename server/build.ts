@@ -8,6 +8,8 @@ glob("client/**/*.ejs", (err, files) => {
 
     renderView(name).then((data) => {
       writeFile(file.replaceAll(".ejs", ".html"), data, () => {});
+
+      console.log("rendered " + name);
     });
   }
 });
