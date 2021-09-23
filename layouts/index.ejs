@@ -9,12 +9,14 @@
     <%- "\n" + indent(resources.join("\n"), "    ", "    ") %>
   </head>
   <body>
-    <modal id="modal-bg">
-      <popup id="modal">
-        <label for="modal-input" id="modal-info"></label>
-        <input id="modal-input">
-        <div id="modal-buttons"></div>
-      </popup>
+    <modal id="modal">
+      <div id="popup-outer">
+        <popup id="popup">
+          <label for="modal-input" id="modal-info"></label>
+          <input id="modal-input">
+          <div id="modal-buttons"></div>
+        </popup>
+      </div>
     </modal>
 
     <nav>
