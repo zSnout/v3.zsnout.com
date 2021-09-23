@@ -9,13 +9,13 @@
     <%- "\n" + indent(resources.join("\n"), "    ", "    ") %>
   </head>
   <body>
-    <dialog id="modal-bg">
-      <modal id="modal">
+    <modal id="modal-bg">
+      <popup id="modal">
         <label for="modal-input" id="modal-info"></label>
         <input id="modal-input">
         <div id="modal-buttons"></div>
-      </modal>
-    </dialog>
+      </popup>
+    </modal>
 
     <nav>
       <%- indent(buttons.join("\n"), "      ", "") %>
