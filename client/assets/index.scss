@@ -43,12 +43,6 @@ body {
   overflow: hidden;
 }
 
-dialog {
-  appearance: none;
-  display: none;
-  z-index: 3;
-}
-
 $svg-size: 24px;
 
 nav {
@@ -125,9 +119,53 @@ main {
   top: 0;
   left: 0;
   right: 0;
-  bottom: calc(#{$inset-bottom} + #{$svg-size + 16px});
+  bottom: calc(#{$inset-bottom} + #{$svg-size + 16px}); // size of navbar
   padding: calc(#{$inset-top} + 8px) calc(#{$inset-right} + 8px) 8px
     calc(#{$inset-left} + 8px);
+}
+
+modal {
+  display: block;
+  visibility: hidden;
+  z-index: 3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: calc(#{$inset-bottom} + #{$svg-size + 16px}); // size of navbar
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #modal-bg {
+    background: $standard-background;
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+  }
+
+  #popup-outer {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: calc(#{$inset-bottom} + #{$svg-size + 16px}); // size of navbar
+    padding: calc(#{$inset-top} + 8px) calc(#{$inset-right} + 8px) 8px
+      calc(#{$inset-left} + 8px);
+
+    popup {
+      display: block;
+      width: 100px;
+      height: 100px;
+      background: red;
+      margin: auto;
+    }
+  }
 }
 
 [noselect] {
