@@ -1,9 +1,9 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import fastify from "fastify";
+import { ServerResponse } from "node:http";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { fastify } from "fastify";
 import fastifyStatic from "fastify-static";
 import { formats } from "./ajv.js";
-import { ServerResponse } from "http";
 
 /** The main Fastify app. */
 let app = fastify({
@@ -12,7 +12,6 @@ let app = fastify({
   },
 });
 
-/** Register fastify-static. */
 app.register(fastifyStatic, {
   root: dirname(fileURLToPath(import.meta.url)) + "/../client/",
   setHeaders(res: ServerResponse, path: string) {

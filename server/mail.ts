@@ -1,5 +1,5 @@
-import * as uuid from "uuid";
 import { createTransport } from "nodemailer";
+import * as uuid from "uuid";
 
 /** A variable representing whether the mail function is available. */
 let canMail = true;

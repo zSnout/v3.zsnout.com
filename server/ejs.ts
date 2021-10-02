@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
-import app from "./app.js";
 import * as ejs from "ejs";
 import { FastifyReply } from "fastify";
+import app from "./app.js";
 
 /**
  * Escapes some XML and returns it as a string.

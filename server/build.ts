@@ -1,5 +1,5 @@
-import glob from "glob";
 import { writeFile } from "node:fs";
+import glob from "glob";
 import { renderView } from "./ejs.js";
 
 glob("client/**/*.ejs", (err, files) => {

@@ -1,4 +1,4 @@
-import { exec, spawn } from "node:child_process";
+import { spawn } from "node:child_process";
 import { createInterface } from "node:readline";
 
 let rl = createInterface({ input: process.stdin, output: process.stdout });
