@@ -1,7 +1,7 @@
 import "./env.js";
 import "./app.js";
 import "./ajv.js";
-import "./encrypt.js";
+import "./secure.js";
 import "./ejs.js";
 import "./mail.js";
 import "./socket.js";
