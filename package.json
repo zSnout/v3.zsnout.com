@@ -37,7 +37,6 @@
     "@types/glob": "^7.1.4",
     "@types/node": "^16.10.2",
     "@types/nodemailer": "^6.4.4",
-    "@types/uuid": "^8.3.1",
     "@types/yargs": "^17.0.3",
     "prettier": "2.3.2",
     "sass": "1.39.0",

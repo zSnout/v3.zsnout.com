@@ -1,5 +1,5 @@
+import { randomUUID } from "node:crypto";
 import { createTransport } from "nodemailer";
-import * as uuid from "uuid";
 
 /** A variable representing whether the mail function is available. */
 let canMail = true;
@@ -44,8 +44,8 @@ async function send(
         text,
         html,
         from: `zSnout <${process.env.EMAIL_ADDR}>`,
-        inReplyTo: uuid.v4(),
-        messageId: uuid.v4(),
+        inReplyTo: randomUUID(),
+        messageId: randomUUID(),
       });
     } catch {}
   }
