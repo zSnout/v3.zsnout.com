@@ -1,5 +1,5 @@
+import { randomUUID } from "node:crypto";
 import { existsSync, copyFileSync, readFileSync, writeFile } from "node:fs";
-import { v4 } from "uuid";
 import { Database } from "../types/database";
 
 if (!existsSync("database.json")) {
@@ -92,7 +92,7 @@ class Query {
     let data = database.tables[table];
     let row: Database.TableData<T> = {
       ...obj,
-      id: v4(),
+      id: randomUUID(),
       creation: Date.now(),
     } as Database.TableData<T>;
 
