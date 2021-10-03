@@ -20,8 +20,11 @@ export namespace Database {
   };
 
   type Tables = {
-    pending_users: Table<TableData.PendingUsers, "email_code">;
-    users: Table<TableData.Users, "username" | "email">;
+    pending_users: Table<
+      TableData.PendingUsers,
+      "email_code" | "username" | "email"
+    >;
+    users: Table<TableData.Users, "session" | "username" | "email">;
   };
 
   type TableData<T extends keyof Database.Tables> =
