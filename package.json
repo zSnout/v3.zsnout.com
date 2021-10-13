@@ -1,5 +1,5 @@
 {
-  "name": "@zsnout/zsnout.com",
+  "name": "zsnout",
   "version": "0.0.1",
   "description": "The NodeJS project for zsnout.com.",
   "main": "index.js",
